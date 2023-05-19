@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<doglist>
+<dog awards="Yes" breed="Dvorovaya" holder="Golovnyak" name="Muchtar" num="1" referee="Garunov"/>
+<dog awards="No" breed="Borzaya" holder="Alekseeva" name="Nora" num="2" referee="Levchenko"/>
+</doglist>
