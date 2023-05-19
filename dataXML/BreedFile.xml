@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<BreedList>
+<breed id="1" title="Борзая"/>
+<breed id="2" title="Лайка"/>
+<breed id="3" title="Дворовая"/>
+<breed id="4" title="Такса"/>
+<breed id="5" title="Овчарка"/>
+<breed id="6" title="Шпиц"/>
+<breed id="7" title="Пудель"/>
+<breed id="8" title="Корги"/>
+<breed id="9" title="Папильон"/>
+<breed id="10" title="Спаниэль"/>
+<breed id="11" title="Бигль"/>
+<breed id="12" title="Доберман"/>
+<breed id="13" title="Алабай"/>
+<breed id="14" title="Ротвейлер"/>
+<breed id="15" title="Акита"/>
+</BreedList>
