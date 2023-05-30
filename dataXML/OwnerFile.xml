@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <OwnerList>
 <owner id="200" name="Никита Пронченко" dogID="100"/>
+<owner id="200" name="Никита Пронченко" dogID="120"/>
 <owner id="201" name="Глеб Чернышев" dogID="101"/>
 <owner id="202" name="Дмитрий Попов" dogID="102"/>
 <owner id="203" name="Мария Ильина" dogID="103"/>
@@ -13,7 +14,7 @@
 <owner id="210" name="Иван Носов" dogID="110"/>
 <owner id="211" name="Анастасия Морозова" dogID="111"/>
 <owner id="212" name="Анна Кравченко" dogID="112"/>
-<owner id="213" name="Игорь Кузьмин"dogID="113"/>
+<owner id="213" name="Игорь Кузьмин" dogID="113"/>
 <owner id="214" name="Пётр Родин" dogID="114"/>
 <owner id="215" name="Сергей Жижин" dogID="115"/>
 <owner id="216" name="Иван Филиппов" dogID="116"/>

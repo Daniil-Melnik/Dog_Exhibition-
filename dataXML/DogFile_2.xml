@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<doglist>
+<dog id="100" name="Валет" breedID="1" awardID="450" ownerID="200"/>
+<dog id="121" name="Каркуша" breedID="11" awardID="400" ownerID="201"/>
+<dog id="102" name="Самсон" breedID="2" awardID="402" ownerID="202"/>
+<dog id="123" name="Филя" breedID="12" awardID="450" ownerID="203"/>
+<dog id="104" name="Шафран" breedID="3" awardID="405" ownerID="204"/>
+<dog id="125" name="Хрюша" breedID="13" awardID="401" ownerID="205"/>
+<dog id="126" name="Канарейка" breedID="4" awardID="405" ownerID="206"/>
+<dog id="107" name="Яндекс" breedID="14" awardID="405" ownerID="207"/>
+<dog id="128" name="БырбырБыр" breedID="5" awardID="400" ownerID="208"/>
+</doglist>

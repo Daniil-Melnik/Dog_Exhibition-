@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <doglist>
-<dog id="100" name="Валет" breedID="1" awardID="450"/>
-<dog id="101" name="Туз" breedID="11" awardID="400"/>
-<dog id="102" name="Самсон" breedID="2" awardID="402"/>
-<dog id="103" name="Ричард" breedID="12" awardID="450"/>
-<dog id="104" name="Шафран" breedID="3" awardID="405"/>
-<dog id="105" name="Эдем" breedID="13" awardID="401"/>
-<dog id="106" name="Тузик" breedID="4" awardID="405"/>
-<dog id="107" name="Яндекс" breedID="14" awardID="405"/>
-<dog id="108" name="Шарик" breedID="5" awardID="400"/>
-<dog id="109" name="Мавр" breedID="15" awardID="450"/>
-<dog id="110" name="Спайк" breedID="6" awardID="403"/>
-<dog id="111" name="Купер" breedID="8" awardID="401"/>
-<dog id="112" name="Цезарь" breedID="7" awardID="450"/>
-<dog id="113" name="Марли" breedID="1" awardID="404"/>
-<dog id="114" name="Джой" breedID="8" awardID="400"/>
-<dog id="115" name="Дэйзи" breedID="2" awardID="402"/>
-<dog id="116" name="Принц" breedID="9" awardID="450"/>
-<dog id="117" name="Жучка" breedID="3" awardID="403"/>
-<dog id="118" name="Бим" breedID="10" awardID="400"/>
-<dog id="119" name="Арго" breedID="2" awardID="450"/>
+<dog id="100" name="Валет" breedID="1" awardID="450" ownerID="200"/>
+<dog id="101" name="Туз" breedID="11" awardID="400" ownerID="201"/>
+<dog id="102" name="Самсон" breedID="2" awardID="402" ownerID="202"/>
+<dog id="103" name="Ричард" breedID="12" awardID="450" ownerID="203"/>
+<dog id="104" name="Шафран" breedID="3" awardID="405" ownerID="204"/>
+<dog id="105" name="Эдем" breedID="13" awardID="401" ownerID="205"/>
+<dog id="106" name="Тузик" breedID="4" awardID="405" ownerID="206"/>
+<dog id="107" name="Яндекс" breedID="14" awardID="405" ownerID="207"/>
+<dog id="108" name="Шарик" breedID="5" awardID="400" ownerID="208"/>
+<dog id="109" name="Мавр" breedID="15" awardID="450" ownerID="209"/>
+<dog id="110" name="Спайк" breedID="6" awardID="403" ownerID="210"/>
+<dog id="111" name="Купер" breedID="8" awardID="401" ownerID="211"/>
+<dog id="112" name="Цезарь" breedID="7" awardID="450" ownerID="212"/>
+<dog id="113" name="Марли" breedID="1" awardID="404" ownerID="213"/>
+<dog id="114" name="Джой" breedID="8" awardID="400" ownerID="214"/>
+<dog id="115" name="Дэйзи" breedID="2" awardID="402" ownerID="215"/>
+<dog id="116" name="Принц" breedID="9" awardID="450" ownerID="216"/>
+<dog id="117" name="Жучка" breedID="3" awardID="403" ownerID="217"/>
+<dog id="118" name="Бим" breedID="10" awardID="400" ownerID="218"/>
+<dog id="119" name="Арго" breedID="2" awardID="450" ownerID="219"/>
+<dog id="120" name="НИМФА" breedID="12" awardID="400" ownerID="200"/>
 </doglist>

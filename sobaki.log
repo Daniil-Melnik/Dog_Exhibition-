@@ -1,8 +1,0 @@
-18:53:28,630  INFO main class:main:505 - Open aplication
-18:53:28,635  WARN main class:main:506 - File isn't closed automatically
-18:53:39,495  INFO AWT-EventQueue-0 class:actionPerformed:299 - Opening data
-18:53:39,496 DEBUG AWT-EventQueue-0 class:actionPerformed:300 - Data is opened
-19:17:19,712  INFO main class:main:505 - Open aplication
-19:17:19,716  WARN main class:main:506 - File isn't closed automatically
-19:17:28,693  INFO AWT-EventQueue-0 class:actionPerformed:299 - Opening data
-19:17:28,693 DEBUG AWT-EventQueue-0 class:actionPerformed:300 - Data is opened

@@ -1,0 +1,172 @@
+package DogExhebition;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+
+public class NewBreedJudgeGUI {
+    private JFrame aA;
+	private JButton apply;
+	private JTextField JudgeNameT;
+	private JTextField BreedT;
+	private JLabel JudgeNameL;
+	private JLabel BreedL;
+	private JLabel titleJudge;
+    private JLabel titleBreed;
+	
+	private JTextField name_text;
+	private JButton name_ser;
+	private JLabel title_label;
+
+	public void show (final JTable table1)
+	{
+		final ArrayList<Breed> BreedList = new ArrayList<>();
+        final ArrayList<Judge> JudgeList = new ArrayList<>();
+
+		List<Breed> tB = null;
+		tB=BreedDao.getBreeds();
+        for (int i =0; i<tB.size(); i++){
+            Breed jB = tB.get(i);
+            System.out.println(jB.getId() + " " + jB.getTitle());
+        }
+
+        List<Judge> tJ = null;
+        tJ=JudgeDao.getJudges();
+        for (int i =0; i<tJ.size(); i++){
+            Judge jB = tJ.get(i);
+            System.out.println(jB.getId() + " " + jB.getName()+" "+jB.getBreed().getTitle());
+        }
+
+		for (int i=0; i<tB.size(); i++){
+			BreedList.add(tB.get(i));
+		}
+		for (int i=0; i<tJ.size(); i++){
+			JudgeList.add(tJ.get(i));
+		}
+
+
+		aA = new JFrame("");
+		aA.setTitle("Добавить судью");
+		aA.setSize(1000, 280);
+		
+		final ArrayList<String> BrAr = new ArrayList<>();
+		Breed helpBreed [] = BreedList.toArray(new Breed[0]);
+		
+		for (int i =0; i<helpBreed.length; i++) {
+			BrAr.add(helpBreed[i].getTitle());
+		}
+		
+		titleJudge = new JLabel("Добавить судью");
+		titleJudge.setBounds(650, 20, 200, 30);
+		titleJudge.setFont(new Font("Arial", Font.PLAIN, 20));
+
+        titleBreed = new JLabel("Добавить породу");
+		titleBreed.setBounds(175, 20, 200, 30);
+		titleBreed.setFont(new Font("Arial", Font.PLAIN, 20));
+
+		aA.add(titleJudge);
+        aA.add(titleBreed);
+		
+		apply = new JButton("Добавить");
+		apply.setFont(new Font("Arial", Font.PLAIN, 25));
+		apply.setBounds(400, 180, 200, 50);
+		
+		
+		JudgeNameT = new JTextField();
+		JudgeNameT.setFont(new Font("Arial", Font.PLAIN, 15));
+		JudgeNameT.setBounds(650,70,300,30);
+		
+		JudgeNameL = new JLabel("Имя судьи: ");
+		JudgeNameL.setBounds(540,70,150,30);
+		JudgeNameL.setFont(new Font("Arial", Font.PLAIN, 15));
+		
+		
+		//String breeds[] = BrAr.toArray(new String[0]);
+		BreedT = new JTextField();
+		BreedT.setFont(new Font("Arial", Font.PLAIN, 15));
+		BreedT.setBounds(175,70,300,30);
+		
+		BreedL = new JLabel("Порода собак: ");
+		BreedL.setBounds(50,70,150,30);
+		BreedL.setFont(new Font("Arial", Font.PLAIN, 15));
+		
+        apply.addActionListener(new ActionListener()
+		{
+			public void actionPerformed (ActionEvent event)
+			{	
+				String judgeName = JudgeNameT.getText();
+				String breedName = BreedT.getText();
+
+				List<Judge> jdL = JudgeDao.getJudges();
+				List<Breed> brL = BreedDao.getBreeds();
+
+				boolean notJudgeExist = true;
+				boolean notBreedExist = true;
+
+				for (int i =0; i<brL.size(); i++){
+					if(brL.get(i).getTitle().equals(breedName)){
+						notBreedExist = false;
+					}
+				}
+
+				for (int i =0; i<jdL.size(); i++){
+					if(jdL.get(i).getName().equals(judgeName)){
+						notJudgeExist = false;
+					}
+				}			
+				
+				if(notBreedExist){
+					if(notJudgeExist){
+						int breedID = BreedDao.addBreed(breedName);
+						int judgeID = JudgeDao.addJudge(judgeName, BreedDao.findBreed(breedID));
+						BreedList.add(BreedDao.findBreed(breedID));
+						((DefaultTableModel) table1.getModel()).getDataVector().removeAllElements();
+						for (int i =0; i<BreedList.size(); i++){
+							Breed tB = BreedList.get(i);
+							((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{tB.getId(), tB.getTitle()});
+						}
+					}
+					else{
+						JOptionPane.showMessageDialog(aA, "Имя судьи занято");
+					}
+				}
+				else{
+					JOptionPane.showMessageDialog(aA, "Название породы занято");
+				}
+			}});
+		
+		aA.add(JudgeNameT);
+		aA.add(JudgeNameL);
+		
+		aA.add(BreedT);
+		aA.add(BreedL);
+		
+		aA.add(apply);
+
+		aA.setLayout(null);
+		aA.setVisible(true);
+	};
+	
+	public Breed findByTitle(Breed BreedArr[], String title) {
+		Breed res = null;
+		for (int i =0; i<BreedArr.length; i++) {
+			if (BreedArr[i].getTitle() == title) {
+				res = BreedArr[i];
+			}
+		}
+		return res;
+	}
+	public static void main(String[] args) {
+		new NewBreedJudgeGUI().show(null);
+	}
+}
