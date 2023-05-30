@@ -7,6 +7,8 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -41,6 +43,9 @@ public class editOwnerGUI {
 
 	public void show (final JTable table1, String lastName, Dog dog, Owner owner)
 	{
+		String regex_person_name = "^[А-Я]{1}[а-я]*( ){1}[А-Я]{1}[а-я]*(\\-[А-Я]{1}[а-я]*)?( {1}[0-9]+)?$";
+		Pattern pattern_person_name = Pattern.compile(regex_person_name);
+
 		final ArrayList<Breed> BreedList = new ArrayList<>();
         
         final ArrayList<Dog> DogList = new ArrayList<>();
@@ -160,7 +165,9 @@ public class editOwnerGUI {
 			{	
 					String own = OwnerNameT.getText();
 
-					List<Owner> owL = OwnerDao.getOwners();
+					Matcher matcher = pattern_person_name.matcher(own);
+					if(matcher.matches()){
+						List<Owner> owL = OwnerDao.getOwners();
 
 					boolean notOwnerExist = true;
 
@@ -206,6 +213,12 @@ public class editOwnerGUI {
 					else{
 						JOptionPane.showMessageDialog(aA, "Имя владельца занято");
 					}
+					}						
+					else{
+						JOptionPane.showMessageDialog(aA, "Имя владельца содержит имя и фамилию с заглавных букв разделённые ОДНИМ пробелом, в фамилии возможен один дефис. Возможно добавление числового индекса через пробел от фамилии.");
+					}
+
+					
 			}});
 		
 		aA.add(apply);

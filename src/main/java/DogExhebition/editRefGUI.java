@@ -7,6 +7,8 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -22,33 +24,26 @@ public class editRefGUI {
 
 	private JFrame aA;
 	private JButton apply;
-	private JTextField OwnerNameT;
 	private JTextField JudgeNameT;
-	private JComboBox AwardsT;
-	private JComboBox BreedT;
-	private JLabel OwnerNameL;
+	private JComboBox<String> BreedT;
 	private JLabel JudgeNameL;
 	private JLabel BreedL;
-	private JLabel AwardsL;
 	private JLabel title;
 	private JCheckBox breedCheck;
 	
-	private JTextField name_text;
-	private JButton name_ser;
-	private JLabel title_label;
-	
 	private JTextField idT;
-	private JLabel idL;
 
 	public void show (final JTable table1, int id)
 	{
+
+		String regex_person_name = "^[А-Я]{1}[а-я]*( ){1}[А-Я]{1}[а-я]*(\\-[А-Я]{1}[а-я]*)?( {1}[0-9]+)?$";
+		Pattern pattern_person_name = Pattern.compile(regex_person_name);
+
 		Judge edJudge = JudgeDao.findJudge(id);
 		final ArrayList<Breed> BreedList = new ArrayList<>();
         final ArrayList<Judge> JudgeList = new ArrayList<>();     
         
         final ArrayList<String> BrAr = new ArrayList<>();
-
-
 
 		List<Breed> tB = null;
 		tB=BreedDao.getBreeds();
@@ -103,7 +98,7 @@ public class editRefGUI {
 			}
 		}
 		//String breeds[] = {};
-		BreedT = new JComboBox(brStr.toArray(new String[0]));
+		BreedT = new JComboBox<String>(brStr.toArray(new String[0]));
 		BreedT.setFont(new Font("Arial", Font.PLAIN, 15));
 		BreedT.setBounds(150,110,300,30);
 		
@@ -134,15 +129,16 @@ public class editRefGUI {
 		{
 			public void actionPerformed (ActionEvent event)
 			{
-
-				boolean notJudgeExist = true;
-
-
+				String judgeName = JudgeNameT.getText();
 				
+				Matcher matcher = pattern_person_name.matcher(judgeName);
+				if(matcher.matches()){
+					boolean notJudgeExist = true;
+
 				Breed firstBreed = edJudge.getBreed();
 				Breed secondBreed = null;
 				Judge edJudge = JudgeDao.findJudge(id);
-				String judgeName = JudgeNameT.getText();
+				
 				
 				List<Judge> jdL = JudgeDao.getJudges();
 
@@ -189,6 +185,12 @@ public class editRefGUI {
 					else{
 						JOptionPane.showMessageDialog(aA, "Имя судьи занято");
 					}
+				}						
+				else{
+					JOptionPane.showMessageDialog(aA, "Имя владельца содержит имя и фамилию с заглавных букв разделённые ОДНИМ пробелом, в фамилии возможен один дефис. Возможно добавление числового индекса через пробел от фамилии.");
+				}
+
+				
 			}});
 		
 		aA.add(JudgeNameT);

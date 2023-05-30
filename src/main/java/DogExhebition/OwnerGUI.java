@@ -9,6 +9,8 @@ import java.io.FileOutputStream;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPCell;
@@ -32,20 +34,6 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.table.DefaultTableModel;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 public class OwnerGUI {
 
@@ -66,6 +54,9 @@ public class OwnerGUI {
 	public static final String FONT = "C:/Users/danii/OneDrive/Рабочий стол/JavaVScode/dog.exhibition/assets/fonts/arialmt.ttf";
 
 	public void show(){
+
+		String regex_person_name = "^[А-Я]{1}[а-я]*( ){1}[А-Я]{1}[а-я]*(\\-[А-Я]{1}[а-я]*)?( {1}[0-9]+)?$";
+		Pattern pattern_person_name = Pattern.compile(regex_person_name);
 		
 		final ArrayList<Breed> BreedList = new ArrayList<>();
         final ArrayList<Dog> DogList = new ArrayList<>();
@@ -227,14 +218,21 @@ public class OwnerGUI {
 		{
 			public void actionPerformed (ActionEvent event)
 			{
-				Owner OwnerAr[] = OwnerList.toArray(new Owner[0]);
-				tableModel.setNumRows(0);
-				System.out.print(owner_text.getText());
-				for (int i =0; i<OwnerAr.length; i++) {
-					if (OwnerAr[i].getName().contains(owner_text.getText())) {
-						tableModel.insertRow(0, new Object[]{OwnerAr[i].getId(), OwnerAr[i].getName(), OwnerAr[i].getDog().getBreed().getTitle()});
+				Matcher matcher = pattern_person_name.matcher(owner_text.getText());
+				if(matcher.matches()){
+					Owner OwnerAr[] = OwnerList.toArray(new Owner[0]);
+					tableModel.setNumRows(0);
+					System.out.print(owner_text.getText());
+					for (int i =0; i<OwnerAr.length; i++) {
+						if (OwnerAr[i].getName().contains(owner_text.getText())) {
+							tableModel.insertRow(0, new Object[]{OwnerAr[i].getId(), OwnerAr[i].getName(), OwnerAr[i].getDog().getBreed().getTitle()});
+						}
 					}
+				}						
+				else{
+					JOptionPane.showMessageDialog(a, "Имя владельца содержит имя и фамилию с заглавных букв разделённые ОДНИМ пробелом, в фамилии возможен один дефис. Возможно добавление числового индекса через пробел от фамилии.");
 				}
+				
 			}});
 		
 		delete.addActionListener(new ActionListener()

@@ -1,29 +1,19 @@
 package DogExhebition;
 
-import java.awt.FileDialog;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.io.FileOutputStream;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
-//import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.*;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
@@ -36,27 +26,11 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
-import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 public class RefereeGUI {
 
@@ -77,6 +51,10 @@ public class RefereeGUI {
 	public static final String FONT = "C:/Users/danii/OneDrive/Рабочий стол/JavaVScode/dog.exhibition/assets/fonts/arialmt.ttf";
 	
 	public void show(){
+
+		String regex_person_name = "^[А-Я]{1}[а-я]*( ){1}[А-Я]{1}[а-я]*(\\-[А-Я]{1}[а-я]*)?( {1}[0-9]+)?$";
+		Pattern pattern_person_name = Pattern.compile(regex_person_name);
+
 		final ArrayList<Breed> BreedList = new ArrayList<>();
         
         final ArrayList<Judge> JudgeList = new ArrayList<>();
@@ -295,14 +273,23 @@ public class RefereeGUI {
 		{
 			public void actionPerformed (ActionEvent event)
 			{
-				Judge JudgeAr[] = JudgeList.toArray(new Judge[0]);
-				tableModel.setNumRows(0);
-				System.out.print(judge_text.getText());
-				for (int i =0; i<JudgeAr.length; i++) {
-					if (JudgeAr[i].getName().contains(judge_text.getText())) {
-						tableModel.insertRow(0, new Object[]{JudgeAr[i].getId(), JudgeAr[i].getName(), JudgeAr[i].getBreed().getTitle()});
+
+				Matcher matcher = pattern_person_name.matcher(judge_text.getText());
+				if(matcher.matches()){
+					Judge JudgeAr[] = JudgeList.toArray(new Judge[0]);
+					tableModel.setNumRows(0);
+					System.out.print(judge_text.getText());
+					for (int i =0; i<JudgeAr.length; i++) {
+						if (JudgeAr[i].getName().contains(judge_text.getText())) {
+							tableModel.insertRow(0, new Object[]{JudgeAr[i].getId(), JudgeAr[i].getName(), JudgeAr[i].getBreed().getTitle()});
+						}
 					}
+				}						
+				else{
+					JOptionPane.showMessageDialog(a, "Имя владельца содержит имя и фамилию с заглавных букв разделённые ОДНИМ пробелом, в фамилии возможен один дефис. Возможно добавление числового индекса через пробел от фамилии.");
 				}
+
+				
 			}});
 		returnb.addActionListener(new ActionListener()
 		{
