@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -34,6 +35,9 @@ public class NewBreedGUI {
 
 	public void show (final JTable table1, final ArrayList<Award> AwardList, final ArrayList<Dog> DogList, final ArrayList<Breed> BreedList)
 	{
+
+		String regex_person_name = "^[А-Я]{1}[а-я]*( ){1}[А-Я]{1}[а-я]*(\\-[А-Я]{1}[а-я]*)?( {1}[0-9]+)?$";
+        Pattern pattern_person_name = Pattern.compile(regex_person_name);
 		aA = new JFrame("");
 		aA.setTitle("Добавить породу");
 		aA.setSize(500, 235);

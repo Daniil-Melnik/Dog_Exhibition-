@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -30,6 +32,8 @@ public class NewJudgeBreedGUI {
 
 	public void show (final JTable table1)
 	{
+		String regex_person_name = "^[А-Я]{1}[а-я]*( ){1}[А-Я]{1}[а-я]*(\\-[А-Я]{1}[а-я]*)?( {1}[0-9]+)?$";
+        Pattern pattern_person_name = Pattern.compile(regex_person_name);
 		final ArrayList<Breed> BreedList = new ArrayList<>();
         final ArrayList<Judge> JudgeList = new ArrayList<>();
 
@@ -105,7 +109,11 @@ public class NewJudgeBreedGUI {
 			public void actionPerformed (ActionEvent event)
 			{				
 				String judgeName = JudgeNameT.getText();
-				String breedName = BreedT.getText();
+
+				
+				Matcher matcher = pattern_person_name.matcher(judgeName);
+				if(matcher.matches()){
+					String breedName = BreedT.getText();
 
 				List<Judge> jdL = JudgeDao.getJudges();
 				List<Breed> brL = BreedDao.getBreeds();
@@ -143,6 +151,11 @@ public class NewJudgeBreedGUI {
 				else{
 					JOptionPane.showMessageDialog(aA, "Имя судьи занято");
 				}
+				}						
+				else{
+					JOptionPane.showMessageDialog(aA, "Имя владельца содержит имя и фамилию с заглавных букв разделённые ОДНИМ пробелом, в фамилии возможен один дефис. Возможно добавление числового индекса через пробел от фамилии.");
+				}
+				
 
 				
 		        

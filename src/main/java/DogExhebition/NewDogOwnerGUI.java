@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -42,7 +43,8 @@ public class NewDogOwnerGUI {
 	{
 		//Заполнение листов с главными данными для окна
 		//#############################################
-
+		String regex_person_name = "^[А-Я]{1}[а-я]*( ){1}[А-Я]{1}[а-я]*(\\-[А-Я]{1}[а-я]*)?( {1}[0-9]+)?$";
+        Pattern pattern_person_name = Pattern.compile(regex_person_name);
 
 		final JFrame a = new JFrame("Собаки");
 		final Object[][] array = new String[][] {};
@@ -191,53 +193,59 @@ public class NewDogOwnerGUI {
 			{
 					String dogName = DogNameT.getText();
 					String ownerName = OwnerNameT.getText();
-					String breedTitle = BreedT.getSelectedItem().toString();
-					String awardTitle = AwardsT.getSelectedItem().toString();
-					Breed tempBreed = findByTitle(BreedList.toArray(new Breed[0]), breedTitle);
-					Award tempAward = findByTitle(AwardList.toArray(new Award[0]), awardTitle);
+					Matcher matcher = pattern_person_name.matcher(ownerName);
+					if(matcher.matches()){
+						String breedTitle = BreedT.getSelectedItem().toString();
+						String awardTitle = AwardsT.getSelectedItem().toString();
+						Breed tempBreed = findByTitle(BreedList.toArray(new Breed[0]), breedTitle);
+						Award tempAward = findByTitle(AwardList.toArray(new Award[0]), awardTitle);
 
-					List<Owner> owL = OwnerDao.getOwners();
-					List<Dog> dgL = DogDao.getDog();
+						List<Owner> owL = OwnerDao.getOwners();
+						List<Dog> dgL = DogDao.getDog();
 
-					boolean notDogExist = true;
-					boolean notOwnerExist = true;
+						boolean notDogExist = true;
+						boolean notOwnerExist = true;
 
-					for (int i =0; i<owL.size(); i++){
-						if(owL.get(i).getName().equals(ownerName)){
-							notOwnerExist = false;
+						for (int i =0; i<owL.size(); i++){
+							if(owL.get(i).getName().equals(ownerName)){
+								notOwnerExist = false;
+							}
 						}
-					}
 
-					for (int i =0; i<dgL.size(); i++){
-						if(dgL.get(i).getName().equals(dogName)){
-							notDogExist = false;
+						for (int i =0; i<dgL.size(); i++){
+							if(dgL.get(i).getName().equals(dogName)){
+								notDogExist = false;
+							}
 						}
-					}
 
-					if(notDogExist){
-						if(notOwnerExist){
-							int dogID = DogDao.addDog(dogName, tempBreed, tempAward);
-							OwnerDao.addOwner(ownerName, DogDao.findDog(dogID));
+						if(notDogExist){
+							if(notOwnerExist){
+								int dogID = DogDao.addDog(dogName, tempBreed, tempAward);
+								OwnerDao.addOwner(ownerName, DogDao.findDog(dogID));
 
-							DogList.add(DogDao.findDog(dogID));
+								DogList.add(DogDao.findDog(dogID));
 
-							((DefaultTableModel) table1.getModel()).getDataVector().removeAllElements();
-							Dog DgAr[] = DogList.toArray(new Dog[0]);
-							for (int i =0; i<DgAr.length; i++) {
-								if(DgAr[i].getAward().getId()==450) {
-									((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{DgAr[i].getId(), DgAr[i].getName(), DgAr[i].getBreed().getTitle() , "-"});
+								((DefaultTableModel) table1.getModel()).getDataVector().removeAllElements();
+								Dog DgAr[] = DogList.toArray(new Dog[0]);
+								for (int i =0; i<DgAr.length; i++) {
+									if(DgAr[i].getAward().getId()==450) {
+										((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{DgAr[i].getId(), DgAr[i].getName(), DgAr[i].getBreed().getTitle() , "-"});
+									}
+									else {
+										((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{DgAr[i].getId(), DgAr[i].getName(), DgAr[i].getBreed().getTitle() , "+"});
+									}
 								}
-								else {
-									((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{DgAr[i].getId(), DgAr[i].getName(), DgAr[i].getBreed().getTitle() , "+"});
-								}
+							}
+							else{
+								JOptionPane.showMessageDialog(aA, "Имя владельца занято");
 							}
 						}
 						else{
-							JOptionPane.showMessageDialog(aA, "Имя владельца занято");
+							JOptionPane.showMessageDialog(aA, "Кличка занята");
 						}
 					}
 					else{
-						JOptionPane.showMessageDialog(aA, "Кличка занята");
+						JOptionPane.showMessageDialog(aA, "Имя владельца содержит имя и фамилию с заглавных букв разделённые ОДНИМ пробелом, в фамилии возможен один дефис. Возможно добавление числового индекса через пробел от фамилии.");
 					}
 			}});
 		
