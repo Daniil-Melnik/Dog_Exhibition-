@@ -1,12 +1,13 @@
 package DogExhebition;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.*;
 
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
-//import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.*;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
@@ -30,34 +31,30 @@ public class DogGUI {
 	private JButton returnb;
 	private JToolBar toolBar;
 	private JButton w_aw;
-	private JComboBox breed_text;
+	private JComboBox<String> breed_text;
 	private JButton breed_ser;
 	private JFrame aA;
 	public static final String FONT = "C:/Users/danii/OneDrive/Рабочий стол/JavaVScode/dog.exhibition/assets/fonts/arialmt.ttf";
 
 	
-	private int index;
-	
 	private JTextField name_text;
 	private JButton name_ser;
 	private JLabel title_label;
 	
-	private JTextField idT;
-	private JLabel idL;
-	
 	private boolean edit_param;
 	
 	
-	@SuppressWarnings("unchecked")
 	public void show(){
+
+		String regex_dog_name = "^[А-Я]{1}[а-я]*( {1}[0-9]+)?$";
+		Pattern pattern_dog_name = Pattern.compile(regex_dog_name);
+
 		final JFrame a = new JFrame("Собаки");
-		final Object[][] array = new String[][] {};
 
 		final ArrayList<Breed> BreedList = new ArrayList<>();
         final ArrayList<Award> AwardList = new ArrayList<>();
         
         final ArrayList<Dog> DogList = new ArrayList<>();
-        final ArrayList<Dog> PoorDogList = new ArrayList<>();
         final ArrayList<Owner> OwnerList = new ArrayList<>();
      
         
@@ -241,22 +238,30 @@ public class DogGUI {
 		{
 			public void actionPerformed (ActionEvent event)
 			{
-				Dog DogAr[] = DogList.toArray(new Dog[0]);
-				tableModel.getDataVector().removeAllElements();
-				String a1;
-				System.out.print(name_text.getText());
-				for (int i =0; i<DogAr.length; i++) {
-					if (DogAr[i].getName().contains(name_text.getText())) {
-						
-						if (DogAr[i].getAward().getId()==450) {
-							a1 = "-";
+				
+				Matcher matcher_1 = pattern_dog_name.matcher(name_text.getText());
+				if(matcher_1.matches()){
+					Dog DogAr[] = DogList.toArray(new Dog[0]);
+					tableModel.getDataVector().removeAllElements();
+					String a1;
+					System.out.print(name_text.getText());
+					for (int i =0; i<DogAr.length; i++) {
+						if (DogAr[i].getName().contains(name_text.getText())) {
+							
+							if (DogAr[i].getAward().getId()==450) {
+								a1 = "-";
+							}
+							else {
+								a1="+";
+							}
+							tableModel.insertRow(0, new Object[]{DogAr[i].getId(), DogAr[i].getName(), DogAr[i].getBreed().getTitle() , a1});
 						}
-						else {
-							a1="+";
-						}
-						tableModel.insertRow(0, new Object[]{DogAr[i].getId(), DogAr[i].getName(), DogAr[i].getBreed().getTitle() , a1});
-					}
+					}	
 				}
+				else{
+					JOptionPane.showMessageDialog(aA, "Кличка собаки начинается с заглавной буквы и может содержать числовой индекс, отделённый ОДНИМ пробелом от буквенного слова.");
+				}
+				
 			}});
 		
 		a.add(w_aw);

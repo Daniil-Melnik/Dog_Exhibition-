@@ -21,7 +21,6 @@ public class MainGUI {
 	ImageIcon ico_exit;
 	ImageIcon ico_breed;
 	public void show() {
-		int am = 0;		
 		final JFrame a = new JFrame("Главное меню");
 				
 		a.setIconImage(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//dog_main.png").getImage());

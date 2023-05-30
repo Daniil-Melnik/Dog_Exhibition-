@@ -23,8 +23,8 @@ public class NewDogOwnerGUI {
 	private static JButton apply;
 	private static JTextField OwnerNameT;
 	private static JTextField DogNameT;
-	private static JComboBox AwardsT;
-	private static JComboBox BreedT;
+	private static JComboBox<String> AwardsT;
+	private static JComboBox<String> BreedT;
 	private static JLabel OwnerNameL;
 	private static JLabel DogNameL;
 	private static JLabel BreedL;
@@ -32,9 +32,6 @@ public class NewDogOwnerGUI {
 	private static JLabel title_dog;
 	private static JLabel title_owner;
 	
-	private JTextField name_text;
-	private JButton name_ser;
-	private JLabel title_label;
 	
 	//private JTextField idT;
 	//private JLabel idL;
@@ -43,11 +40,12 @@ public class NewDogOwnerGUI {
 	{
 		//Заполнение листов с главными данными для окна
 		//#############################################
-		String regex_person_name = "^[А-Я]{1}[а-я]*( ){1}[А-Я]{1}[а-я]*(\\-[А-Я]{1}[а-я]*)?( {1}[0-9]+)?$";
-        Pattern pattern_person_name = Pattern.compile(regex_person_name);
 
-		final JFrame a = new JFrame("Собаки");
-		final Object[][] array = new String[][] {};
+		String regex_person_name = "^[А-Я]{1}[а-я]*( ){1}[А-Я]{1}[а-я]*(\\-[А-Я]{1}[а-я]*)?( {1}[0-9]+)?$";
+		String regex_dog_name = "^[А-Я]{1}[а-я]*( {1}[0-9]+)?$";
+
+		Pattern pattern_dog_name = Pattern.compile(regex_dog_name);
+        Pattern pattern_person_name = Pattern.compile(regex_person_name);
 
 		final ArrayList<Breed> BreedList = new ArrayList<>();
         final ArrayList<Award> AwardList = new ArrayList<>();
@@ -148,7 +146,7 @@ public class NewDogOwnerGUI {
 		OwnerNameL.setFont(new Font("Arial", Font.PLAIN, 15));
 		
 		String breeds[] = BrAr.toArray(new String[0]);
-		BreedT = new JComboBox(breeds);
+		BreedT = new JComboBox<String>(breeds);
 		BreedT.setFont(new Font("Arial", Font.PLAIN, 15));
 		BreedT.setBounds(150,110,300,30);
 		
@@ -156,11 +154,11 @@ public class NewDogOwnerGUI {
 		BreedL.setBounds(30,110,150,30);
 		BreedL.setFont(new Font("Arial", Font.PLAIN, 15));
 		
-		AwardsT = new JComboBox();
+		AwardsT = new JComboBox<String>();
 		
 		String awards[] = AwAr.toArray(new String[0]);
 		//String awards[] = {};
-		AwardsT = new JComboBox(awards);
+		AwardsT = new JComboBox<String>(awards);
 		AwardsT.setFont(new Font("Arial", Font.PLAIN, 15));
 		AwardsT.setBounds(150,155,300,30);
 		
@@ -195,54 +193,61 @@ public class NewDogOwnerGUI {
 					String ownerName = OwnerNameT.getText();
 					Matcher matcher = pattern_person_name.matcher(ownerName);
 					if(matcher.matches()){
-						String breedTitle = BreedT.getSelectedItem().toString();
-						String awardTitle = AwardsT.getSelectedItem().toString();
-						Breed tempBreed = findByTitle(BreedList.toArray(new Breed[0]), breedTitle);
-						Award tempAward = findByTitle(AwardList.toArray(new Award[0]), awardTitle);
+						Matcher matcher_1 = pattern_dog_name.matcher(dogName);
+						if(matcher_1.matches()){
+							String breedTitle = BreedT.getSelectedItem().toString();
+							String awardTitle = AwardsT.getSelectedItem().toString();
+							Breed tempBreed = findByTitle(BreedList.toArray(new Breed[0]), breedTitle);
+							Award tempAward = findByTitle(AwardList.toArray(new Award[0]), awardTitle);
 
-						List<Owner> owL = OwnerDao.getOwners();
-						List<Dog> dgL = DogDao.getDog();
+							List<Owner> owL = OwnerDao.getOwners();
+							List<Dog> dgL = DogDao.getDog();
 
-						boolean notDogExist = true;
-						boolean notOwnerExist = true;
+							boolean notDogExist = true;
+							boolean notOwnerExist = true;
 
-						for (int i =0; i<owL.size(); i++){
-							if(owL.get(i).getName().equals(ownerName)){
-								notOwnerExist = false;
+							for (int i =0; i<owL.size(); i++){
+								if(owL.get(i).getName().equals(ownerName)){
+									notOwnerExist = false;
+								}
 							}
-						}
 
-						for (int i =0; i<dgL.size(); i++){
-							if(dgL.get(i).getName().equals(dogName)){
-								notDogExist = false;
+							for (int i =0; i<dgL.size(); i++){
+								if(dgL.get(i).getName().equals(dogName)){
+									notDogExist = false;
+								}
 							}
-						}
 
-						if(notDogExist){
-							if(notOwnerExist){
-								int dogID = DogDao.addDog(dogName, tempBreed, tempAward);
-								OwnerDao.addOwner(ownerName, DogDao.findDog(dogID));
+							if(notDogExist){
+								if(notOwnerExist){
+									int dogID = DogDao.addDog(dogName, tempBreed, tempAward);
+									OwnerDao.addOwner(ownerName, DogDao.findDog(dogID));
 
-								DogList.add(DogDao.findDog(dogID));
+									DogList.add(DogDao.findDog(dogID));
 
-								((DefaultTableModel) table1.getModel()).getDataVector().removeAllElements();
-								Dog DgAr[] = DogList.toArray(new Dog[0]);
-								for (int i =0; i<DgAr.length; i++) {
-									if(DgAr[i].getAward().getId()==450) {
-										((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{DgAr[i].getId(), DgAr[i].getName(), DgAr[i].getBreed().getTitle() , "-"});
+									((DefaultTableModel) table1.getModel()).getDataVector().removeAllElements();
+									Dog DgAr[] = DogList.toArray(new Dog[0]);
+									for (int i =0; i<DgAr.length; i++) {
+										if(DgAr[i].getAward().getId()==450) {
+											((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{DgAr[i].getId(), DgAr[i].getName(), DgAr[i].getBreed().getTitle() , "-"});
+										}
+										else {
+											((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{DgAr[i].getId(), DgAr[i].getName(), DgAr[i].getBreed().getTitle() , "+"});
+										}
 									}
-									else {
-										((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{DgAr[i].getId(), DgAr[i].getName(), DgAr[i].getBreed().getTitle() , "+"});
-									}
+								}
+								else{
+									JOptionPane.showMessageDialog(aA, "Имя владельца занято");
 								}
 							}
 							else{
-								JOptionPane.showMessageDialog(aA, "Имя владельца занято");
+								JOptionPane.showMessageDialog(aA, "Кличка занята");
 							}
 						}
 						else{
-							JOptionPane.showMessageDialog(aA, "Кличка занята");
+							JOptionPane.showMessageDialog(aA, "Кличка собаки начинается с заглавной буквы и может содержать числовой индекс, отделённый ОДНИМ пробелом от буквенного слова.");
 						}
+						
 					}
 					else{
 						JOptionPane.showMessageDialog(aA, "Имя владельца содержит имя и фамилию с заглавных букв разделённые ОДНИМ пробелом, в фамилии возможен один дефис. Возможно добавление числового индекса через пробел от фамилии.");
@@ -262,15 +267,6 @@ public class NewDogOwnerGUI {
 		return res;
 	}
 	
-	// int findByID(Dog dogs[], int id) {
-	// 	int res=0;
-	// 	for (int i =0; i< dogs.length; i++) {
-	// 		if (dogs[i].getId()==Integer.parseInt(idT.getText())) {
-	// 			res = i;
-	// 		}
-	// 	}
-	// 	return res;
-	// }
 	public Breed findByID(Breed BreedArr[], int id) {
 		Breed res = null;
 		for (int i =0; i<BreedArr.length; i++) {
@@ -308,7 +304,7 @@ public class NewDogOwnerGUI {
 		}
 		return res;
 	}
-	public static void main(String[] args) {
-		new NewDogOwnerGUI().show(null);
-	}
+	// public static void main(String[] args) {
+	// 	new NewDogOwnerGUI().show(null);
+	// }
 }
