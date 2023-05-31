@@ -1,6 +1,5 @@
 package DogExhebition;
 
-import java.awt.FileDialog;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,7 +27,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -50,7 +49,6 @@ public class OwnerGUI {
 	
 	private JLabel title_label;
 	
-	private int index;
 	public static final String FONT = "C:/Users/danii/OneDrive/Рабочий стол/JavaVScode/dog.exhibition/assets/fonts/arialmt.ttf";
 
 	public void show(){
@@ -60,7 +58,6 @@ public class OwnerGUI {
 		
 		final ArrayList<Breed> BreedList = new ArrayList<>();
         final ArrayList<Dog> DogList = new ArrayList<>();
-        final ArrayList<Dog> PoorDogList = new ArrayList<>();
         final ArrayList<Owner> OwnerList = new ArrayList<>();
 
 
@@ -135,8 +132,7 @@ public class OwnerGUI {
 		add.setToolTipText("Добавить");
 		edit.setToolTipText("Изменить");
 		export.setToolTipText("Экспортировать в файл");
-		
-		Object[][] array = new String[][] {};
+
         Object[] columns = new String[] {"id", "Имя владельца", "Кличка собаки", "Порода собаки"};
         
         
@@ -155,7 +151,8 @@ public class OwnerGUI {
 		{
 			public void actionPerformed (ActionEvent event)
 			{
-				new NewOwnerDogGUI().show(table1);
+				new NewOwnerDogGUI();
+				NewOwnerDogGUI.show(table1);
 			}});
         table1.setBounds(0, 120, 1000, 300);
 		

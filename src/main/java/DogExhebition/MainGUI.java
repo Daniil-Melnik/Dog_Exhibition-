@@ -106,8 +106,6 @@ public class MainGUI {
 				new BreedGUI().show();
 			}});		
 		
-		
-		
 		Ref.addActionListener(new ActionListener()
 		{
 			public void actionPerformed (ActionEvent event)
@@ -122,7 +120,6 @@ public class MainGUI {
 		a.add(Out);
 		a.add(Breed);
 		
-		
 		a.add(label_1);
 		a.add(label_2);
 		a.add(label_3);
@@ -133,7 +130,6 @@ public class MainGUI {
 		a.setSize(420,540);
 		a.setLayout(null);
 		a.setVisible(true);
-		
 	}
 	
 	

@@ -1,7 +1,6 @@
 package DogExhebition;
 
 import java.util.List;
-import jakarta.persistence.*;
 // import org.hibernate.HibernateException;
 
 public class Application {

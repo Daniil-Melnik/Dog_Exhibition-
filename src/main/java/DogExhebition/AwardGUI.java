@@ -12,16 +12,12 @@ import java.util.List;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
-//import com.itextpdf.text.pdf.PdfWriter;
+
 import com.itextpdf.text.*;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
 
 import com.itextpdf.text.pdf.PdfWriter;
-
-import java.awt.FileDialog;
-
-import java.io.IOException;
 
 
 import javax.swing.ImageIcon;
@@ -31,20 +27,13 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.table.DefaultTableModel;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 public class AwardGUI {
 	
@@ -53,7 +42,7 @@ public class AwardGUI {
 	private JButton add;
 	private JButton delete;
 	private JToolBar toolBar;
-	private JComboBox award_text;
+	private JComboBox<String> award_text;
 	private JButton award_ser;
 	private JTextField name_text;
 	private JButton name_ser;
@@ -157,7 +146,7 @@ public class AwardGUI {
 			}
 		}
 				
-        award_text = new JComboBox(AwAr.toArray(new String[0]));
+        award_text = new JComboBox<String>(AwAr.toArray(new String[0]));
         award_text.setBounds(350,480,280,30);
 		
         award_ser = new JButton("найти");

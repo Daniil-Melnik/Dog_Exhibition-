@@ -18,18 +18,10 @@ public class NewOwnerGUI {
 	private JFrame aA;
 	private JButton apply;
 	private JTextField OwnerNameT;
-	private JComboBox DogNameT;
-	private JComboBox DogNameT1;
-	private JComboBox BreedT;
+	private JComboBox<String> DogNameT;
 	private JLabel OwnerNameL;
 	private JLabel DogNameL;
-	private JLabel DogNameL1;
-	private JLabel BreedL;
 	private JLabel title;
-	
-	private JTextField name_text;
-	private JButton name_ser;
-	private JLabel title_label;
 	
 	private JTextField idT;
 	private JLabel idL;
@@ -72,7 +64,7 @@ public class NewOwnerGUI {
 			dogs.add(DgAr[i].getName());
 		}
 		
-		DogNameT = new JComboBox(dogs.toArray(new String[0]));
+		DogNameT = new JComboBox<String>(dogs.toArray(new String[0]));
 		DogNameT.setFont(new Font("Arial", Font.PLAIN, 15));
 		DogNameT.setBounds(150,110,300,30);
 		

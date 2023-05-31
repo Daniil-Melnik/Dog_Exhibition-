@@ -17,7 +17,7 @@ public class NewRefGUI {
 	private JFrame aA;
 	private JButton apply;
 	private JTextField JudgeNameT;
-	private JComboBox BreedT;
+	private JComboBox<String> BreedT;
 	private JLabel JudgeNameL;
 	private JLabel BreedL;
 	private JLabel title;
@@ -80,7 +80,7 @@ public class NewRefGUI {
 		
 		
 		String breeds[] = BrAr.toArray(new String[0]);
-		BreedT = new JComboBox(breeds);
+		BreedT = new JComboBox<String>(breeds);
 		BreedT.setFont(new Font("Arial", Font.PLAIN, 15));
 		BreedT.setBounds(150,110,300,30);
 		

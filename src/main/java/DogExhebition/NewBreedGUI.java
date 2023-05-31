@@ -4,10 +4,8 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.regex.Pattern;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -18,26 +16,15 @@ public class NewBreedGUI {
 
 	private JFrame aA;
 	private JButton apply;
-	private JTextField OwnerNameT;
 	private JTextField BreedTitleT;
-	private JComboBox AwardT;
-	private JLabel OwnerNameL;
 	private JLabel BreedTitleL;
-	private JLabel AwardL;
 	private JLabel title;
-	
-	private JTextField name_text;
-	private JButton name_ser;
-	private JLabel title_label;
 	
 	private JTextField idT;
 	private JLabel idL;
 
 	public void show (final JTable table1, final ArrayList<Award> AwardList, final ArrayList<Dog> DogList, final ArrayList<Breed> BreedList)
 	{
-
-		String regex_person_name = "^[А-Я]{1}[а-я]*( ){1}[А-Я]{1}[а-я]*(\\-[А-Я]{1}[а-я]*)?( {1}[0-9]+)?$";
-        Pattern pattern_person_name = Pattern.compile(regex_person_name);
 		aA = new JFrame("");
 		aA.setTitle("Добавить породу");
 		aA.setSize(500, 235);

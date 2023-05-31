@@ -19,13 +19,6 @@ import com.itextpdf.text.Element;
 
 import com.itextpdf.text.pdf.PdfWriter;
 
-import java.awt.FileDialog;
-
-import java.io.FileWriter;
-import java.io.IOException;
-
-
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -33,38 +26,21 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.table.DefaultTableModel;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-
-
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 public class BreedGUI {
 	protected static final JOptionPane JOptionPanel = null;
-	private JPanel head_panel;
 	private JButton export;
 	private JButton add;
 	private JButton delete;
 	private JButton returnb;
 	private JToolBar toolBar;
 	private JButton w_aw;
-	private JComboBox breed_text;
+	private JComboBox<String> breed_text;
 	private JButton breed_ser;
 	public static final String FONT = "C:/Users/danii/OneDrive/Рабочий стол/JavaVScode/dog.exhibition/assets/fonts/arialmt.ttf";
 	
@@ -198,19 +174,7 @@ public class BreedGUI {
         Breed BrAr1[] = BreedList.toArray(new Breed[0]);
 		for (int i =0; i<BrAr1.length;i++) {
 			((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{BrAr1[i].getId(), BrAr1[i].getTitle()});
-		}
-        
-//        ((DefaultTableModel) table1.getModel()).getDataVector().removeAllElements();
-//		Dog DgAr[] = DogList.toArray(new Dog[0]);
-//		for (int i =0; i<DgAr.length;i++) {
-//			if(DgAr[i].getAward().getId()==450) {
-//				((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{DgAr[i].getId(), DgAr[i].getName(), DgAr[i].getBreed().getTitle() , "-"});
-//			}
-//			else {
-//				((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{DgAr[i].getId(), DgAr[i].getName(), DgAr[i].getBreed().getTitle() , "+"});
-//			}
-//		}
-        
+		}        
 		
 		w_aw = new JButton("с наградами");
 		w_aw.setBounds(440, 520, 120, 30);
@@ -220,7 +184,6 @@ public class BreedGUI {
 			{
 				Dog DogAr[] = DogList.toArray(new Dog[0]);
 				tableModel.getDataVector().removeAllElements();
-				String a1;
 				System.out.print(name_text.getText());
 				for (int i =0; i<DogAr.length; i++) {
 					if (DogAr[i].getAward().getId()!=450) {
@@ -230,7 +193,7 @@ public class BreedGUI {
 			}});
 		
 		String breeds[] = BrAr.toArray(new String[0]);
-		breed_text = new JComboBox(breeds);
+		breed_text = new JComboBox<String>(breeds);
 		breed_text.setBounds(350,480,280,30);
 		
 		breed_ser = new JButton("найти");
@@ -281,12 +244,6 @@ public class BreedGUI {
 					}
 				}
 			}});
-		
-		//a.add(w_aw);
-		//a.add(breed_text);
-		//a.add(breed_ser);
-		//a.add(name_text);
-		//a.add(name_ser);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setViewportView(table1);

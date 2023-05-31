@@ -24,22 +24,16 @@ public class editOwnerGUI {
 
 	private JFrame aA;
 	private JButton apply;
-	private JComboBox DogNameT;
-	private JTextField DogNameT1;
-	//private JComboBox BreedT;
+	private JComboBox<String> DogNameT;
+
 	private JLabel DogNameL;
-	//private JLabel DogNameL1;
-	//private JLabel BreedL;
+
 	private JLabel title;
 	private JCheckBox newDogEd;
 	
 	private JTextField OwnerNameT;
 	private JLabel OwnerNameL;
-	private JButton name_ser;
 	private JLabel dog_label;
-	
-	private JTextField idT;
-	private JLabel idL;
 
 	public void show (final JTable table1, String lastName, Dog dog, Owner owner)
 	{
@@ -129,7 +123,7 @@ public class editOwnerGUI {
 			}
 		}
 		
-		DogNameT = new JComboBox(dogs.toArray(new String[0]));		
+		DogNameT = new JComboBox<String>(dogs.toArray(new String[0]));		
 		DogNameT.setFont(new Font("Arial", Font.PLAIN, 15));
 		DogNameT.setBounds(150,110,300,30);
 		

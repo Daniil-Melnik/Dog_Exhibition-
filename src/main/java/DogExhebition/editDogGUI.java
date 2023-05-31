@@ -21,10 +21,9 @@ import javax.swing.table.DefaultTableModel;
 public class editDogGUI {
 	private JFrame aA;
 	private JButton apply;
-	private JTextField OwnerNameT;
 	private JTextField DogNameT;
-	private JComboBox AwardsT;
-	private JComboBox BreedT;
+	private JComboBox<String> AwardsT;
+	private JComboBox<String> BreedT;
 	private JLabel AwardL_1;
 	private JLabel BreedL_1;
 	private JLabel DogNameL;
@@ -35,12 +34,7 @@ public class editDogGUI {
 	private JCheckBox breedCheck;
 	private JCheckBox awardCheck;
 	
-	private JTextField name_text;
-	private JButton name_ser;
-	private JLabel title_label;
-	
 	private JTextField idT;
-	private JLabel idL;
 
 	public void show (final JTable table1, int id)
 	{
@@ -125,7 +119,7 @@ public class editDogGUI {
 		BreedL.setBounds(30,110,150,30);
 		BreedL.setFont(new Font("Arial", Font.PLAIN, 15));
 		
-		AwardsT = new JComboBox();
+		AwardsT = new JComboBox<String>();
 		
 		ArrayList<String> awards = new ArrayList<>();
 		for (int i=0; i< AwardList.size(); i++){
@@ -134,7 +128,7 @@ public class editDogGUI {
 				awards.add(usAw.getTitle());
 			}
 		}
-		AwardsT = new JComboBox(awards.toArray(new String[0]));
+		AwardsT = new JComboBox<String>(awards.toArray(new String[0]));
 		AwardsT.setFont(new Font("Arial", Font.PLAIN, 15));
 		AwardsT.setBounds(150,150,300,30);
 		 
@@ -150,7 +144,7 @@ public class editDogGUI {
 			}
 		}
 
-		BreedT = new JComboBox(breeds.toArray(new String[0]));
+		BreedT = new JComboBox<String>(breeds.toArray(new String[0]));
 		BreedT.setFont(new Font("Arial", Font.PLAIN, 15));
 		BreedT.setBounds(150,110,300,30);
 

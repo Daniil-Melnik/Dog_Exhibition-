@@ -8,7 +8,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -25,14 +24,13 @@ public class NewJudgeBreedGUI {
 	private JLabel BreedL;
 	private JLabel titleJudge;
     private JLabel titleBreed;
-	
-	private JTextField name_text;
-	private JButton name_ser;
-	private JLabel title_label;
 
 	public void show (final JTable table1)
 	{
 		String regex_person_name = "^[А-Я]{1}[а-я]*( ){1}[А-Я]{1}[а-я]*(\\-[А-Я]{1}[а-я]*)?( {1}[0-9]+)?$";
+		String regex_breed_title = "^[А-Я]{1}[а-я]+( {1}[а-я]+)?(\\-{1}[А-Я]{1}[а-я]+)?$";
+
+		Pattern pattern_dog_name = Pattern.compile(regex_breed_title);
         Pattern pattern_person_name = Pattern.compile(regex_person_name);
 		final ArrayList<Breed> BreedList = new ArrayList<>();
         final ArrayList<Judge> JudgeList = new ArrayList<>();
@@ -115,42 +113,48 @@ public class NewJudgeBreedGUI {
 				if(matcher.matches()){
 					String breedName = BreedT.getText();
 
-				List<Judge> jdL = JudgeDao.getJudges();
-				List<Breed> brL = BreedDao.getBreeds();
+					Matcher matcher_1 = pattern_dog_name.matcher(breedName);
+					if (matcher_1.matches()){
+						List<Judge> jdL = JudgeDao.getJudges();
+						List<Breed> brL = BreedDao.getBreeds();
 
-				boolean notJudgeExist = true;
-				boolean notBreedExist = true;
+						boolean notJudgeExist = true;
+						boolean notBreedExist = true;
 
-				for (int i =0; i<brL.size(); i++){
-					if(brL.get(i).getTitle().equals(breedName)){
-						notBreedExist = false;
-					}
-				}
+						for (int i =0; i<brL.size(); i++){
+							if(brL.get(i).getTitle().equals(breedName)){
+								notBreedExist = false;
+							}
+						}
 
-				for (int i =0; i<jdL.size(); i++){
-					if(jdL.get(i).getName().equals(judgeName)){
-						notJudgeExist = false;
-					}
-				}	
-				
-				if(notJudgeExist){
-					if(notBreedExist){
-						int breedID = BreedDao.addBreed(breedName);
-						int judgeID = JudgeDao.addJudge(judgeName, BreedDao.findBreed(breedID));
-						JudgeList.add(JudgeDao.findJudge(judgeID));
-						((DefaultTableModel) table1.getModel()).getDataVector().removeAllElements();
-						for (int i =0; i<JudgeList.size(); i++){
-							Judge tJ = JudgeList.get(i);
-							((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{tJ.getId(), tJ.getName(), tJ.getBreed().getTitle()});
+						for (int i =0; i<jdL.size(); i++){
+							if(jdL.get(i).getName().equals(judgeName)){
+								notJudgeExist = false;
+							}
+						}	
+						
+						if(notJudgeExist){
+							if(notBreedExist){
+								int breedID = BreedDao.addBreed(breedName);
+								int judgeID = JudgeDao.addJudge(judgeName, BreedDao.findBreed(breedID));
+								JudgeList.add(JudgeDao.findJudge(judgeID));
+								((DefaultTableModel) table1.getModel()).getDataVector().removeAllElements();
+								for (int i =0; i<JudgeList.size(); i++){
+									Judge tJ = JudgeList.get(i);
+									((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{tJ.getId(), tJ.getName(), tJ.getBreed().getTitle()});
+								}
+							}
+							else{
+								JOptionPane.showMessageDialog(aA, "Название породы занято");
+							}
+						}
+						else{
+							JOptionPane.showMessageDialog(aA, "Имя судьи занято");
 						}
 					}
 					else{
-						JOptionPane.showMessageDialog(aA, "Название породы занято");
+						JOptionPane.showMessageDialog(aA, "Название породы начинается с одной заглавной буквы, может содержать два слова с заглавной буквы разделённые дефисом без пробелов.");
 					}
-				}
-				else{
-					JOptionPane.showMessageDialog(aA, "Имя судьи занято");
-				}
 				}						
 				else{
 					JOptionPane.showMessageDialog(aA, "Имя владельца содержит имя и фамилию с заглавных букв разделённые ОДНИМ пробелом, в фамилии возможен один дефис. Возможно добавление числового индекса через пробел от фамилии.");

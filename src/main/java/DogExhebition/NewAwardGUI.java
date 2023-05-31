@@ -16,17 +16,11 @@ import javax.swing.table.DefaultTableModel;
 public class NewAwardGUI {
 	private JFrame aA;
 	private JButton apply;
-	private JTextField OwnerNameT;
 	private JTextField DogNameT;
-	private JComboBox AwardT;
-	private JLabel OwnerNameL;
+	private JComboBox<String> AwardT;
 	private JLabel DogNameL;
 	private JLabel AwardL;
 	private JLabel title;
-	
-	private JTextField name_text;
-	private JButton name_ser;
-	private JLabel title_label;
 	
 	private JTextField idT;
 	private JLabel idL;
@@ -57,7 +51,7 @@ public class NewAwardGUI {
 		
 		
 		String awards[] = {"Большая кость в золотом","Большая кость в светлом","Большая кость в тёмном","Малая кость в золотом", "Малая кость в светлом", "Малая кость в тёмном"};
-		AwardT = new JComboBox(awards);
+		AwardT = new JComboBox<String>(awards);
 		AwardT.setFont(new Font("Arial", Font.PLAIN, 15));
 		AwardT.setBounds(150,110,300,30);
 		
