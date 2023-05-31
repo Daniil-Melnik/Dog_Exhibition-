@@ -8,11 +8,10 @@ import java.util.*;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.*;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
-
-import com.itextpdf.text.pdf.PdfWriter;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -431,6 +430,7 @@ public class DogGUI {
 					com.itextpdf.text.Font font1=new com.itextpdf.text.Font(bf,15,Font.PLAIN);
 					com.itextpdf.text.Font font2=new com.itextpdf.text.Font(bf,15,Font.BOLD);
 					com.itextpdf.text.Font font3=new com.itextpdf.text.Font(bf,20,Font.CENTER_BASELINE);
+
 					JFileChooser fileChooser = new JFileChooser();
 		
 					fileChooser.setCurrentDirectory(new File("."));
@@ -446,21 +446,27 @@ public class DogGUI {
 						{
 							fileName += ".pdf";
 						}
+
 						Document document = new Document();
+
+						
 						PdfWriter.getInstance(document, new FileOutputStream(fileName));
 						document.open();
+
+						String para_1 = "Выставочные собаки"; 
+						Paragraph para = new Paragraph (para_1,font3);
+						para.setAlignment(Element.ALIGN_CENTER);
+						document.add(para); 
 						PdfPTable pdfTable = new PdfPTable(tableModel.getColumnCount());
-						//JOptionPane.showMessageDialog (a, tableModel.getColumnCount());
-						
+						Paragraph p = new Paragraph(" ",font3);
+						p.setAlignment(0);
+						document.add(p);
 						
 		
-						//Font headerFont = FontFactory.getFont(FontFactory.HELVETICA, 10, BaseColor.BLACK);
 						com.itextpdf.text.Font headerFont = font2;
 						String[] headersPdfExport = {"\nID\n\n", "\nКличка", "\nПорода", "\nНаграды(+/-)"};
 		
-						Paragraph p = new Paragraph("Выставочные собаки",font3);
-						p.setAlignment(0);
-						document.add(p);
+						
 						
 						for (int i = 0; i < tableModel.getColumnCount(); i++) 
 						{
@@ -475,7 +481,7 @@ public class DogGUI {
 						com.itextpdf.text.Font dataFont = font1;
 						
 						// Set custom widths for each row 
-						float[] columnWidths = new float[] {0.45f, 0.45f, 0.45f, 0.45f};
+						float[] columnWidths = new float[] {0.2f, 0.8f, 0.8f, 0.8f};
 						pdfTable.setWidths(columnWidths);
 						
 						// Add table data
@@ -490,7 +496,7 @@ public class DogGUI {
 								}
 								else
 								{
-									data.setBackgroundColor(BaseColor.WHITE);
+									data.setBackgroundColor(BaseColor.LIGHT_GRAY);
 								}
 								data.setBorderWidth(1);
 								data.setHorizontalAlignment(Element.ALIGN_LEFT);

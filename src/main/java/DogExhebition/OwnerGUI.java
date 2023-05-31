@@ -294,8 +294,13 @@ public class OwnerGUI {
 							//Font headerFont = FontFactory.getFont(FontFactory.HELVETICA, 10, BaseColor.BLACK);
 							com.itextpdf.text.Font headerFont = font2;
 							String[] headersPdfExport = {"\nID\n\n","\nИмя владельца" , "\nКличка", "\nПорода"};
-			
-							Paragraph p = new Paragraph("Владельцы",font3);
+							
+
+							String para_1 = "Владельцы собак"; 
+							Paragraph para = new Paragraph (para_1,font3);
+							para.setAlignment(Element.ALIGN_CENTER);
+							document.add(para); 
+							Paragraph p = new Paragraph(" ",font3);
 							p.setAlignment(0);
 							document.add(p);
 							
@@ -312,7 +317,7 @@ public class OwnerGUI {
 							com.itextpdf.text.Font dataFont = font1;
 							
 							// Set custom widths for each row 
-							float[] columnWidths = new float[] {0.3f, 0.75f, 0.3f, 0.45f};
+							float[] columnWidths = new float[] {0.2f, 0.75f, 0.5f, 0.35f};
 							pdfTable.setWidths(columnWidths);
 							
 							// Add table data

@@ -342,8 +342,11 @@ public class RefereeGUI {
 							//Font headerFont = FontFactory.getFont(FontFactory.HELVETICA, 10, BaseColor.BLACK);
 							com.itextpdf.text.Font headerFont = font2;
 							String[] headersPdfExport = {"\nID\n\n","\nИмя судьи" , "\nОбслуживаемая порода"};
-			
-							Paragraph p = new Paragraph("Судьи",font3);
+							String para_1 = "Судьи"; 
+							Paragraph para = new Paragraph (para_1,font3);
+							para.setAlignment(Element.ALIGN_CENTER);
+							document.add(para); 
+							Paragraph p = new Paragraph(" ",font3);
 							p.setAlignment(0);
 							document.add(p);
 							
@@ -360,7 +363,7 @@ public class RefereeGUI {
 							com.itextpdf.text.Font dataFont = font1;
 							
 							// Set custom widths for each row 
-							float[] columnWidths = new float[] {0.3f, 0.75f, 0.5f};
+							float[] columnWidths = new float[] {0.2f, 0.80f, 0.55f};
 							pdfTable.setWidths(columnWidths);
 							
 							// Add table data
