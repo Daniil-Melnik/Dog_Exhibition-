@@ -134,7 +134,13 @@ public class AwardGUI {
 				tableModel.insertRow(0, new Object[]{DgAr[i].getId(), DgAr[i].getName(), DgAr[i].getAward().getTitle()});
 			}
 		}
-				
+		AwAr.clear();
+		List <Award> aL = AwardDao.getAwards();
+		for (int i=0; i<aL.size(); i++){
+			if(aL.get(i).getId()!=450){
+				AwAr.add(aL.get(i).getTitle());
+			}
+		}
         award_text = new JComboBox<String>(AwAr.toArray(new String[0]));
         award_text.setBounds(350,480,280,30);
 		
@@ -270,12 +276,13 @@ public class AwardGUI {
 		{
 			public void actionPerformed (ActionEvent event)
 			{
-				Dog DogAr[] = DogList.toArray(new Dog[0]);
+				List<Dog> dL = DogDao.getDog();
 				tableModel.setRowCount(0);
-				for (int i =0; i<DogAr.length; i++) {
-					if (DogAr[i].getAward().getTitle().contains(award_text.getSelectedItem().toString())){
-						if (!DogAr[i].getAward().getTitle().contains("Нет")) {
-							tableModel.insertRow(0, new Object[]{DogAr[i].getId(), DogAr[i].getName(), DogAr[i].getAward().getTitle()});
+				for (int i =0; i<dL.size(); i++) {
+					Dog DogAr = dL.get(i);
+					if (DogAr.getAward().getTitle().contains(award_text.getSelectedItem().toString())){
+						if (!DogAr.getAward().getTitle().contains("Нет")) {
+							tableModel.insertRow(0, new Object[]{DogAr.getId(), DogAr.getName(), DogAr.getAward().getTitle()});
 						}
 					}
 				}
@@ -284,13 +291,14 @@ public class AwardGUI {
 		{
 			public void actionPerformed (ActionEvent event)
 			{
-				Dog DogAr[] = DogList.toArray(new Dog[0]);
+				List<Dog> dL = DogDao.getDog();
 				tableModel.getDataVector().removeAllElements();
 				System.out.print(name_text.getText());
-				for (int i =0; i<DogAr.length; i++) {
-					if (DogAr[i].getName().contains(name_text.getText())) {
-						if (!DogAr[i].getAward().getTitle().contains("Нет")) {
-							tableModel.insertRow(0, new Object[]{DogAr[i].getId(), DogAr[i].getName(), DogAr[i].getAward().getTitle()});
+				for (int i =0; i<dL.size(); i++) {
+					Dog DogAr = dL.get(i);
+					if (DogAr.getName().contains(name_text.getText())) {
+						if (!DogAr.getAward().getTitle().contains("Нет")) {
+							tableModel.insertRow(0, new Object[]{DogAr.getId(), DogAr.getName(), DogAr.getAward().getTitle()});
 						}
 					}
 				}

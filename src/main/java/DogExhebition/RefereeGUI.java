@@ -285,12 +285,12 @@ public class RefereeGUI {
 
 				Matcher matcher = pattern_person_name.matcher(judge_text.getText());
 				if(matcher.matches()){
-					Judge JudgeAr[] = JudgeList.toArray(new Judge[0]);
+					List<Judge> jL= JudgeDao.getJudges();
 					tableModel.setNumRows(0);
-					System.out.print(judge_text.getText());
-					for (int i =0; i<JudgeAr.length; i++) {
-						if (JudgeAr[i].getName().contains(judge_text.getText())) {
-							tableModel.insertRow(0, new Object[]{JudgeAr[i].getId(), JudgeAr[i].getName(), JudgeAr[i].getBreed().getTitle()});
+					for (int i =0; i<jL.size(); i++) {
+						Judge JudgeAr = jL.get(i);
+						if (JudgeAr.getName().contains(judge_text.getText())) {
+							tableModel.insertRow(0, new Object[]{JudgeAr.getId(), JudgeAr.getName(), JudgeAr.getBreed().getTitle()});
 						}
 					}
 				}						

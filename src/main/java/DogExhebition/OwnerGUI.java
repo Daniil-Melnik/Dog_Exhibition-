@@ -223,12 +223,14 @@ public class OwnerGUI {
 			{
 				Matcher matcher = pattern_person_name.matcher(owner_text.getText());
 				if(matcher.matches()){
-					Owner OwnerAr[] = OwnerList.toArray(new Owner[0]);
+
+					List<Owner> oL= OwnerDao.getOwners();
 					tableModel.setNumRows(0);
 					System.out.print(owner_text.getText());
-					for (int i =0; i<OwnerAr.length; i++) {
-						if (OwnerAr[i].getName().contains(owner_text.getText())) {
-							tableModel.insertRow(0, new Object[]{OwnerAr[i].getId(), OwnerAr[i].getName(), OwnerAr[i].getDog().getBreed().getTitle()});
+					for (int i =0; i<oL.size(); i++) {
+						Owner OwnerAr = oL.get(i);
+						if (OwnerAr.getName().contains(owner_text.getText())) {
+							tableModel.insertRow(0, new Object[]{OwnerAr.getId(), OwnerAr.getName(), OwnerAr.getDog().getBreed().getTitle()});
 						}
 					}
 				}						
