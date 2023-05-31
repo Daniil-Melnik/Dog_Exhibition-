@@ -120,7 +120,7 @@ public class BreedGUI {
 			OwnerList.add(tO.get(i));
 		}
         
-            System.out.print(BreedList.get(0).getTitle());
+        System.out.print(BreedList.get(0).getTitle());
         
 		a.setIconImage(new ImageIcon("src/main/java/breed.png").getImage());
 		toolBar = new JToolBar("instruments");
