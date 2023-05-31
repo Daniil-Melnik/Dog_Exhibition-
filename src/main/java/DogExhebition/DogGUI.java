@@ -313,43 +313,40 @@ public class DogGUI {
 					int tabelIndex = 0;
 					tabelIndex = table1.getSelectedRow();
 					int tabelIndexArr[] = table1.getSelectedRows();
-					//System.out.println("tableIndex = "+tabelIndex);
-					// System.out.println("tabelIndex = "+tabelIndex);
-					for (int k =0; k<tabelIndexArr.length; k++){
-
-						tabelIndex = tabelIndexArr[k];
-						int index = Integer.parseInt(table1.getValueAt(tabelIndex, 0).toString());
-						//System.out.println("delDog = "+index);
-							Owner delOwner = null;
-							for (int i = 0; i<OwnerList.size(); i++){
-								if (OwnerList.get(i).getDog().getId() == index){
-									delOwner = OwnerList.get(i); 
+					if(JOptionPane.showConfirmDialog(aA, "Вы точно хотите удалить из базы этих собак?\nДействие необратимо и повлечёт удаление их владельцев.")==0){
+						for (int k =0; k<tabelIndexArr.length; k++){
+							tabelIndex = tabelIndexArr[k];
+							int index = Integer.parseInt(table1.getValueAt(tabelIndex, 0).toString());
+								Owner delOwner = null;
+								for (int i = 0; i<OwnerList.size(); i++){
+									if (OwnerList.get(i).getDog().getId() == index){
+										delOwner = OwnerList.get(i); 
+									}
+								}
+								System.out.println("delOwner = "+delOwner.getId());
+								System.out.println("delDog = " + index);
+								
+								OwnerDao.deleteOwner(delOwner.getId());
+								DogDao.deleteDog(index);
+								
+								OwnerList.clear();
+								List<Owner> OwL = OwnerDao.getOwners();
+								for (int i =0; i<OwL.size(); i++){
+									OwnerList.add(OwL.get(i));
 								}
 							}
-							System.out.println("delOwner = "+delOwner.getId());
-							System.out.println("delDog = " + index);
-							
-							OwnerDao.deleteOwner(delOwner.getId());
-							DogDao.deleteDog(index);
-							
-							// ((DefaultTableModel) table1.getModel()).getDataVector().removeAllElements();
-							OwnerList.clear();
-							List<Owner> OwL = OwnerDao.getOwners();
-							for (int i =0; i<OwL.size(); i++){
-								OwnerList.add(OwL.get(i));
-							}
+							tableModel.getDataVector().removeAllElements();
+							List<Dog> dD = DogDao.getDog();
+							for (int i =0; i<dD.size() ;i++) {
+								Dog DgAr = dD.get(i);
+								if(DgAr.getAward().getId()==450) {
+									((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{DgAr.getId(), DgAr.getName(), DgAr.getBreed().getTitle() , "-"});
+								}
+								else {
+									((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{DgAr.getId(), DgAr.getName(), DgAr.getBreed().getTitle() , "+"});
+								}
+							}	
 						}
-					tableModel.getDataVector().removeAllElements();
-					List<Dog> dD = DogDao.getDog();
-					for (int i =0; i<dD.size() ;i++) {
-						Dog DgAr = dD.get(i);
-						if(DgAr.getAward().getId()==450) {
-							((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{DgAr.getId(), DgAr.getName(), DgAr.getBreed().getTitle() , "-"});
-						}
-						else {
-							((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{DgAr.getId(), DgAr.getName(), DgAr.getBreed().getTitle() , "+"});
-						}
-					}	
 			}});
 		
 		returnb.addActionListener(new ActionListener()

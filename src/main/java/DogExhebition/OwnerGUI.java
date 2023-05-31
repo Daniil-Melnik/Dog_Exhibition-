@@ -14,7 +14,6 @@ import java.util.regex.Pattern;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
-//import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.*;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
@@ -237,26 +236,27 @@ public class OwnerGUI {
 			public void actionPerformed (ActionEvent event)
 			{
 					int tabelIndexArr[] = table1.getSelectedRows();
-
-					for (int k=0; k<tabelIndexArr.length; k++){
-						int tabelIndex = tabelIndexArr[k];
-						int index = Integer.parseInt(table1.getValueAt(tabelIndex, 0).toString());
-					
-						Owner delOwner = OwnerDao.findOwner(index);
-						Dog delDog = DogDao.findDog(delOwner.getDog().getId());
-						DogDao.deleteDog(delDog.getId());
-						OwnerDao.deleteOwner(delOwner.getId());
-					}
-
-					List<Owner> tO = null;
-					tO=OwnerDao.getOwners();
-							
-					((DefaultTableModel) table1.getModel()).getDataVector().removeAllElements();
-							
-					for (int i =0; i<tO.size(); i++) {
-						Owner tOd = tO.get(i);
-						((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{tOd.getId(), tOd.getName(), tOd.getDog().getName(), tOd.getDog().getBreed().getTitle()});
-					}
+					if(JOptionPane.showConfirmDialog(a, "Вы точно хотите удалить из базы этих владельцев?\nДействие необратимо и повлечёт удаление из базы их собак.")==0){
+						for (int k=0; k<tabelIndexArr.length; k++){
+							int tabelIndex = tabelIndexArr[k];
+							int index = Integer.parseInt(table1.getValueAt(tabelIndex, 0).toString());
+						
+							Owner delOwner = OwnerDao.findOwner(index);
+							Dog delDog = DogDao.findDog(delOwner.getDog().getId());
+							DogDao.deleteDog(delDog.getId());
+							OwnerDao.deleteOwner(delOwner.getId());
+						}
+	
+						List<Owner> tO = null;
+						tO=OwnerDao.getOwners();
+								
+						((DefaultTableModel) table1.getModel()).getDataVector().removeAllElements();
+								
+						for (int i =0; i<tO.size(); i++) {
+							Owner tOd = tO.get(i);
+							((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{tOd.getId(), tOd.getName(), tOd.getDog().getName(), tOd.getDog().getBreed().getTitle()});
+						}
+					}					
 			}});
 			export.addActionListener(new ActionListener()
 			{
