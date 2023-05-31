@@ -224,7 +224,8 @@ public class NewOwnerDogGUI {
 									Owner OwAr[] = OwnerList.toArray(new Owner[0]);
 									for (int i =0; i<OwAr.length; i++) {
 										((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{OwAr[i].getId(), OwAr[i].getName(), OwAr[i].getDog().getName(), OwAr[i].getDog().getBreed().getTitle()});
-									}	
+									}
+									aA.dispose();	
 								}
 								else{
 									JOptionPane.showMessageDialog(aA, "Имя владельца занято");

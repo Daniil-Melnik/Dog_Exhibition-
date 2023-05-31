@@ -84,6 +84,7 @@ public class NewAwardGUI {
 				Object [] ar = {idT.getText(),DogNameT.getText()};
 		        DefaultTableModel model = (DefaultTableModel) table1.getModel();
 		        model.addRow(ar);
+				aA.dispose();
 			}});
 		
 		aA.add(AwardT);

@@ -70,6 +70,7 @@ public class NewBreedGUI {
 				DefaultTableModel model = (DefaultTableModel) table1.getModel();
 				Object [] ar = {tempBreed.getId(), tempBreed.getTitle()};
 		        model.addRow(ar);
+				aA.dispose();
 			}});
 		
 		aA.add(apply);

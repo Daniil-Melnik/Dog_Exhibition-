@@ -235,6 +235,7 @@ public class NewDogOwnerGUI {
 											((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{DgAr[i].getId(), DgAr[i].getName(), DgAr[i].getBreed().getTitle() , "+"});
 										}
 									}
+									aA.dispose();
 								}
 								else{
 									JOptionPane.showMessageDialog(aA, "Имя владельца занято");

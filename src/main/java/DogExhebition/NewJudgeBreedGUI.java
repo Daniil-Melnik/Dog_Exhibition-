@@ -143,6 +143,7 @@ public class NewJudgeBreedGUI {
 									Judge tJ = JudgeList.get(i);
 									((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{tJ.getId(), tJ.getName(), tJ.getBreed().getTitle()});
 								}
+								aA.dispose();
 							}
 							else{
 								JOptionPane.showMessageDialog(aA, "Название породы занято");
