@@ -193,12 +193,13 @@ public class DogGUI {
 		{
 			public void actionPerformed (ActionEvent event)
 			{
-				Dog DogAr[] = DogList.toArray(new Dog[0]);
+				List<Dog> dL= DogDao.getDog();
 				tableModel.getDataVector().removeAllElements();
 				System.out.print(name_text.getText());
-				for (int i =0; i<DogAr.length; i++) {
-					if (DogAr[i].getAward().getId()!=450) {
-						tableModel.insertRow(0, new Object[]{DogAr[i].getId(), DogAr[i].getName(), DogAr[i].getBreed().getTitle() , "+"});
+				for (int i =0; i<dL.size(); i++) {
+					Dog DogAr = dL.get(i);
+					if (DogAr.getAward().getId()!=450) {
+						tableModel.insertRow(0, new Object[]{DogAr.getId(), DogAr.getName(), DogAr.getBreed().getTitle() , "+"});
 					}
 				}
 			}});
@@ -213,18 +214,19 @@ public class DogGUI {
 		{
 			public void actionPerformed (ActionEvent event)
 			{
-				Dog DogAr[] = DogList.toArray(new Dog[0]);
+				List<Dog> dL= DogDao.getDog();
 				tableModel.getDataVector().removeAllElements();
 				String a1;
-				for (int i =0; i<DogAr.length; i++) {
-					if (DogAr[i].getBreed().getTitle().contains(breed_text.getSelectedItem().toString())) {
-						if (DogAr[i].getAward().getId()==450) {
+				for (int i =0; i<dL.size(); i++) {
+					Dog DogAr = dL.get(i);
+					if (DogAr.getBreed().getTitle().contains(breed_text.getSelectedItem().toString())) {
+						if (DogAr.getAward().getId()==450) {
 							a1 = "-";
 						}
 						else {
 							a1="+";
 						}
-						tableModel.insertRow(0, new Object[]{DogAr[i].getId(), DogAr[i].getName(), DogAr[i].getBreed().getTitle() , a1});
+						tableModel.insertRow(0, new Object[]{DogAr.getId(), DogAr.getName(), DogAr.getBreed().getTitle() , a1});
 					}
 				}
 			}});
@@ -241,20 +243,22 @@ public class DogGUI {
 				
 				Matcher matcher_1 = pattern_dog_name.matcher(name_text.getText());
 				if(matcher_1.matches()){
-					Dog DogAr[] = DogList.toArray(new Dog[0]);
+
+					List<Dog> dL = DogDao.getDog();  
 					tableModel.getDataVector().removeAllElements();
 					String a1;
 					System.out.print(name_text.getText());
-					for (int i =0; i<DogAr.length; i++) {
-						if (DogAr[i].getName().contains(name_text.getText())) {
+					for (int i =0; i<dL.size(); i++) {
+						Dog DgAr = dL.get(i);
+						if (DgAr.getName().contains(name_text.getText())) {
 							
-							if (DogAr[i].getAward().getId()==450) {
+							if (DgAr.getAward().getId()==450) {
 								a1 = "-";
 							}
 							else {
 								a1="+";
 							}
-							tableModel.insertRow(0, new Object[]{DogAr[i].getId(), DogAr[i].getName(), DogAr[i].getBreed().getTitle() , a1});
+							tableModel.insertRow(0, new Object[]{DgAr.getId(), DgAr.getName(), DgAr.getBreed().getTitle() , a1});
 						}
 					}	
 				}
