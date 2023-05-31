@@ -146,7 +146,8 @@ public class RefereeGUI {
 		delete.setToolTipText("Удалить");
 		add.setToolTipText("Добавить");
 		edit.setToolTipText("Изменить");
-		export.setToolTipText("Экспортировать в файл");
+		export.setToolTipText("Создать PDF-отчёт");
+		returnb.setToolTipText("Обновить таблицу");
 		
 		Object[][] array = new String[][] {};
         Object[] columns = new String[] {"id", "Имя судьи", "Обслуживаемые породы"};

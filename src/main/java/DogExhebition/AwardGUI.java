@@ -37,10 +37,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class AwardGUI {
 	
-	private JButton edit;
 	private JButton export;
-	private JButton add;
-	private JButton delete;
 	private JToolBar toolBar;
 	private JComboBox<String> award_text;
 	private JButton award_ser;
@@ -91,25 +88,16 @@ public class AwardGUI {
 		title_label.setFont(new Font("Arial", Font.PLAIN, 60));
 		title_label.setBounds(600,20,500,65);
 		a.add(title_label);
-		
-		add = new JButton(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//add5.png"));
-
-		delete = new JButton(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//delete5.png"));
-		
+				
 		returnb = new JButton(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//return.png"));
 	
 		export = new JButton(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//export.png"));
-
-		edit = new JButton(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//edit.png"));
 		
 		toolBar.add(export);
 		toolBar.add(returnb);
 
-		
-		delete.setToolTipText("Удалить");
-		add.setToolTipText("Добавить");
-		edit.setToolTipText("Изменить");
-		export.setToolTipText("Экспортировать в файл");
+		export.setToolTipText("Создать PDF-отчёт");
+		returnb.setToolTipText("Обновить таблицу");
 		
 		Object[][] array = new String[][] {};
         Object[] columns = new String[] {"id", "Кличка собаки", "Награда"};
@@ -126,12 +114,7 @@ public class AwardGUI {
         for (int i =0; i<array.length; i++) {
         	 tableModel.insertRow(0, array[i]);
         }
-        add.addActionListener(new ActionListener()
-		{
-			public void actionPerformed (ActionEvent event)
-			{
-				new NewAwardGUI().show(table1, AwardList, DogList);
-			}});
+
 		
         table1.getColumn("id").setPreferredWidth(30);
         table1.getColumn("Награда").setPreferredWidth(400);

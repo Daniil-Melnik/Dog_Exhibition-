@@ -145,7 +145,8 @@ public class BreedGUI {
 		
 		delete.setToolTipText("Удалить");
 		add.setToolTipText("Добавить");
-		export.setToolTipText("Экспортировать в файл");
+		export.setToolTipText("Создать PDF-отчёт");
+		returnb.setToolTipText("Обновить таблицу");
 		
 		
 		
