@@ -106,7 +106,13 @@ public class AwardGUI {
 		
         
         final DefaultTableModel tableModel = new DefaultTableModel();
-        final JTable table1 = new JTable(tableModel);
+		final JTable table1 = new JTable(tableModel){
+            private static final long serialVersionUID = 1L;
+
+            public boolean isCellEditable(int row, int column) {                
+                    return false;               
+            };
+        };
         table1.setBounds(0, 120, 1000, 300);
         for (int i=0; i<columns.length; i++) {
         	tableModel.addColumn(columns[i]);

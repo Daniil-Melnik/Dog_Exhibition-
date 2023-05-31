@@ -54,6 +54,7 @@ public class BreedGUI {
 	
 	public void show(){
 		final JFrame a = new JFrame("Породы");
+		
             
 		final ArrayList<Breed> BreedList = new ArrayList<>();
         final ArrayList<Award> AwardList = new ArrayList<>();

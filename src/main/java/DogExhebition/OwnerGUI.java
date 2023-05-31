@@ -137,7 +137,13 @@ public class OwnerGUI {
         
         
         final DefaultTableModel tableModel = new DefaultTableModel();
-        final JTable table1 = new JTable(tableModel);
+        final JTable table1 = new JTable(tableModel){
+            private static final long serialVersionUID = 1L;
+
+            public boolean isCellEditable(int row, int column) {                
+                    return false;               
+            };
+        };
         
         for (int i=0; i<columns.length; i++) {
         	tableModel.addColumn(columns[i]);
