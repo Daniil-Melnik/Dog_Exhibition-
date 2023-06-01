@@ -117,7 +117,7 @@ public class DogGUI {
         
             System.out.print(BreedList.get(0).getTitle());
         
-		a.setIconImage(new ImageIcon("src/main/java/dog_main1.png").getImage());
+		a.setIconImage(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//dog.png").getImage());
 		toolBar = new JToolBar("instruments");
 		toolBar.setBounds(0, 0, 400, 75);
 		

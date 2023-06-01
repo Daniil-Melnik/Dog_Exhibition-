@@ -90,6 +90,7 @@ public class MainGUI {
 			public void actionPerformed (ActionEvent event)
 			{
 				a.dispose();
+				System.exit(0);
 			}});
 		
 		ico_breed = new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//breed.png");
