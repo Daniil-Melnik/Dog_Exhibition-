@@ -180,15 +180,6 @@ public class NewJudgeBreedGUI {
 		aA.setVisible(true);
 	};
 	
-	public Breed findByTitle(Breed BreedArr[], String title) {
-		Breed res = null;
-		for (int i =0; i<BreedArr.length; i++) {
-			if (BreedArr[i].getTitle() == title) {
-				res = BreedArr[i];
-			}
-		}
-		return res;
-	}
 	public static void main(String[] args) {
 		new NewJudgeBreedGUI().show(null);
 	}

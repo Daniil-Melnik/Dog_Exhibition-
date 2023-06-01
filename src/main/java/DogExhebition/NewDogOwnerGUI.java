@@ -257,36 +257,7 @@ public class NewDogOwnerGUI {
 		
 		
 	};
-	
-	public Dog findDogByDogID(Dog DgAr[], int dogid) {
-		Dog res = null;
-		for (int i =0; i<DgAr.length; i++) {
-			if (DgAr[i].getId()==dogid) {
-				res = DgAr[i];
-			}
-		}
-		return res;
-	}
-	
-	public Breed findByID(Breed BreedArr[], int id) {
-		Breed res = null;
-		for (int i =0; i<BreedArr.length; i++) {
-			if (BreedArr[i].getId() == id) {
-				res = BreedArr[i];
-			}
-		}
-		return res;
-	}
-	public Award findByID(Award AwardArr[], int id) {
-		Award res = new Award();
-		for (int i =0; i<AwardArr.length; i++) {
-			if (AwardArr[i].getId() == id) {
-				res = AwardArr[i];
-			}
-		}
-		return res;
-	}
-	
+		
 	public static Breed findByTitle(Breed BreedArr[], String title) {
 		Breed res = null;
 		for (int i =0; i<BreedArr.length; i++) {

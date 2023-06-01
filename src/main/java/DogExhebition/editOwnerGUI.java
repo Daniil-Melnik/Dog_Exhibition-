@@ -224,64 +224,6 @@ public class editOwnerGUI {
 		return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
 	  }
 	
-	public int FindNumDogByDogID(Dog poorDogs[], int id) {
-		int res = -1;
-		for (int i =0; i<poorDogs.length; i++) {
-			if (poorDogs[i].getId()==id) {
-				res = i;
-			}
-		}
-		return res;
-	}
-	
-	public Dog findByID(Dog doglist[], int id) {
-		Dog res = null;
-		for (int i =0; i<doglist.length; i++) {
-			if (doglist[i].getId()==id) {
-				res = doglist[i];
-			}
-		}
-		return res;
-	}
-	public Owner findByID(Owner Ownerlist[], int id) {
-		Owner res = null;
-		for (int i =0; i<Ownerlist.length; i++) {
-			if (Ownerlist[i].getId()==id) {
-				res = Ownerlist[i];
-			}
-		}
-		return res;
-	}
-	public Dog findByTitle(Dog doglist[], String name) {
-		Dog res = null;
-		for (int i =0; i<doglist.length; i++) {
-			if (doglist[i].getName().contains(name)) {
-				res = doglist[i];
-			}
-		}
-		return res;
-	}
-	public Breed findByTitle(Breed BreedArr[], String title) {
-		Breed res = null;
-		for (int i =0; i<BreedArr.length; i++) {
-			if (BreedArr[i].getTitle() == title) {
-				res = BreedArr[i];
-			}
-		}
-		return res;
-	}
-	
-	public Owner findOwnerByDogName(Owner OwAr[], String name) {
-		Owner res = null;
-		for (int i=0; i<OwAr.length; i++) {
-			if(OwAr[i].getDog()!=null) {
-				if (OwAr[i].getDog().getName().contains(name)) {
-					res = OwAr[i];
-				}
-			}
-		}
-		return res;
-	}
 	public static void main(String[] args) {
 		new editOwnerGUI().show(null, "старое владельца", null, null);
 	}

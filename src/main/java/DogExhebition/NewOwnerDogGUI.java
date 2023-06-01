@@ -247,43 +247,6 @@ public class NewOwnerDogGUI {
 		
 	};
 	
-	public Dog findDogByDogID(Dog DgAr[], int dogid) {
-		Dog res = null;
-		for (int i =0; i<DgAr.length; i++) {
-			if (DgAr[i].getId()==dogid) {
-				res = DgAr[i];
-			}
-		}
-		return res;
-	}
-	
-	// int findByID(Dog dogs[], int id) {
-	// 	int res=0;
-	// 	for (int i =0; i< dogs.length; i++) {
-	// 		if (dogs[i].getId()==Integer.parseInt(idT.getText())) {
-	// 			res = i;
-	// 		}
-	// 	}
-	// 	return res;
-	// }
-	public Breed findByID(Breed BreedArr[], int id) {
-		Breed res = null;
-		for (int i =0; i<BreedArr.length; i++) {
-			if (BreedArr[i].getId() == id) {
-				res = BreedArr[i];
-			}
-		}
-		return res;
-	}
-	public Award findByID(Award AwardArr[], int id) {
-		Award res = new Award();
-		for (int i =0; i<AwardArr.length; i++) {
-			if (AwardArr[i].getId() == id) {
-				res = AwardArr[i];
-			}
-		}
-		return res;
-	}
 
 	public static Breed findByTitle_Breed(Breed BreedArr[], String title) {
 		Breed res = null;
@@ -304,24 +267,7 @@ public class NewOwnerDogGUI {
 		return res;
 	}
 	
-	public Breed findByTitle(Breed BreedArr[], String title) {
-		Breed res = null;
-		for (int i =0; i<BreedArr.length; i++) {
-			if (BreedArr[i].getTitle() == title) {
-				res = BreedArr[i];
-			}
-		}
-		return res;
-	}
-	public Award findByTitle(Award AwardArr[], String title) {
-		Award res = new Award();
-		for (int i =0; i<AwardArr.length; i++) {
-			if (AwardArr[i].getTitle() == title) {
-				res = AwardArr[i];
-			}
-		}
-		return res;
-	}
+
 	// public static void main(String[] args) {
 	// 	new NewOwnerDogGUI().show(null);
 	// }

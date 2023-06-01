@@ -365,41 +365,8 @@ public class OwnerGUI {
 		a.setLayout(null);
 		a.setVisible(true);
 	}
-	public Dog findByID(Dog doglist[], int id) {
-		Dog res = null;
-		for (int i =0; i<doglist.length; i++) {
-			if (doglist[i].getId()==id) {
-				res = doglist[i];
-			}
-		}
-		return res;
-	}
 	
-	public Owner findOwnerByDogID(Owner ownerlist[], int dogID) {
-		Owner res = null;
-		for (int i =0; i<ownerlist.length; i++) {
-			if (ownerlist[i].getDog().getId()==dogID) {
-				res = ownerlist[i];
-			}
-		}
-		return res;
-	}
-	
-	public int findByID_num(Owner OwnerArr[], int id) {
-		int res = -1;
-		System.out.println("entered id = "+id);
-		for (int i =0; i<OwnerArr.length; i++) {
-			System.out.println(OwnerArr[i].getId());
-			if (OwnerArr[i].getId() == id) {
-				res = i;
-			}
-		}
-		return res;
-	}
 
-	public static boolean isNumericID(String str) {
-		return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
-	  }
 	public static void main(String[] args) {
 		new OwnerGUI().show();
 	}

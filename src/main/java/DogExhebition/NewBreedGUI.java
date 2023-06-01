@@ -80,32 +80,5 @@ public class NewBreedGUI {
 		aA.setLayout(null);
 		aA.setVisible(true);
 	};
-	public Dog findByID(Dog doglist[], int id) {
-		Dog res = null;
-		for (int i =0; i<doglist.length; i++) {
-			if (doglist[i].getId()==id) {
-				res = doglist[i];
-			}
-		}
-		return res;
-	}
-	public Dog findByTitle(Dog doglist[], String name) {
-		Dog res = null;
-		for (int i =0; i<doglist.length; i++) {
-			if (doglist[i].getName().contains(name)) {
-				res = doglist[i];
-			}
-		}
-		return res;
-	}
-	public Award findByTitle(Award awardlist[], String title) {
-		Award res = null;
-		for (int i =0; i<awardlist.length; i++) {
-			if (awardlist[i].getTitle().contains(title)) {
-				res = awardlist[i];
-			}
-		}
-		return res;
-	}
 
 }

@@ -33,8 +33,6 @@ public class editDogGUI {
 
 	private JCheckBox breedCheck;
 	private JCheckBox awardCheck;
-	
-	private JTextField idT;
 
 	public void show (final JTable table1, int id)
 	{
@@ -287,55 +285,7 @@ public class editDogGUI {
 		return res;
 	}
 	
-	int findByID(Dog dogs[], int id) {
-		int res=0;
-		for (int i =0; i< dogs.length; i++) {
-			if (dogs[i].getId()==Integer.parseInt(idT.getText())) {
-				res = i;
-			}
-		}
-		return res;
-	}
-	public Breed findByID(Breed BreedArr[], int id) {
-		Breed res = null;
-		for (int i =0; i<BreedArr.length; i++) {
-			if (BreedArr[i].getId() == id) {
-				res = BreedArr[i];
-			}
-		}
-		return res;
-	}
-	public Award findByID(Award AwardArr[], int id) {
-		Award res = new Award();
-		for (int i =0; i<AwardArr.length; i++) {
-			if (AwardArr[i].getId() == id) {
-				res = AwardArr[i];
-			}
-		}
-		return res;
-	}
 	
-	public Breed findByTitle(Breed BreedArr[], String title) {
-		Breed res = null;
-		for (int i =0; i<BreedArr.length; i++) {
-			if (BreedArr[i].getTitle() == title) {
-				res = BreedArr[i];
-			}
-		}
-		return res;
-	}
-	public Award findByTitle(Award AwardArr[], String title) {
-		Award res = new Award();
-		for (int i =0; i<AwardArr.length; i++) {
-			if (AwardArr[i].getTitle() == title) {
-				res = AwardArr[i];
-			}
-		}
-		return res;
-	}
-	public static boolean isNumericID(String str) {
-		return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
-	  }
 	public static void main(String[] args) {
 		new editDogGUI().show(null, 0);
 	}

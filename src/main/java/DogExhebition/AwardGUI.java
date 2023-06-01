@@ -308,24 +308,7 @@ public class AwardGUI {
 		a.setLayout(null);
 		a.setVisible(true);
 	}
-	public Award findByID(Award awardlist[], int id) {
-		Award res = null;
-		for (int i =0; i<awardlist.length; i++) {
-			if (awardlist[i].getId()==id) {
-				res = awardlist[i];
-			}
-		}
-		return res;
-	}
-	public Dog findByID(Dog doglist[], int id) {
-		Dog res = null;
-		for (int i =0; i<doglist.length; i++) {
-			if (doglist[i].getId()==id) {
-				res = doglist[i];
-			}
-		}
-		return res;
-	}
+
 	public static void main(String[] args) {
 		new AwardGUI().show();
 	}
