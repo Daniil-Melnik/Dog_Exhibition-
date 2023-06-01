@@ -4,14 +4,6 @@ import java.util.List;
 // import org.hibernate.HibernateException;
 
 public class Application {
-    // public static void main(String args[]){
-    //     AwardDao awardDao = new AwardDao();
-    //     List<Award> BreedList1 = awardDao.getAwards();
-	// 	for (int i =0; i< BreedList1.size(); i++){
-	// 		Award tB = BreedList1.get(i);
-	// 		System.out.println(tB.getId()+" "+tB.getTitle());
-	// 	}
-    // }
     public static void main(String[] args) {
         List<Award> tA = null;
         tA=AwardDao.getAwards();
