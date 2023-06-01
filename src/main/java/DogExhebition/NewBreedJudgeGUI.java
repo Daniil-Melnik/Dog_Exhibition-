@@ -136,6 +136,7 @@ public class NewBreedJudgeGUI {
 						if(notBreedExist){
 							if(notJudgeExist){
 								int breedID = BreedDao.addBreed(breedName);
+								JudgeDao.addJudge(JudgeNameT.getText(), BreedDao.findBreed(breedID));
 								BreedList.add(BreedDao.findBreed(breedID));
 								((DefaultTableModel) table1.getModel()).getDataVector().removeAllElements();
 								for (int i =0; i<BreedList.size(); i++){
