@@ -118,7 +118,7 @@ public class RefereeGUI {
 		for (int i =0; i<helpBreed.length; i++) {
 			BrAr.add(helpBreed[i].getTitle());
 		}
-		a.setIconImage(new ImageIcon("src/main/java/judge.png").getImage());
+		a.setIconImage(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//judge.png").getImage());
 		toolBar = new JToolBar("instruments");
 		toolBar.setBounds(0, 0, 400, 75);
 		

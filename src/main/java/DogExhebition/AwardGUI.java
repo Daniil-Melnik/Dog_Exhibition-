@@ -80,7 +80,7 @@ public class AwardGUI {
 
 
 		final JFrame a = new JFrame("Призы");
-		a.setIconImage(new ImageIcon("src/main/java/award.png").getImage());
+		a.setIconImage(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//award.png").getImage());
 		toolBar = new JToolBar("instruments");
 		toolBar.setBounds(0, 0, 175, 75);
 		

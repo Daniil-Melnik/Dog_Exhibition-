@@ -96,7 +96,7 @@ public class OwnerGUI {
 		}
 		
 		final JFrame a = new JFrame("Владельцы собак");
-		a.setIconImage(new ImageIcon("src/main/java/owner.png").getImage());
+		a.setIconImage(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//owner.png").getImage());
 		toolBar = new JToolBar("instruments");
 		toolBar.setBounds(0, 0, 400, 75);
 		
