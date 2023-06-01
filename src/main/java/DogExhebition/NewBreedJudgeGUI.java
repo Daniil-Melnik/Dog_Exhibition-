@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -62,6 +63,7 @@ public class NewBreedJudgeGUI {
 		aA = new JFrame("");
 		aA.setTitle("Добавить судью");
 		aA.setSize(1000, 280);
+		aA.setIconImage(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//add5.png").getImage());
 		
 		final ArrayList<String> BrAr = new ArrayList<>();
 		Breed helpBreed [] = BreedList.toArray(new Breed[0]);
@@ -148,7 +150,7 @@ public class NewBreedJudgeGUI {
 							else{
 								JOptionPane.showMessageDialog(aA, "Имя судьи занято");
 							}
-						}
+						} 
 						else{
 							JOptionPane.showMessageDialog(aA, "Название породы занято");
 						}

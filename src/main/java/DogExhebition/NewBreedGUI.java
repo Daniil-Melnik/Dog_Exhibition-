@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -28,6 +29,7 @@ public class NewBreedGUI {
 		aA = new JFrame("");
 		aA.setTitle("Добавить породу");
 		aA.setSize(500, 235);
+		aA.setIconImage(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//add5.png").getImage());
 		
 		title = new JLabel("добавить породу");
 		title.setBounds(175, 20, 200, 30);
@@ -70,7 +72,7 @@ public class NewBreedGUI {
 				DefaultTableModel model = (DefaultTableModel) table1.getModel();
 				Object [] ar = {tempBreed.getId(), tempBreed.getTitle()};
 		        model.addRow(ar);
-				aA.dispose();
+				aA.dispose(); 
 			}});
 		
 		aA.add(apply);

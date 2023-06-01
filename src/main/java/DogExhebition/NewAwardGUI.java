@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -30,6 +31,8 @@ public class NewAwardGUI {
 		aA = new JFrame("");
 		aA.setTitle("Добавить призёра");
 		aA.setSize(500, 300);
+
+		aA.setIconImage(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//add5.png").getImage());
 		
 		title = new JLabel("добавить призёра");
 		title.setBounds(175, 20, 200, 30);
@@ -85,7 +88,7 @@ public class NewAwardGUI {
 		        DefaultTableModel model = (DefaultTableModel) table1.getModel();
 		        model.addRow(ar);
 				aA.dispose();
-			}});
+			}}); 
 		
 		aA.add(AwardT);
 		aA.add(AwardL);

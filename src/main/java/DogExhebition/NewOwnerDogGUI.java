@@ -107,7 +107,7 @@ public class NewOwnerDogGUI {
 		aA = new JFrame("");
 		aA.setTitle("Добавить собаку с владельцем");
 		aA.setSize(1200, 300);
-		aA.setIconImage(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//dog15.png").getImage());
+		aA.setIconImage(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//add5.png").getImage());
 		
 		title_dog = new JLabel("Добавить собаку");
 		title_dog.setBounds(800, 20, 200, 30);
@@ -242,7 +242,7 @@ public class NewOwnerDogGUI {
 					else{
 						JOptionPane.showMessageDialog(aA, "Имя владельца на русском языке содержит имя и фамилию с заглавных букв разделённые ОДНИМ пробелом.\nВ фамилии возможен один дефис.\nВозможно добавление числового индекса через пробел от фамилии.");
 					}
-			}});
+			}}); 
 		
 		
 	};
