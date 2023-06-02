@@ -161,10 +161,8 @@ public class editRefGUI {
 				
 				Matcher matcher = pattern_person_name.matcher(judgeName);
 				if(matcher.matches()){
-				boolean notJudgeExist = true;
 
 				Breed firstBreed = edJudge.getBreed();
-				Judge edJudge = JudgeDao.findJudge(id);
 
 				Breed secondBreed = null;;				
 				if(breedCheck.isSelected()){

@@ -35,7 +35,7 @@ import javax.swing.table.DefaultTableModel;
 public class BreedGUI {
 	protected static final JOptionPane JOptionPanel = null;
 	private JButton export;
-	private JButton add;
+	private JButton info;
 	private JButton delete;
 	private JButton returnb;
 	private JToolBar toolBar;
@@ -92,10 +92,7 @@ public class BreedGUI {
 
         List<Owner> tO = null;
         tO=OwnerDao.getOwners();
-        // for (int i =0; i<tO.size(); i++){
-        //     Owner jB = tO.get(i);
-        //     System.out.println(jB.getId() + " " + jB.getName()+" "+jB.getDog().getName()+" "+jB.getDog().getBreed().getTitle());
-        // }
+
 
         List<Judge> tJ = null;
         tJ=JudgeDao.getJudges();
@@ -129,7 +126,7 @@ public class BreedGUI {
 		title_label.setBounds(600,20,500,60);
 		a.add(title_label);
 		
-		add = new JButton(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//add5.png"));
+		info = new JButton(new ImageIcon("C://Users//danii//OneDrive//Документы//GitHub//Dog_Exhibition-//images//clipboard.png"));
 
 		delete = new JButton(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//delete5.png"));
 		
@@ -137,13 +134,14 @@ public class BreedGUI {
 		
 		export = new JButton(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//export.png"));
 		
-		toolBar.add(add);
+		
 		toolBar.add(delete);
 		toolBar.add(export);
+		toolBar.add(info);
 		toolBar.add(returnb);
 		
 		delete.setToolTipText("Удалить");
-		add.setToolTipText("Добавить");
+		info.setToolTipText("Подробно о породе");
 		export.setToolTipText("Создать PDF-отчёт");
 		returnb.setToolTipText("Обновить таблицу");
 		
@@ -260,11 +258,11 @@ public class BreedGUI {
 		a.setVisible(true);
 
 		
-		add.addActionListener(new ActionListener()
+		info.addActionListener(new ActionListener()
 		{
 			public void actionPerformed (ActionEvent event)
 			{
-				new NewBreedJudgeGUI().show(table1);
+				
 			}});
 		//##############################################################
 		delete.addActionListener(new ActionListener()
