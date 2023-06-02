@@ -124,7 +124,7 @@ public class editRefGUI {
 				brStr.add(brL.get(i).getTitle());
 			}
 		}
-		//String breeds[] = {};
+
 		BreedT = new JComboBox<String>(brStr.toArray(new String[0]));
 		BreedT.setFont(new Font("Arial", Font.PLAIN, 15));
 		BreedT.setBounds(150,110,300,30);
@@ -161,58 +161,73 @@ public class editRefGUI {
 				
 				Matcher matcher = pattern_person_name.matcher(judgeName);
 				if(matcher.matches()){
-					boolean notJudgeExist = true;
+				boolean notJudgeExist = true;
 
 				Breed firstBreed = edJudge.getBreed();
-				Breed secondBreed = null;
 				Judge edJudge = JudgeDao.findJudge(id);
-				
-				
-				List<Judge> jdL = JudgeDao.getJudges();
 
-				for (int i =0; i<jdL.size(); i++){
-					if((jdL.get(i).getName().equals(judgeName))&&(!judgeName.equals(JudgeDao.findJudge(id).getName()))){
-						notJudgeExist = false;
+				Breed secondBreed = null;;				
+				if(breedCheck.isSelected()){
+					if(breedNewCheck.isSelected()){
+						String newBreedTitle = newBreedT.getText();
+						int breedID = BreedDao.addBreed(newBreedTitle);
+						secondBreed = BreedDao.findBreed(breedID);
 					}
+					if(!breedNewCheck.isSelected()){
+						String newBreedTitle = BreedT.getSelectedItem().toString();
+						List<Breed> bL = BreedDao.getBreeds();
+						for (int i =0; i<bL.size(); i++){
+							Breed bl = bL.get(i);
+							if(bl.getTitle().equals(newBreedTitle)){
+								secondBreed = bl;
+							}
+						}
+					}
+					List<Judge> jL = JudgeDao.getJudges();
+						int k =0;
+						for (int i =0; i<jL.size(); i++){
+							Judge jl = jL.get(i);
+							if(jl.getBreed().getId()==firstBreed.getId()){
+								k++;
+							}
+						}
+						if(k==1){
+							List<Dog> dL = DogDao.getDog();
+							for (int i =0; i<dL.size(); i++){
+								Dog dl = dL.get(i);
+								if (dl.getBreed().getId()==firstBreed.getId()){
+									int z = 0;
+									Owner delOwner = null;
+									for (int j=0; j<dL.size(); j++){
+										Dog dl1 = dL.get(j);
+										if (dl1.getOwner().getId()==dl.getOwner().getId()){
+											z++;
+											delOwner = dl1.getOwner();
+										}
+									}
+									if(z==1){
+										OwnerDao.deleteOwner(delOwner.getId());
+									}
+									DogDao.deleteDog(dl.getId());
+								}
+							}
+							BreedDao.deleteBreed(firstBreed.getId());
+						}
+
 				}
-				if(notJudgeExist){
-					if(breedCheck.isSelected()){
-						String breedTitle = BreedT.getSelectedItem().toString();
-						List<Breed> brL = BreedDao.getBreeds();
-						for (int i =0; i<brL.size(); i++){
-							if (brL.get(i).getTitle().contains(breedTitle)){
-								secondBreed = brL.get(i);
-							}
-						}
-
-						System.out.println(secondBreed.getTitle());
-
-						Judge secondJudge_1 = null;
-						jdL = JudgeDao.getJudges();
-						for (int i =0; i< jdL.size(); i++){
-							//System.out.println(jdL.get(i).getBreed().getTitle() + " " + secondBreed.getTitle());
-							if(jdL.get(i).getBreed().getTitle().contains(secondBreed.getTitle())){
-								secondJudge_1 = jdL.get(i);
-							}
-						}
-						System.out.println(secondJudge_1.getName());
-						JudgeDao.editJudge(judgeName, secondBreed, edJudge.getId());
-						JudgeDao.editJudge(secondJudge_1.getName(), firstBreed, secondJudge_1.getId());
-					}
-					else{
-						JudgeDao.editJudge(judgeName, firstBreed, edJudge.getId());
-					}
-						((DefaultTableModel) table1.getModel()).getDataVector().removeAllElements();
-						List<Judge> tJ1=JudgeDao.getJudges();
-						for (int i =0; i<tJ1.size(); i++){
-							Judge jB = tJ1.get(i);
-							((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{jB.getId(), jB.getName(), jB.getBreed().getTitle()});	
-						}
-						aA.dispose();
-					}
-					else{
-						JOptionPane.showMessageDialog(aA, "Имя судьи занято");
-					}
+				if(!breedCheck.isSelected()){
+					secondBreed = firstBreed;
+				}	
+				JudgeDao.editJudge(judgeName, secondBreed, id);
+				List<Judge> tJ=JudgeDao.getJudges();
+				((DefaultTableModel) table1.getModel()).getDataVector().removeAllElements();
+				
+				for (int i =0; i<tJ.size();i++) {
+					Judge tj = tJ.get(i);
+					((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{tj.getId(), tj.getName(), tj.getBreed().getTitle()});
+				}
+				aA.dispose();
+				
 				}						
 				else{
 					JOptionPane.showMessageDialog(aA, "Имя владельца содержит имя и фамилию с заглавных букв разделённые ОДНИМ пробелом, в фамилии возможен один дефис. Возможно добавление числового индекса через пробел от фамилии.");
