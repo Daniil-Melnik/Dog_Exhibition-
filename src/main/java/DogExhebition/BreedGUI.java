@@ -56,7 +56,7 @@ public class BreedGUI {
 		final JFrame a = new JFrame("Породы");
 		
             
-		final ArrayList<Breed> BreedList = new ArrayList<>();
+		//final ArrayList<Breed> BreedList = new ArrayList<>();
         final ArrayList<Award> AwardList = new ArrayList<>();
         
         final ArrayList<Judge> JudgeList = new ArrayList<>();
@@ -104,9 +104,9 @@ public class BreedGUI {
             System.out.println(jB.getId() + " " + jB.getName()+" "+jB.getBreed().getTitle());
         }
 
-		for (int i=0; i<tB.size(); i++){
-			BreedList.add(tB.get(i));
-		}
+		// for (int i=0; i<tB.size(); i++){
+		// 	BreedList.add(tB.get(i));
+		// }
 		for (int i=0; i<tA.size(); i++){
 			AwardList.add(tA.get(i));
 		}
@@ -119,8 +119,6 @@ public class BreedGUI {
 		for (int i=0; i<tO.size(); i++){
 			OwnerList.add(tO.get(i));
 		}
-        
-        System.out.print(BreedList.get(0).getTitle());
         
 		a.setIconImage(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//breed.png").getImage());
 		toolBar = new JToolBar("instruments");
@@ -173,9 +171,11 @@ public class BreedGUI {
         table1.getColumn("Наименование").setPreferredWidth(300);
         
         ((DefaultTableModel) table1.getModel()).getDataVector().removeAllElements();
-        Breed BrAr1[] = BreedList.toArray(new Breed[0]);
-		for (int i =0; i<BrAr1.length;i++) {
-			((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{BrAr1[i].getId(), BrAr1[i].getTitle()});
+		List<Breed> bL = BreedDao.getBreeds();
+        //Breed BrAr1[] = BreedList.toArray(new Breed[0]);
+		for (int i =0; i<bL.size();i++) {
+			Breed BrAr1 = bL.get(i);
+			((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{BrAr1.getId(), BrAr1.getTitle()});
 		}        
 		
 		w_aw = new JButton("с наградами");
@@ -308,11 +308,11 @@ public class BreedGUI {
 								JudgeList.add(jD.get(i));
 							}
 		
-							List<Breed> bD = BreedDao.getBreeds();
-							BreedList.clear();
-							for (int i =0; i<bD.size(); i++){
-								BreedList.add(bD.get(i));
-							}
+							// List<Breed> bD = BreedDao.getBreeds();
+							// BreedList.clear();
+							// for (int i =0; i<bD.size(); i++){
+							// 	BreedList.add(bD.get(i));
+							// }
 		
 									
 						}
