@@ -44,7 +44,7 @@ public class MainGUI {
 		Dg.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		Dg.addActionListener(new ActionListener()
-		{
+		{ 
 			public void actionPerformed (ActionEvent event)
 			{
 				new DogGUI().show();

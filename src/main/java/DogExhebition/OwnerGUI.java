@@ -40,6 +40,7 @@ public class OwnerGUI {
 	private JButton export;
 	private JButton add;
 	private JButton delete;
+	private JButton info;
 	private JToolBar toolBar;
 	private JTextField owner_text;
 	private JButton owner_ser;
@@ -79,7 +80,7 @@ public class OwnerGUI {
 		final JFrame a = new JFrame("Владельцы собак");
 		a.setIconImage(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//owner.png").getImage());
 		toolBar = new JToolBar("instruments");
-		toolBar.setBounds(0, 0, 400, 75);
+		toolBar.setBounds(0, 0, 475, 75);
 		
 		title_label = new JLabel("Владельцы собак");
 		title_label.setFont(new Font("Arial", Font.PLAIN, 50));
@@ -102,22 +103,28 @@ public class OwnerGUI {
 		export = new JButton(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//export.png"));
 
 		edit = new JButton(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//edit.png"));
+
+		info = new JButton(new ImageIcon("C://Users//danii//OneDrive//Документы//GitHub//Dog_Exhibition-//images//clipboard.png"));
+
 		toolBar.add(add);
 		toolBar.add(edit);
 		toolBar.add(delete);
 		toolBar.add(export);
+		toolBar.add(info);
 		toolBar.add(returnb);
 		
 		delete.setToolTipText("Удалить");
 		add.setToolTipText("Добавить");
 		edit.setToolTipText("Изменить");
 		export.setToolTipText("Создать PDF-отчёт");
+		info.setToolTipText("Информация о владельце");
 		returnb.setToolTipText("Обновить таблицу");
 
-        Object[] columns = new String[] {"id", "Имя владельца", "Кличка собаки", "Порода собаки"};
+        Object[] columns = new String[] {"id", "Имя владельца"};
         
         
         final DefaultTableModel tableModel = new DefaultTableModel();
+
         final JTable table1 = new JTable(tableModel){
             private static final long serialVersionUID = 1L;
 
@@ -130,10 +137,10 @@ public class OwnerGUI {
         	tableModel.addColumn(columns[i]);
         }
 
-		List<Dog> dL = DogDao.getDog();
-		for (int i =0; i<dL.size();i++) {
-			Dog OwAr = dL.get(i);
-			tableModel.insertRow(0, new Object[]{OwAr.getOwner().getId(), OwAr.getOwner().getName(),OwAr.getName() ,OwAr.getBreed().getTitle()});
+		List<Owner> dO = OwnerDao.getOwners();
+		for (int i =0; i<dO.size();i++) {
+			Owner OwAr = dO.get(i);
+			tableModel.insertRow(0, new Object[]{OwAr.getId(), OwAr.getName()});
 		}
         add.addActionListener(new ActionListener()
 		{
@@ -145,9 +152,7 @@ public class OwnerGUI {
         table1.setBounds(0, 120, 1000, 300);
 		
         table1.getColumn("id").setPreferredWidth(30);
-        table1.getColumn("Имя владельца").setPreferredWidth(400);
-        table1.getColumn("Кличка собаки").setPreferredWidth(270);
-        table1.getColumn("Порода собаки").setPreferredWidth(270);
+        table1.getColumn("Имя владельца").setPreferredWidth(600);
         
        
 				
@@ -172,12 +177,12 @@ public class OwnerGUI {
 		{
 			public void actionPerformed (ActionEvent event)
 			{
-				List<Dog> tD=DogDao.getDog();
+				List<Owner> tO=OwnerDao.getOwners();
 				((DefaultTableModel) table1.getModel()).getDataVector().removeAllElements();
 				
-				for (int i =0; i<tD.size();i++) {
-					Dog to = tD.get(i);
-					((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{to.getOwner().getId(), to.getOwner().getName(), to.getName(), to.getBreed().getTitle()});
+				for (int i =0; i<tO.size();i++) {
+					Owner to = tO.get(i);
+					((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{to.getId(), to.getName()});
 				}
 				
 			}});
@@ -249,6 +254,21 @@ public class OwnerGUI {
 					// 	}
 					// }					
 			}});
+			info.addActionListener(new ActionListener()
+			{
+				public void actionPerformed (ActionEvent event)
+				{
+					int selectedIndexes[]=table1.getSelectedRows();
+					if(selectedIndexes.length==1){
+						int tabelIndex = table1.getSelectedRow();
+						int index = Integer.parseInt(table1.getValueAt(tabelIndex, 0).toString());
+						Owner infOwner = OwnerDao.findOwner(index);
+						new ownerInfo().show(infOwner);
+					}
+					else{
+						JOptionPane.showMessageDialog(a, "Выберите одну строку");
+					}
+				}});
 			export.addActionListener(new ActionListener()
 			{
 				public void actionPerformed (ActionEvent event)
