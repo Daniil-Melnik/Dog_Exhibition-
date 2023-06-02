@@ -3,6 +3,8 @@ package DogExhebition;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -10,6 +12,7 @@ import java.util.regex.Matcher;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -18,6 +21,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+
 public class NewDogOwnerGUI {
     private static JFrame aA;
 	private static JButton apply;
@@ -25,12 +29,13 @@ public class NewDogOwnerGUI {
 	private static JTextField DogNameT;
 	private static JComboBox<String> AwardsT;
 	private static JComboBox<String> BreedT;
+	private static JComboBox<String> ExistOwnerT;
 	private static JLabel OwnerNameL;
 	private static JLabel DogNameL;
 	private static JLabel BreedL;
 	private static JLabel AwardsL;
 	private static JLabel title_dog;
-	private static JLabel title_owner;
+	private static JCheckBox newOwner;
 	
 	
 	//private JTextField idT;
@@ -111,22 +116,17 @@ public class NewDogOwnerGUI {
 		//######################################################
 		aA = new JFrame("");
 		aA.setTitle("Добавить собаку с владельцем");
-		aA.setSize(1200, 300);
+		aA.setSize(600, 400);
 		aA.setIconImage(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//add5.png").getImage());
 		
 		title_dog = new JLabel("Добавить собаку");
 		title_dog.setBounds(200, 20, 200, 30);
 		title_dog.setFont(new Font("Arial", Font.PLAIN, 25));
 		aA.add(title_dog);
-
-		title_owner = new JLabel("Добавить владельца");
-		title_owner.setBounds(800, 20, 300, 30);
-		title_owner.setFont(new Font("Arial", Font.PLAIN, 25));
-		aA.add(title_owner);
 		
 		apply = new JButton("Добавить");
 		apply.setFont(new Font("Arial", Font.PLAIN, 20));
-		apply.setBounds(500, 220, 200, 35);
+		apply.setBounds(180, 320, 200, 35);
 		
 		
 		DogNameT = new JTextField();
@@ -139,10 +139,41 @@ public class NewDogOwnerGUI {
 		
 		OwnerNameT = new JTextField();
 		OwnerNameT.setFont(new Font("Arial", Font.PLAIN, 15));
-		OwnerNameT.setBounds(800,70,300,30);
+		OwnerNameT.setBounds(150,190,300,30);
+
+		List<Owner> oL = OwnerDao.getOwners();
+		ArrayList<String> ownerStr = new ArrayList<>();
+		for (int i=0; i< oL.size(); i++){
+			Owner owl = oL.get(i);
+			ownerStr.add(owl.getName());
+		}
+		ExistOwnerT = new JComboBox<String>(ownerStr.toArray(new String[0]));
+		ExistOwnerT.setBounds(150, 190, 300, 30);
+		ExistOwnerT.setFont(new Font("Arial", Font.PLAIN, 15));
+
+		//ExistOwnerL = new JLabel("Имя владельца: ")
+
+		newOwner = new JCheckBox("Новый владелец");
+		newOwner.setFont(new Font("Arial", Font.PLAIN, 15));
+		newOwner.setBounds(185, 230, 150, 20);
+
+		OwnerNameT.setVisible(false);
+
+		newOwner.addItemListener(new ItemListener() {
+			public void itemStateChanged (ItemEvent e){
+				if (e.getStateChange() == ItemEvent.SELECTED){
+					ExistOwnerT.setVisible(false);
+					OwnerNameT.setVisible(true);
+				}
+				if(e.getStateChange() == ItemEvent.DESELECTED){
+					ExistOwnerT.setVisible(true);
+					OwnerNameT.setVisible(false);
+				}
+			}
+		});
 		
 		OwnerNameL = new JLabel("Имя владельца: ");
-		OwnerNameL.setBounds(680,70,150,30);
+		OwnerNameL.setBounds(30,190,150,30);
 		OwnerNameL.setFont(new Font("Arial", Font.PLAIN, 15));
 		
 		String breeds[] = BrAr.toArray(new String[0]);
@@ -160,14 +191,17 @@ public class NewDogOwnerGUI {
 		//String awards[] = {};
 		AwardsT = new JComboBox<String>(awards);
 		AwardsT.setFont(new Font("Arial", Font.PLAIN, 15));
-		AwardsT.setBounds(150,155,300,30);
+		AwardsT.setBounds(150,150,300,30);
 		
 		AwardsL = new JLabel("Награда: ");
-		AwardsL.setBounds(75, 155, 100, 30);
+		AwardsL.setBounds(75, 150, 100, 30);
 		AwardsL.setFont(new Font("Arial", Font.PLAIN, 15));
 
 		aA.add(DogNameT);
 		aA.add(DogNameL);
+
+		aA.add(ExistOwnerT);
+		aA.add(newOwner);
 
 		aA.add(OwnerNameT);
 		aA.add(OwnerNameL);
@@ -201,9 +235,7 @@ public class NewDogOwnerGUI {
 							Award tempAward = findByTitle(AwardList.toArray(new Award[0]), awardTitle);
 
 							List<Owner> owL = OwnerDao.getOwners();
-							List<Dog> dgL = DogDao.getDog();
 
-							boolean notDogExist = true;
 							boolean notOwnerExist = true;
 
 							for (int i =0; i<owL.size(); i++){
@@ -211,18 +243,9 @@ public class NewDogOwnerGUI {
 									notOwnerExist = false;
 								}
 							}
-
-							for (int i =0; i<dgL.size(); i++){
-								if(dgL.get(i).getName().equals(dogName)){
-									notDogExist = false;
-								}
-							}
-
-							if(notDogExist){
 								if(notOwnerExist){
 									int ownerID = OwnerDao.addOwner(ownerName);
 									int dogID = DogDao.addDog(dogName, tempBreed, tempAward, OwnerDao.findOwner(ownerID));
-									
 
 									DogList.add(DogDao.findDog(dogID));
 
@@ -241,10 +264,6 @@ public class NewDogOwnerGUI {
 								else{
 									JOptionPane.showMessageDialog(aA, "Имя владельца занято");
 								}
-							}
-							else{
-								JOptionPane.showMessageDialog(aA, "Кличка занята");
-							}
 						}
 						else{
 							JOptionPane.showMessageDialog(aA, "Кличка собаки начинается с заглавной буквы и может содержать числовой индекс, отделённый ОДНИМ пробелом от буквенного слова.");
