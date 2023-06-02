@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -13,18 +12,11 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
-import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.BaseFont;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 public class dogInfo {
@@ -48,14 +40,14 @@ public class dogInfo {
 		
 		title_label = new JLabel("Информация о собаке : "+dog.getName());
 		title_label.setFont(new Font("Arial", Font.PLAIN, 18));
-		title_label.setBounds(100,20,200,40);
+		title_label.setBounds(60,20,300,40);
 		aO.add(title_label);
 
-		aO.setSize(400, 500);
+		aO.setSize(400, 300);
 		aO.setLayout(null);
 
         ok = new JButton("закрыть");
-        ok.setBounds(200, 400, 100, 25);
+        ok.setBounds(280, 230, 100, 25);
         ok.setFont(new Font("Arial", Font.PLAIN, 15));
         ok.addActionListener(new ActionListener()
 		{
@@ -65,7 +57,7 @@ public class dogInfo {
 			}});
 
         export = new JButton("в PDF");
-        export.setBounds(5, 400, 100, 25);
+        export.setBounds(10, 230, 100, 25);
         export.setFont(new Font("Arial", Font.PLAIN, 15));
 
         aO.add(ok);
@@ -96,7 +88,6 @@ public class dogInfo {
 					{
 						BaseFont bf=BaseFont.createFont(FONT, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
 						com.itextpdf.text.Font font1=new com.itextpdf.text.Font(bf,15,Font.PLAIN);
-						com.itextpdf.text.Font font2=new com.itextpdf.text.Font(bf,15,Font.BOLD);
 						com.itextpdf.text.Font font3=new com.itextpdf.text.Font(bf,20,Font.CENTER_BASELINE);
 						JFileChooser fileChooser = new JFileChooser();
 			
@@ -117,30 +108,36 @@ public class dogInfo {
 							PdfWriter.getInstance(document, new FileOutputStream(fileName));
 							document.open();
 							
-							String para_1 = "Информация о  собаке: "+dog.getName(); 
+							String para_1 = "Информация о  собаке: "; 
 							Paragraph para = new Paragraph (para_1,font3);
+
+                            Paragraph p = new Paragraph(" ",font1);
+							p.setAlignment(0);
+							document.add(p);
 
 							para.setAlignment(Element.ALIGN_LEFT);
 							document.add(para); 
 
-							Paragraph p = new Paragraph(" ",font3);
-							p.setAlignment(0);
+                            String para_5 = "Кличка: "+dog.getName(); 
+							Paragraph para5 = new Paragraph (para_5,font1);
+                            document.add(para5);
+
 							document.add(p);
 
                             String para_2 = "Порода: "+dog.getBreed().getTitle(); 
-							Paragraph para2 = new Paragraph (para_2,font3);
+							Paragraph para2 = new Paragraph (para_2,font1);
                             document.add(para2);
 
                             document.add(p);
                             
                             String para_3 = "Владелец: "+dog.getOwner().getName(); 
-							Paragraph para3 = new Paragraph (para_3,font3);
+							Paragraph para3 = new Paragraph (para_3,font1);
                             document.add(para3);
 
                             document.add(p);
 
                             String para_4 = "Награда: "+dog.getAward().getTitle(); 
-							Paragraph para4 = new Paragraph (para_4,font3);
+							Paragraph para4 = new Paragraph (para_4,font1);
                             document.add(para4);
 
 							document.close();

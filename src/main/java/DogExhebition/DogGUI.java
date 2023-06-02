@@ -150,6 +150,7 @@ public class DogGUI {
 		add.setToolTipText("Добавить");
 		edit.setToolTipText("Изменить");
 		export.setToolTipText("Создать PDF-отчёт");
+		info.setToolTipText("Информация о владельце");
 		returnb.setToolTipText("Обновить таблицу");
 		
 		
