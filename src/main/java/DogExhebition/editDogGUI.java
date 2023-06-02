@@ -25,16 +25,20 @@ public class editDogGUI {
 	private JButton apply;
 	private JTextField DogNameT;
 	private JComboBox<String> AwardsT;
+	private JComboBox<String> OwnerT;
 	private JComboBox<String> BreedT;
 	private JLabel AwardL_1;
 	private JLabel BreedL_1;
 	private JLabel DogNameL;
+	private JLabel OwnerNameL;
 	private JLabel BreedL;
 	private JLabel AwardsL;
+	private JLabel OwnerL_1;
 	private JLabel title;
 
 	private JCheckBox breedCheck;
 	private JCheckBox awardCheck;
+	private JCheckBox ownerCheck;
 
 	public void show (final JTable table1, int id)
 	{
@@ -71,13 +75,6 @@ public class editDogGUI {
             System.out.println(jB.getId() + " " + jB.getName()+" "+jB.getBreed().getTitle());
         }
 
-        List<Owner> tO = null;
-        tO=OwnerDao.getOwners();
-        // for (int i =0; i<tO.size(); i++){
-        //     Owner jB = tO.get(i);
-        //     System.out.println(jB.getId() + " " + jB.getName()+" "+jB.getDog().getName()+" "+jB.getDog().getBreed().getTitle());
-        // }
-
         List<Judge> tJ = null;
         tJ=JudgeDao.getJudges();
         for (int i =0; i<tJ.size(); i++){
@@ -97,7 +94,7 @@ public class editDogGUI {
 
 		aA = new JFrame("");
 		aA.setTitle("Изменить данные");
-		aA.setSize(500, 400);
+		aA.setSize(500, 420);
 		
 		title = new JLabel("Изменить данные");
 		title.setBounds(175, 20, 200, 30);
@@ -106,7 +103,7 @@ public class editDogGUI {
 		Dog edDog = DogDao.findDog(id);
 		apply = new JButton("Изменить");
 		apply.setFont(new Font("Arial", Font.PLAIN, 15));
-		apply.setBounds(360, 320, 120, 40);
+		apply.setBounds(360, 340, 120, 40);
 		
 		DogNameT = new JTextField(edDog.getName());
 		DogNameT.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -117,10 +114,16 @@ public class editDogGUI {
 		DogNameL.setFont(new Font("Arial", Font.PLAIN, 15));				
 				
 		BreedL = new JLabel("Порода собаки: ");
-		BreedL.setBounds(30,110,150,30);
+		BreedL.setBounds(30,150,150,30);
 		BreedL.setFont(new Font("Arial", Font.PLAIN, 15));
+
+		OwnerNameL = new JLabel("Имя владельца: ");
+		OwnerNameL.setBounds(30,110,150,30);
+		OwnerNameL.setFont(new Font("Arial", Font.PLAIN, 15));	
 		
 		AwardsT = new JComboBox<String>();
+
+		aA.add(OwnerNameL);
 		
 		ArrayList<String> awards = new ArrayList<>();
 		for (int i=0; i< AwardList.size(); i++){
@@ -131,10 +134,10 @@ public class editDogGUI {
 		}
 		AwardsT = new JComboBox<String>(awards.toArray(new String[0]));
 		AwardsT.setFont(new Font("Arial", Font.PLAIN, 15));
-		AwardsT.setBounds(150,150,300,30);
+		AwardsT.setBounds(150,190,300,30);
 		 
 		AwardsL = new JLabel("Награды: ");
-		AwardsL.setBounds(75, 150, 100, 30);
+		AwardsL.setBounds(75, 190, 100, 30);
 		AwardsL.setFont(new Font("Arial", Font.PLAIN, 15));
 
 		ArrayList<String> breeds = new ArrayList<>();
@@ -147,13 +150,13 @@ public class editDogGUI {
 
 		BreedT = new JComboBox<String>(breeds.toArray(new String[0]));
 		BreedT.setFont(new Font("Arial", Font.PLAIN, 15));
-		BreedT.setBounds(150,110,300,30);
+		BreedT.setBounds(150,150,300,30);
 
 		BreedT.setEnabled(false);
 		AwardsT.setEnabled(false);
 
 		breedCheck = new JCheckBox("Изменить породу");
-		breedCheck.setBounds(70, 190, 200, 20);
+		breedCheck.setBounds(10, 230, 200, 20);
 		breedCheck.setFont(new Font("Arial", Font.PLAIN, 15));
 
 		breedCheck.addItemListener(new ItemListener() {
@@ -168,7 +171,7 @@ public class editDogGUI {
 		});
 
 		awardCheck = new JCheckBox("Изменить награду");
-		awardCheck.setBounds(300, 190, 200, 20);
+		awardCheck.setBounds(10, 260, 200, 20);
 		awardCheck.setFont(new Font("Arial", Font.PLAIN, 15));
 
 		awardCheck.addItemListener(new ItemListener() {
@@ -181,19 +184,53 @@ public class editDogGUI {
 				}
 			}
 		});
+		ArrayList<String> oAL = new ArrayList<>();
+		List<Owner> oL = OwnerDao.getOwners();
+		for (int i =0; i< oL.size(); i++){
+			Owner ol = oL.get(i);
+			if(ol.getId()!=DogDao.findDog(id).getOwner().getId()){
+				oAL.add(ol.getName());
+			}
+		}
+		OwnerT = new JComboBox<String>(oAL.toArray(new String[0]));
+		OwnerT.setFont(new Font("Arial", Font.PLAIN, 15));
+		OwnerT.setBounds(150,110,300,30);
+		OwnerT.setEnabled(false);
+		aA.add(OwnerT);
+
+		ownerCheck = new JCheckBox("Изменить владельца");
+		ownerCheck.setBounds(10, 290, 200, 20);
+		ownerCheck.setFont(new Font("Arial", Font.PLAIN, 15));
+
+		ownerCheck.addItemListener(new ItemListener() {
+			public void itemStateChanged (ItemEvent e){
+				if (e.getStateChange() == ItemEvent.SELECTED){
+					OwnerT.setEnabled(true);
+				}
+				if(e.getStateChange() == ItemEvent.DESELECTED){
+					OwnerT.setEnabled(false);
+				}
+			}
+		});
 		
 		aA.add(breedCheck);
 		aA.add(awardCheck);
+		aA.add(ownerCheck);
 
 		BreedL_1 = new JLabel("Порода : "+edDog.getBreed().getTitle());
 		BreedL_1.setFont(new Font("Arial", Font.PLAIN, 15));
-		BreedL_1.setBounds(50, 230, 400, 25);
+		BreedL_1.setBounds(210, 230, 400, 25);
 		aA.add(BreedL_1);
 
 		AwardL_1 = new JLabel("Награда : "+edDog.getAward().getTitle());
 		AwardL_1.setFont(new Font("Arial", Font.PLAIN, 15));
-		AwardL_1.setBounds(50, 270, 400, 25);
+		AwardL_1.setBounds(210, 260, 400, 25);
 		aA.add(AwardL_1);
+
+		OwnerL_1 = new JLabel("Владелец : "+edDog.getOwner().getName());
+		OwnerL_1.setFont(new Font("Arial", Font.PLAIN, 15));
+		OwnerL_1.setBounds(210, 290, 400, 25);
+		aA.add(OwnerL_1);
 		
 		apply.addActionListener(new ActionListener()
 		{

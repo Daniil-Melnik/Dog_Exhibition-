@@ -242,7 +242,7 @@ public class NewDogOwnerGUI {
 							Breed tempBreed = findByTitle(BreedList.toArray(new Breed[0]), breedTitle);
 							Award tempAward = findByTitle(AwardList.toArray(new Award[0]), awardTitle);
 
-							int dogID = DogDao.addDog(dogName, tempBreed, tempAward, usOwner);
+							DogDao.addDog(dogName, tempBreed, tempAward, usOwner);
 
 							List<Dog> dL = DogDao.getDog();
 							((DefaultTableModel) table1.getModel()).getDataVector().removeAllElements();
