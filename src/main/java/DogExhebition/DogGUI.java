@@ -27,6 +27,7 @@ public class DogGUI {
 	private JButton export;
 	private JButton add;
 	private JButton delete;
+	private JButton info;
 	private JButton returnb;
 	private JToolBar toolBar;
 	private JButton w_aw;
@@ -119,7 +120,7 @@ public class DogGUI {
         
 		a.setIconImage(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//dog.png").getImage());
 		toolBar = new JToolBar("instruments");
-		toolBar.setBounds(0, 0, 400, 75);
+		toolBar.setBounds(0, 0, 475, 75);
 		
 		title_label = new JLabel("Собаки");
 		title_label.setFont(new Font("Arial", Font.PLAIN, 60));
@@ -135,11 +136,14 @@ public class DogGUI {
 		export = new JButton(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//export.png"));
 
 		edit = new JButton(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//edit.png"));
+
+		info = new JButton(new ImageIcon("C://Users//danii//OneDrive//Документы//GitHub//Dog_Exhibition-//images//clipboard.png"));
 		
 		toolBar.add(add);
 		toolBar.add(edit);
 		toolBar.add(delete);
 		toolBar.add(export);
+		toolBar.add(info);
 		toolBar.add(returnb);
 		
 		delete.setToolTipText("Удалить");
@@ -321,24 +325,28 @@ public class DogGUI {
 						for (int k =0; k<tabelIndexArr.length; k++){
 							tabelIndex = tabelIndexArr[k];
 							int index = Integer.parseInt(table1.getValueAt(tabelIndex, 0).toString());
-								Owner delOwner = null;
-								// for (int i = 0; i<OwnerList.size(); i++){
-								// 	if (OwnerList.get(i).getDog().getId() == index){
-								// 		delOwner = OwnerList.get(i); 
-								// 	}
-								// }
-								System.out.println("delOwner = "+delOwner.getId());
-								System.out.println("delDog = " + index);
 								
-								OwnerDao.deleteOwner(delOwner.getId());
+								Dog delDog = DogDao.findDog(index);
+								Owner delOwner = delDog.getOwner();
+
+								int k1 = 0;
+								List<Dog> dL = DogDao.getDog();
+								for (int i = 0; i<dL.size(); i++){
+									Dog dl = dL.get(i);
+									if (dl.getOwner().getId()==delOwner.getId()){
+										k1++;
+									}
+								}
+								if(k1==1){
+									OwnerDao.deleteOwner(delOwner.getId());
+								}
 								DogDao.deleteDog(index);
-								
-								OwnerList.clear();
+							}
+							OwnerList.clear();
 								List<Owner> OwL = OwnerDao.getOwners();
 								for (int i =0; i<OwL.size(); i++){
 									OwnerList.add(OwL.get(i));
 								}
-							}
 							tableModel.getDataVector().removeAllElements();
 							List<Dog> dD = DogDao.getDog();
 							for (int i =0; i<dD.size() ;i++) {
@@ -351,6 +359,7 @@ public class DogGUI {
 								}
 							}	
 						}
+
 			}});
 		
 		returnb.addActionListener(new ActionListener()
@@ -386,10 +395,6 @@ public class DogGUI {
 
 				List<Owner> tO = null;
 				tO=OwnerDao.getOwners();
-				// for (int i =0; i<tO.size(); i++){
-				// 	Owner jB = tO.get(i);
-				// 	System.out.println(jB.getId() + " " + jB.getName()+" "+jB.getDog().getName()+" "+jB.getDog().getBreed().getTitle());
-				// }
 
 				for (int i=0; i<tB.size(); i++){
 					BreedList.add(tB.get(i));
@@ -519,6 +524,21 @@ public class DogGUI {
 					JOptionPane.showMessageDialog(null, "Error exporting table data to PDF");
 				}
 			}});
+			info.addActionListener(new ActionListener()
+			{
+				public void actionPerformed (ActionEvent event)
+				{
+					int selectedIndexes[]=table1.getSelectedRows();
+					if(selectedIndexes.length==1){
+						int tabelIndex = table1.getSelectedRow();
+						int index = Integer.parseInt(table1.getValueAt(tabelIndex, 0).toString());
+						Dog infDog = DogDao.findDog(index);
+						new dogInfo().show(infDog);
+					}
+					else{
+						JOptionPane.showMessageDialog(a, "Выберите одну строку");
+					}
+				}});
 	}
 	public static void main(String[] args) {
 		new DogGUI().show();
