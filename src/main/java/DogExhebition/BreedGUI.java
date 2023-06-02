@@ -295,8 +295,6 @@ public class BreedGUI {
 									JudgeDao.deleteJudge(jl.getId());
 								}
 							}
-
-							int k1 =0;
 							List<Dog> dL = DogDao.getDog();
 							for (int i=0; i<dL.size(); i++){
 								Dog dl = dL.get(i);

@@ -7,7 +7,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,6 +24,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -44,6 +47,8 @@ public class OwnerGUI {
 	private JToolBar toolBar;
 	private JTextField owner_text;
 	private JButton owner_ser;
+	private JButton breed_ser;
+	private JComboBox<String> breedTBox;
 	
 	private JButton returnb;
 	
@@ -123,7 +128,7 @@ public class OwnerGUI {
             private static final long serialVersionUID = 1L;
 
             public boolean isCellEditable(int row, int column) {                
-                    return false;               
+                return false;               
             };
         };
         
@@ -150,13 +155,52 @@ public class OwnerGUI {
         table1.getColumn("Имя владельца").setPreferredWidth(600);
         
         owner_text = new JTextField("введите имя владельца");
-		owner_text.setBounds(350,480,280,30);
+		owner_text.setBounds(350,450,280,30);
 		
 		owner_ser = new JButton("найти");
-		owner_ser.setBounds(650,480,100,30);
+		owner_ser.setBounds(650,450,100,30);
+
+		breed_ser = new JButton("найти");
+		breed_ser.setBounds(650,490,100,30);
+
+		
+		
+		List<Breed> bL = BreedDao.getBreeds();
+		ArrayList<String> bAL = new ArrayList<>();
+		for (int i =0; i< bL.size(); i++){
+			bAL.add(bL.get(i).getTitle());
+		}
+		breedTBox = new JComboBox<String>(bAL.toArray(new String[0]));
+		breedTBox.setBounds(350,490,280,30);
 
 		a.add(owner_text);
 		a.add(owner_ser);
+		a.add(breedTBox);
+		a.add(breed_ser);
+
+		breed_ser.addActionListener(new ActionListener()
+		{
+			public void actionPerformed (ActionEvent event)
+			{
+				List<Dog> tD=DogDao.getDog();
+				ArrayList<Owner> res = new ArrayList<>();
+				String breedTitle = breedTBox.getSelectedItem().toString();
+				((DefaultTableModel) table1.getModel()).getDataVector().removeAllElements();
+				for (int i =0; i<tD.size(); i++){
+					if (tD.get(i).getBreed().getTitle().equals(breedTitle)){
+						res.add(tD.get(i).getOwner());
+					}
+				}
+				Set<Owner> set = new HashSet<>(res);
+				res.clear();
+				res.addAll(set);
+
+				for (int i =0; i<res.size();i++) {
+					Owner to = res.get(i);
+					((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{to.getId(), to.getName()});
+				}
+				
+			}});
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setViewportView(table1);
