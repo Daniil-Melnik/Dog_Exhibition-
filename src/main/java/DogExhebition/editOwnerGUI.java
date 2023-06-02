@@ -65,10 +65,10 @@ public class editOwnerGUI {
 
         List<Owner> tO = null;
         tO=OwnerDao.getOwners();
-        for (int i =0; i<tO.size(); i++){
-            Owner jB = tO.get(i);
-            System.out.println(jB.getId() + " " + jB.getName()+" "+jB.getDog().getName()+" "+jB.getDog().getBreed().getTitle());
-        }
+        // for (int i =0; i<tO.size(); i++){
+        //     Owner jB = tO.get(i);
+        //     System.out.println(jB.getId() + " " + jB.getName()+" "+jB.getDog().getName()+" "+jB.getDog().getBreed().getTitle());
+        // }
 
         List<Judge> tJ = null;
         tJ=JudgeDao.getJudges();
@@ -183,12 +183,12 @@ public class editOwnerGUI {
 							}
 							Owner SecondOwner = null;
 							List<Owner> OwnerList_1 = OwnerDao.getOwners();
-							for (int i = 0; i<OwnerList_1.size(); i++){
-								Owner OL = OwnerList_1.get(i);
-								if (OL.getDog().getId()==secondDog.getId()){
-									SecondOwner = OL;
-								}
-							}
+							// for (int i = 0; i<OwnerList_1.size(); i++){
+							// 	Owner OL = OwnerList_1.get(i);
+							// 	if (OL.getDog().getId()==secondDog.getId()){
+							// 		SecondOwner = OL;
+							// 	}
+							// }
 							OwnerDao.editOwner(own, secondDog, owner.getId());
 							OwnerDao.editOwner(SecondOwner.getName(), dog, SecondOwner.getId());
 						}
@@ -198,10 +198,10 @@ public class editOwnerGUI {
 						
 						((DefaultTableModel) table1.getModel()).getDataVector().removeAllElements();
 						List<Owner> tJ1=OwnerDao.getOwners();
-						for (int i =0; i<tJ1.size(); i++){
-							Owner jB = tJ1.get(i);
-							((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{jB.getId(), jB.getName(), jB.getDog().getName(), jB.getDog().getBreed().getTitle()});		
-						}
+						// for (int i =0; i<tJ1.size(); i++){
+						// 	Owner jB = tJ1.get(i);
+						// 	((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{jB.getId(), jB.getName(), jB.getDog().getName(), jB.getDog().getBreed().getTitle()});		
+						// }
 						aA.dispose();
 					}
 					else{

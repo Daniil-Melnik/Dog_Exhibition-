@@ -21,6 +21,10 @@ public class Dog {
     @JoinColumn(name = "awardID", referencedColumnName = "id")
 	private Award award = null;
 
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "ownerID", referencedColumnName = "id")
+	private Owner owner = null;
+
 	public void setDog(String name, Breed breed, Award award, int id) {
 		this.setAward(award);
 		this.setName(name);
@@ -46,6 +50,9 @@ public class Dog {
 	public int getId() {
 		return id;
 	}
+	public Owner getOwner() {
+		return owner;
+	}
 
 	
 	
@@ -60,5 +67,8 @@ public class Dog {
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	public void setOwner(Owner owner) {
+		this.owner = owner;
 	}
 }

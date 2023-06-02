@@ -77,10 +77,10 @@ public class NewOwnerDogGUI {
 
         List<Owner> tO = null;
         tO=OwnerDao.getOwners();
-        for (int i =0; i<tO.size(); i++){
-            Owner jB = tO.get(i);
-            System.out.println(jB.getId() + " " + jB.getName()+" "+jB.getDog().getName()+" "+jB.getDog().getBreed().getTitle());
-        }
+        // for (int i =0; i<tO.size(); i++){
+        //     Owner jB = tO.get(i);
+        //     System.out.println(jB.getId() + " " + jB.getName()+" "+jB.getDog().getName()+" "+jB.getDog().getBreed().getTitle());
+        // }
 
         List<Judge> tJ = null;
         tJ=JudgeDao.getJudges();
@@ -184,64 +184,64 @@ public class NewOwnerDogGUI {
 		{
 			public void actionPerformed (ActionEvent event)
 			{
-				String dogName = DogNameT.getText();
-					String ownerName = OwnerNameT.getText();
-					Matcher matcher = pattern_person_name.matcher(ownerName);
-					if(matcher.matches()){
-						Matcher matcher_1 = pattern_dog_name.matcher(dogName);
-						if(matcher_1.matches()){
-							String breedTitle = BreedT.getSelectedItem().toString();
-							String awardTitle = AwardsT.getSelectedItem().toString();
-							Breed tempBreed = findByTitle_Breed(BreedList.toArray(new Breed[0]), breedTitle);
-							Award tempAward = findByTitle_Award(AwardList.toArray(new Award[0]), awardTitle);
+				// String dogName = DogNameT.getText();
+				// 	String ownerName = OwnerNameT.getText();
+				// 	Matcher matcher = pattern_person_name.matcher(ownerName);
+				// 	if(matcher.matches()){
+				// 		Matcher matcher_1 = pattern_dog_name.matcher(dogName);
+				// 		if(matcher_1.matches()){
+				// 			String breedTitle = BreedT.getSelectedItem().toString();
+				// 			String awardTitle = AwardsT.getSelectedItem().toString();
+				// 			Breed tempBreed = findByTitle_Breed(BreedList.toArray(new Breed[0]), breedTitle);
+				// 			Award tempAward = findByTitle_Award(AwardList.toArray(new Award[0]), awardTitle);
 
-							List<Owner> owL = OwnerDao.getOwners();
-							List<Dog> dgL = DogDao.getDog();
+				// 			List<Owner> owL = OwnerDao.getOwners();
+				// 			List<Dog> dgL = DogDao.getDog();
 
-							boolean notDogExist = true;
-							boolean notOwnerExist = true;
+				// 			boolean notDogExist = true;
+				// 			boolean notOwnerExist = true;
 
-							for (int i =0; i<owL.size(); i++){
-								if(owL.get(i).getName().equals(ownerName)){
-									notOwnerExist = false;
-								}
-							}
+				// 			for (int i =0; i<owL.size(); i++){
+				// 				if(owL.get(i).getName().equals(ownerName)){
+				// 					notOwnerExist = false;
+				// 				}
+				// 			}
 
-							for (int i =0; i<dgL.size(); i++){
-								if(dgL.get(i).getName().equals(dogName)){
-									notDogExist = false;
-								}
-							}
+				// 			for (int i =0; i<dgL.size(); i++){
+				// 				if(dgL.get(i).getName().equals(dogName)){
+				// 					notDogExist = false;
+				// 				}
+				// 			}
 
-							if(notDogExist){
-								if(notOwnerExist){
-									int dogID = DogDao.addDog(dogName, tempBreed, tempAward);
-									int OwnerID = OwnerDao.addOwner(ownerName, DogDao.findDog(dogID));
+				// 			if(notDogExist){
+				// 				if(notOwnerExist){
+				// 					int dogID = DogDao.addDog(dogName, tempBreed, tempAward);
+				// 					int OwnerID = OwnerDao.addOwner(ownerName, DogDao.findDog(dogID));
 
-									OwnerList.add(OwnerDao.findOwner(OwnerID));
+				// 					OwnerList.add(OwnerDao.findOwner(OwnerID));
 
-									((DefaultTableModel) table1.getModel()).getDataVector().removeAllElements();
-									Owner OwAr[] = OwnerList.toArray(new Owner[0]);
-									for (int i =0; i<OwAr.length; i++) {
-										((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{OwAr[i].getId(), OwAr[i].getName(), OwAr[i].getDog().getName(), OwAr[i].getDog().getBreed().getTitle()});
-									}
-									aA.dispose();	
-								}
-								else{
-									JOptionPane.showMessageDialog(aA, "Имя владельца занято");
-								}
-							}
-							else{
-								JOptionPane.showMessageDialog(aA, "Кличка собаки занята");
-							}
-						}
-						else{
-							JOptionPane.showMessageDialog(aA, "Кличка собаки начинается с заглавной буквы и может содержать числовой индекс, отделённый ОДНИМ пробелом от буквенного слова.");
-						}
-					}
-					else{
-						JOptionPane.showMessageDialog(aA, "Имя владельца на русском языке содержит имя и фамилию с заглавных букв разделённые ОДНИМ пробелом.\nВ фамилии возможен один дефис.\nВозможно добавление числового индекса через пробел от фамилии.");
-					}
+				// 					((DefaultTableModel) table1.getModel()).getDataVector().removeAllElements();
+				// 					Owner OwAr[] = OwnerList.toArray(new Owner[0]);
+				// 					for (int i =0; i<OwAr.length; i++) {
+				// 						((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{OwAr[i].getId(), OwAr[i].getName(), OwAr[i].getDog().getName(), OwAr[i].getDog().getBreed().getTitle()});
+				// 					}
+				// 					aA.dispose();	
+				// 				}
+				// 				else{
+				// 					JOptionPane.showMessageDialog(aA, "Имя владельца занято");
+				// 				}
+				// 			}
+				// 			else{
+				// 				JOptionPane.showMessageDialog(aA, "Кличка собаки занята");
+				// 			}
+				// 		}
+				// 		else{
+				// 			JOptionPane.showMessageDialog(aA, "Кличка собаки начинается с заглавной буквы и может содержать числовой индекс, отделённый ОДНИМ пробелом от буквенного слова.");
+				// 		}
+				// 	}
+				// 	else{
+				// 		JOptionPane.showMessageDialog(aA, "Имя владельца на русском языке содержит имя и фамилию с заглавных букв разделённые ОДНИМ пробелом.\nВ фамилии возможен один дефис.\nВозможно добавление числового индекса через пробел от фамилии.");
+				// 	}
 			}}); 
 		
 		

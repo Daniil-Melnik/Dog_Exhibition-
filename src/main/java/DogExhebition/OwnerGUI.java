@@ -71,10 +71,10 @@ public class OwnerGUI {
 
         List<Owner> tO = null;
         tO=OwnerDao.getOwners();
-        for (int i =0; i<tO.size(); i++){
-            Owner jB = tO.get(i);
-            System.out.println(jB.getId() + " " + jB.getName()+" "+jB.getDog().getName()+" "+jB.getDog().getBreed().getTitle());
-        }
+        // for (int i =0; i<tO.size(); i++){
+        //     Owner jB = tO.get(i);
+        //     System.out.println(jB.getId() + " " + jB.getName()+" "+jB.getDog().getName()+" "+jB.getDog().getBreed().getTitle());
+        // }
 		
 		final JFrame a = new JFrame("Владельцы собак");
 		a.setIconImage(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//owner.png").getImage());
@@ -130,10 +130,10 @@ public class OwnerGUI {
         	tableModel.addColumn(columns[i]);
         }
 
-		List<Owner> oL = OwnerDao.getOwners();
-		for (int i =0; i<oL.size();i++) {
-			Owner OwAr = oL.get(i);
-			tableModel.insertRow(0, new Object[]{OwAr.getId(), OwAr.getName(),OwAr.getDog().getName() ,OwAr.getDog().getBreed().getTitle()});
+		List<Dog> dL = DogDao.getDog();
+		for (int i =0; i<dL.size();i++) {
+			Dog OwAr = dL.get(i);
+			tableModel.insertRow(0, new Object[]{OwAr.getOwner().getId(), OwAr.getOwner().getName(),OwAr.getName() ,OwAr.getBreed().getTitle()});
 		}
         add.addActionListener(new ActionListener()
 		{
@@ -172,12 +172,12 @@ public class OwnerGUI {
 		{
 			public void actionPerformed (ActionEvent event)
 			{
-				List<Owner> tO=OwnerDao.getOwners();
+				List<Dog> tD=DogDao.getDog();
 				((DefaultTableModel) table1.getModel()).getDataVector().removeAllElements();
 				
-				for (int i =0; i<tO.size();i++) {
-					Owner to = tO.get(i);
-					((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{to.getId(), to.getName(), to.getDog().getName(), to.getDog().getBreed().getTitle()});
+				for (int i =0; i<tD.size();i++) {
+					Dog to = tD.get(i);
+					((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{to.getOwner().getId(), to.getOwner().getName(), to.getName(), to.getBreed().getTitle()});
 				}
 				
 			}});
@@ -185,17 +185,17 @@ public class OwnerGUI {
 		{
 			public void actionPerformed (ActionEvent event)
 			{
-				if(table1.getSelectedRows().length==1){
-					int edOwnerIndex = table1.getSelectedRow();
-					int index = Integer.parseInt(table1.getValueAt(edOwnerIndex, 0).toString());
+				// if(table1.getSelectedRows().length==1){
+				// 	int edOwnerIndex = table1.getSelectedRow();
+				// 	int index = Integer.parseInt(table1.getValueAt(edOwnerIndex, 0).toString());
 
-					Owner editOw = OwnerDao.findOwner(index);
+				// 	Owner editOw = OwnerDao.findOwner(index);
 
-					new editOwnerGUI().show(table1, editOw.getName(), editOw.getDog(), editOw);
-				}
-				else{
-					JOptionPane.showMessageDialog(a, "Выберите одну строку");
-				}
+				// 	new editOwnerGUI().show(table1, editOw.getName(), editOw.getDog(), editOw);
+				// }
+				// else{
+				// 	JOptionPane.showMessageDialog(a, "Выберите одну строку");
+				// }
 
 				
 			}});
@@ -206,13 +206,13 @@ public class OwnerGUI {
 				Matcher matcher = pattern_person_name.matcher(owner_text.getText());
 				if(matcher.matches()){
 
-					List<Owner> oL= OwnerDao.getOwners();
+					List<Dog> dL= DogDao.getDog();
 					tableModel.setNumRows(0);
 					System.out.print(owner_text.getText());
-					for (int i =0; i<oL.size(); i++) {
-						Owner OwnerAr = oL.get(i);
+					for (int i =0; i<dL.size(); i++) {
+						Dog OwnerAr = dL.get(i);
 						if (OwnerAr.getName().contains(owner_text.getText())) {
-							tableModel.insertRow(0, new Object[]{OwnerAr.getId(), OwnerAr.getName(), OwnerAr.getDog().getBreed().getTitle()});
+							tableModel.insertRow(0, new Object[]{OwnerAr.getOwner().getId(), OwnerAr.getOwner().getName(), OwnerAr.getBreed().getTitle()});
 						}
 					}
 				}						
@@ -226,120 +226,120 @@ public class OwnerGUI {
 		{
 			public void actionPerformed (ActionEvent event)
 			{
-					int tabelIndexArr[] = table1.getSelectedRows();
-					if(JOptionPane.showConfirmDialog(a, "Вы точно хотите удалить из базы этих владельцев?\nДействие необратимо и повлечёт удаление из базы их собак.")==0){
-						for (int k=0; k<tabelIndexArr.length; k++){
-							int tabelIndex = tabelIndexArr[k];
-							int index = Integer.parseInt(table1.getValueAt(tabelIndex, 0).toString());
+					// int tabelIndexArr[] = table1.getSelectedRows();
+					// if(JOptionPane.showConfirmDialog(a, "Вы точно хотите удалить из базы этих владельцев?\nДействие необратимо и повлечёт удаление из базы их собак.")==0){
+					// 	for (int k=0; k<tabelIndexArr.length; k++){
+					// 		int tabelIndex = tabelIndexArr[k];
+					// 		int index = Integer.parseInt(table1.getValueAt(tabelIndex, 0).toString());
 						
-							Owner delOwner = OwnerDao.findOwner(index);
-							Dog delDog = DogDao.findDog(delOwner.getDog().getId());
-							DogDao.deleteDog(delDog.getId());
-							OwnerDao.deleteOwner(delOwner.getId());
-						}
+					// 		Owner delOwner = OwnerDao.findOwner(index);
+					// 		Dog delDog = DogDao.findDog(delOwner.getDog().getId());
+					// 		DogDao.deleteDog(delDog.getId());
+					// 		OwnerDao.deleteOwner(delOwner.getId());
+					// 	}
 	
-						List<Owner> tO = null;
-						tO=OwnerDao.getOwners();
+					// 	List<Owner> tO = null;
+					// 	tO=OwnerDao.getOwners();
 								
-						((DefaultTableModel) table1.getModel()).getDataVector().removeAllElements();
+					// 	((DefaultTableModel) table1.getModel()).getDataVector().removeAllElements();
 								
-						for (int i =0; i<tO.size(); i++) {
-							Owner tOd = tO.get(i);
-							((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{tOd.getId(), tOd.getName(), tOd.getDog().getName(), tOd.getDog().getBreed().getTitle()});
-						}
-					}					
+					// 	for (int i =0; i<tO.size(); i++) {
+					// 		Owner tOd = tO.get(i);
+					// 		((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{tOd.getId(), tOd.getName(), tOd.getDog().getName(), tOd.getDog().getBreed().getTitle()});
+					// 	}
+					// }					
 			}});
 			export.addActionListener(new ActionListener()
 			{
 				public void actionPerformed (ActionEvent event)
 				{
-					try 
-					{
-						BaseFont bf=BaseFont.createFont(FONT, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-						com.itextpdf.text.Font font1=new com.itextpdf.text.Font(bf,15,Font.PLAIN);
-						com.itextpdf.text.Font font2=new com.itextpdf.text.Font(bf,15,Font.BOLD);
-						com.itextpdf.text.Font font3=new com.itextpdf.text.Font(bf,20,Font.CENTER_BASELINE);
-						JFileChooser fileChooser = new JFileChooser();
+					// try 
+					// {
+					// 	BaseFont bf=BaseFont.createFont(FONT, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+					// 	com.itextpdf.text.Font font1=new com.itextpdf.text.Font(bf,15,Font.PLAIN);
+					// 	com.itextpdf.text.Font font2=new com.itextpdf.text.Font(bf,15,Font.BOLD);
+					// 	com.itextpdf.text.Font font3=new com.itextpdf.text.Font(bf,20,Font.CENTER_BASELINE);
+					// 	JFileChooser fileChooser = new JFileChooser();
 			
-						fileChooser.setCurrentDirectory(new File("."));
+					// 	fileChooser.setCurrentDirectory(new File("."));
 			
-						fileChooser.setSelectedFile(new File("owners.pdf"));
-						int result = fileChooser.showSaveDialog(null);
-						if (result == JFileChooser.APPROVE_OPTION) 
-						{
-							File selectedFile = fileChooser.getSelectedFile();
-							String fileName = selectedFile.getAbsolutePath();
+					// 	fileChooser.setSelectedFile(new File("owners.pdf"));
+					// 	int result = fileChooser.showSaveDialog(null);
+					// 	if (result == JFileChooser.APPROVE_OPTION) 
+					// 	{
+					// 		File selectedFile = fileChooser.getSelectedFile();
+					// 		String fileName = selectedFile.getAbsolutePath();
 			
-							if (!fileName.endsWith(".pdf")) 
-							{
-								fileName += ".pdf";
-							}
-							Document document = new Document();
-							PdfWriter.getInstance(document, new FileOutputStream(fileName));
-							document.open();
-							PdfPTable pdfTable = new PdfPTable(tableModel.getColumnCount());
-							//JOptionPane.showMessageDialog (a, tableModel.getColumnCount());
+					// 		if (!fileName.endsWith(".pdf")) 
+					// 		{
+					// 			fileName += ".pdf";
+					// 		}
+					// 		Document document = new Document();
+					// 		PdfWriter.getInstance(document, new FileOutputStream(fileName));
+					// 		document.open();
+					// 		PdfPTable pdfTable = new PdfPTable(tableModel.getColumnCount());
+					// 		//JOptionPane.showMessageDialog (a, tableModel.getColumnCount());
 							
 							
 			
-							//Font headerFont = FontFactory.getFont(FontFactory.HELVETICA, 10, BaseColor.BLACK);
-							com.itextpdf.text.Font headerFont = font2;
-							String[] headersPdfExport = {"\nID\n\n","\nИмя владельца" , "\nКличка", "\nПорода"};
+					// 		//Font headerFont = FontFactory.getFont(FontFactory.HELVETICA, 10, BaseColor.BLACK);
+					// 		com.itextpdf.text.Font headerFont = font2;
+					// 		String[] headersPdfExport = {"\nID\n\n","\nИмя владельца" , "\nКличка", "\nПорода"};
 							
 
-							String para_1 = "Владельцы собак"; 
-							Paragraph para = new Paragraph (para_1,font3);
-							para.setAlignment(Element.ALIGN_CENTER);
-							document.add(para); 
-							Paragraph p = new Paragraph(" ",font3);
-							p.setAlignment(0);
-							document.add(p);
+					// 		String para_1 = "Владельцы собак"; 
+					// 		Paragraph para = new Paragraph (para_1,font3);
+					// 		para.setAlignment(Element.ALIGN_CENTER);
+					// 		document.add(para); 
+					// 		Paragraph p = new Paragraph(" ",font3);
+					// 		p.setAlignment(0);
+					// 		document.add(p);
 							
-							for (int i = 0; i < tableModel.getColumnCount(); i++) 
-							{
-								PdfPCell header = new PdfPCell(new Phrase(headersPdfExport[i], headerFont));
-								header.setBackgroundColor(BaseColor.GREEN);
-								header.setBorderWidth(2);
-								header.setHorizontalAlignment(Element.ALIGN_CENTER);
-								pdfTable.addCell(header);
-							}
+					// 		for (int i = 0; i < tableModel.getColumnCount(); i++) 
+					// 		{
+					// 			PdfPCell header = new PdfPCell(new Phrase(headersPdfExport[i], headerFont));
+					// 			header.setBackgroundColor(BaseColor.GREEN);
+					// 			header.setBorderWidth(2);
+					// 			header.setHorizontalAlignment(Element.ALIGN_CENTER);
+					// 			pdfTable.addCell(header);
+					// 		}
 							
-							// Create font for table data
-							com.itextpdf.text.Font dataFont = font1;
+					// 		// Create font for table data
+					// 		com.itextpdf.text.Font dataFont = font1;
 							
-							// Set custom widths for each row 
-							float[] columnWidths = new float[] {0.2f, 0.75f, 0.5f, 0.35f};
-							pdfTable.setWidths(columnWidths);
+					// 		// Set custom widths for each row 
+					// 		float[] columnWidths = new float[] {0.2f, 0.75f, 0.5f, 0.35f};
+					// 		pdfTable.setWidths(columnWidths);
 							
-							// Add table data
-							for (int i = 0; i < tableModel.getRowCount(); i++) 
-							{
-								for (int j = 0; j < tableModel.getColumnCount(); j++) 
-								{
-									PdfPCell data = new PdfPCell(new Phrase(tableModel.getValueAt(i, j).toString(), dataFont));
-									if (i % 2 == 1)
-									{
-										data.setBackgroundColor(BaseColor.WHITE);
-									}
-									else
-									{
-										data.setBackgroundColor(BaseColor.WHITE);
-									}
-									data.setBorderWidth(1);
-									data.setHorizontalAlignment(Element.ALIGN_LEFT);
-									pdfTable.addCell(data);
-								}
-							}
-							document.add(pdfTable);
-							document.close();
-							JOptionPane.showMessageDialog(null, "Exported table data to " + fileName);
-						}
-					}
-					catch (Exception ex)
-					{
-						ex.printStackTrace();
-						JOptionPane.showMessageDialog(null, "Error exporting table data to PDF");
-					}
+					// 		// Add table data
+					// 		for (int i = 0; i < tableModel.getRowCount(); i++) 
+					// 		{
+					// 			for (int j = 0; j < tableModel.getColumnCount(); j++) 
+					// 			{
+					// 				PdfPCell data = new PdfPCell(new Phrase(tableModel.getValueAt(i, j).toString(), dataFont));
+					// 				if (i % 2 == 1)
+					// 				{
+					// 					data.setBackgroundColor(BaseColor.WHITE);
+					// 				}
+					// 				else
+					// 				{
+					// 					data.setBackgroundColor(BaseColor.WHITE);
+					// 				}
+					// 				data.setBorderWidth(1);
+					// 				data.setHorizontalAlignment(Element.ALIGN_LEFT);
+					// 				pdfTable.addCell(data);
+					// 			}
+					// 		}
+					// 		document.add(pdfTable);
+					// 		document.close();
+					// 		JOptionPane.showMessageDialog(null, "Exported table data to " + fileName);
+					// 	}
+					// }
+					// catch (Exception ex)
+					// {
+					// 	ex.printStackTrace();
+					// 	JOptionPane.showMessageDialog(null, "Error exporting table data to PDF");
+					// }
 				}});
 		
 		a.add(toolBar);

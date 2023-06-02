@@ -84,10 +84,10 @@ public class DogGUI {
 
         List<Owner> tO = null;
         tO=OwnerDao.getOwners();
-        for (int i =0; i<tO.size(); i++){
-            Owner jB = tO.get(i);
-            System.out.println(jB.getId() + " " + jB.getName()+" "+jB.getDog().getName()+" "+jB.getDog().getBreed().getTitle());
-        }
+        // for (int i =0; i<tO.size(); i++){
+        //     Owner jB = tO.get(i);
+        //     System.out.println(jB.getId() + " " + jB.getName()+" "+jB.getDog().getName()+" "+jB.getDog().getBreed().getTitle());
+        // }
 
         List<Judge> tJ = null;
         tJ=JudgeDao.getJudges();
@@ -322,11 +322,11 @@ public class DogGUI {
 							tabelIndex = tabelIndexArr[k];
 							int index = Integer.parseInt(table1.getValueAt(tabelIndex, 0).toString());
 								Owner delOwner = null;
-								for (int i = 0; i<OwnerList.size(); i++){
-									if (OwnerList.get(i).getDog().getId() == index){
-										delOwner = OwnerList.get(i); 
-									}
-								}
+								// for (int i = 0; i<OwnerList.size(); i++){
+								// 	if (OwnerList.get(i).getDog().getId() == index){
+								// 		delOwner = OwnerList.get(i); 
+								// 	}
+								// }
 								System.out.println("delOwner = "+delOwner.getId());
 								System.out.println("delDog = " + index);
 								
@@ -386,10 +386,10 @@ public class DogGUI {
 
 				List<Owner> tO = null;
 				tO=OwnerDao.getOwners();
-				for (int i =0; i<tO.size(); i++){
-					Owner jB = tO.get(i);
-					System.out.println(jB.getId() + " " + jB.getName()+" "+jB.getDog().getName()+" "+jB.getDog().getBreed().getTitle());
-				}
+				// for (int i =0; i<tO.size(); i++){
+				// 	Owner jB = tO.get(i);
+				// 	System.out.println(jB.getId() + " " + jB.getName()+" "+jB.getDog().getName()+" "+jB.getDog().getBreed().getTitle());
+				// }
 
 				for (int i=0; i<tB.size(); i++){
 					BreedList.add(tB.get(i));

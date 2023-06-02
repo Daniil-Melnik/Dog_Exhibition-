@@ -84,10 +84,10 @@ public class RefereeGUI {
 
         List<Owner> tO = null;
         tO=OwnerDao.getOwners();
-        for (int i =0; i<tO.size(); i++){
-            Owner jB = tO.get(i);
-            System.out.println(jB.getId() + " " + jB.getName()+" "+jB.getDog().getName()+" "+jB.getDog().getBreed().getTitle());
-        }
+        // for (int i =0; i<tO.size(); i++){
+        //     Owner jB = tO.get(i);
+        //     System.out.println(jB.getId() + " " + jB.getName()+" "+jB.getDog().getName()+" "+jB.getDog().getBreed().getTitle());
+        // }
 
         List<Judge> tJ = null;
         tJ=JudgeDao.getJudges();
@@ -225,13 +225,13 @@ public class RefereeGUI {
 							List<Owner> tO = null;
 							tO=OwnerDao.getOwners();
 									
-							for (int i =0; i<tO.size(); i++){
-								Owner to = tO.get(i);
-								if (to.getDog().getBreed().getId()==delBreed.getId()){
-									DogDao.deleteDog(to.getDog().getId());
-									OwnerDao.deleteOwner(to.getId());
-								}
-							}
+							// for (int i =0; i<tO.size(); i++){
+							// 	Owner to = tO.get(i);
+							// 	if (to.getDog().getBreed().getId()==delBreed.getId()){
+							// 		DogDao.deleteDog(to.getDog().getId());
+							// 		OwnerDao.deleteOwner(to.getId());
+							// 	}
+							// }
 		
 							BreedDao.deleteBreed(delBreed.getId());
 							JudgeDao.deleteJudge(index);

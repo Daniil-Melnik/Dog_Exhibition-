@@ -156,15 +156,15 @@ public class NewOwnerGUI {
 		return res;
 	}
 	
-	public Owner findOwnerByDogName(Owner ownerlist[], String dogName) {
-		Owner res = null;
-		for (int i =0; i<ownerlist.length; i++) {
-			if (ownerlist[i].getDog().getName().contains(dogName)) {
-				res = ownerlist[i];
-			}
-		}
-		return res;
-	}
+	// public Owner findOwnerByDogName(Owner ownerlist[], String dogName) {
+	// 	Owner res = null;
+	// 	for (int i =0; i<ownerlist.length; i++) {
+	// 		if (ownerlist[i].getDog().getName().contains(dogName)) {
+	// 			res = ownerlist[i];
+	// 		}
+	// 	}
+	// 	return res;
+	// }
 	
 	public int findNumByDogID(Dog doglist[], int id) {
 		int res = -1;

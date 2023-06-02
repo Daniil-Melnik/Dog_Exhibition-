@@ -24,7 +24,7 @@ public class OwnerDao {
         Owner edOwner = em.find(Owner.class, id);
         
         edOwner.setName(name);
-        edOwner.setDog(dog);
+        //edOwner.setDog(dog);
         
         em.getTransaction().commit();
         return edOwner;
@@ -47,7 +47,7 @@ public class OwnerDao {
         Owner newOwner = new Owner();
         
         newOwner.setName(name);
-        newOwner.setDog(dog);
+        //newOwner.setDog(dog);
         
         em.persist(newOwner);
         em.getTransaction().commit();
