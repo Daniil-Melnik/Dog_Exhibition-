@@ -218,24 +218,41 @@ public class RefereeGUI {
 							tabelIndex = tabelIndexArr[k];
 							index = Integer.parseInt(table1.getValueAt(tabelIndex, 0).toString());
 		
-							Judge delJudge = JudgeDao.findJudge(index);
-									
+							Judge delJudge = JudgeDao.findJudge(index);									
 							Breed delBreed = delJudge.getBreed();
-									
-							List<Owner> tO = null;
-							tO=OwnerDao.getOwners();
-									
-							// for (int i =0; i<tO.size(); i++){
-							// 	Owner to = tO.get(i);
-							// 	if (to.getDog().getBreed().getId()==delBreed.getId()){
-							// 		DogDao.deleteDog(to.getDog().getId());
-							// 		OwnerDao.deleteOwner(to.getId());
-							// 	}
-							// }
-		
-							BreedDao.deleteBreed(delBreed.getId());
-							JudgeDao.deleteJudge(index);
-		
+
+							int k1 =0;
+							List<Judge> jL = JudgeDao.getJudges();
+							for (int i =0; i<jL.size(); i++){
+								Judge jl = jL.get(i);
+								if(jl.getBreed().getId()==delBreed.getId()){
+									k1++;
+								}
+							}
+							if(k1==1){
+								List<Dog> dL = DogDao.getDog();
+								for (int i =0; i<dL.size(); i++){
+									Dog dl = dL.get(i);
+									if (dl.getBreed().getId()==delBreed.getId()){
+										int z = 0;
+										Owner delOwner = null;
+										for (int j=0; j<dL.size(); j++){
+											Dog dl1 = dL.get(j);
+											if (dl1.getOwner().getId()==dl.getOwner().getId()){
+												z++;
+												delOwner = dl1.getOwner();
+											}
+										}
+										if(z==1){
+											OwnerDao.deleteOwner(delOwner.getId());
+										}
+										DogDao.deleteDog(dl.getId());
+									}
+								}
+								BreedDao.deleteBreed(delBreed.getId());
+							}
+							JudgeDao.deleteJudge(delJudge.getId());
+
 							OwnerList.clear();
 							List<Owner> OwL = OwnerDao.getOwners();
 							for (int i =0; i<OwL.size(); i++){
