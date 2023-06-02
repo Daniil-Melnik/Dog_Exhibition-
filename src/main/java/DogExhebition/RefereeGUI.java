@@ -270,7 +270,6 @@ public class RefereeGUI {
 							for (int i =0; i<DgL.size(); i++){
 								DogList.add(DgL.get(i));
 							}
-		
 						}
 						List <Judge> tJ=JudgeDao.getJudges();
 						((DefaultTableModel) table1.getModel()).getDataVector().removeAllElements();
@@ -310,7 +309,7 @@ public class RefereeGUI {
 					tableModel.setNumRows(0);
 					for (int i =0; i<jL.size(); i++) {
 						Judge JudgeAr = jL.get(i);
-						if (JudgeAr.getName().contains(judge_text.getText())) {
+						if (JudgeAr.getName().equals(judge_text.getText())) {
 							tableModel.insertRow(0, new Object[]{JudgeAr.getId(), JudgeAr.getName(), JudgeAr.getBreed().getTitle()});
 						}
 					}
