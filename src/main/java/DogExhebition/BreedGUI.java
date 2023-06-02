@@ -262,6 +262,14 @@ public class BreedGUI {
 		{
 			public void actionPerformed (ActionEvent event)
 			{
+				if (table1.getSelectedRows().length==1){
+					int tableIndex = table1.getSelectedRow();
+					int index = Integer.parseInt(table1.getValueAt(tableIndex, 0).toString());
+					new breedInfo().show(BreedDao.findBreed(index));
+				}
+				else{
+					JOptionPane.showMessageDialog(a, "Выберите одну строку");
+				}
 				
 			}});
 		//##############################################################
