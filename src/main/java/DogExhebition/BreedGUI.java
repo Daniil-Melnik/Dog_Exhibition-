@@ -282,13 +282,13 @@ public class BreedGUI {
 							System.out.println("delBreed = "+delBreed.getId());
 									
 							Judge delJudge = null;
-							for (int i =0; i<JudgeList.size(); i++){
-								if(JudgeList.get(i).getBreed().getId()==delBreed.getId()){
-									delJudge = JudgeList.get(i);
+							List<Judge> jL= JudgeDao.getJudges();
+							for (int i =0; i<jL.size(); i++){
+								if(jL.get(i).getBreed().getId()==delBreed.getId()){
+									delJudge = jL.get(i);
 								}
 							}
-							System.out.println(delJudge.getName());
-									
+																
 							List<Owner> tO = null;
 							tO=OwnerDao.getOwners();
 									
