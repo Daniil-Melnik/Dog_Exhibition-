@@ -36,10 +36,6 @@ public class NewDogOwnerGUI {
 	private static JLabel AwardsL;
 	private static JLabel title_dog;
 	private static JCheckBox newOwner;
-	
-	
-	//private JTextField idT;
-	//private JLabel idL;
 
 	public static void show (final JTable table1)
 	{
@@ -87,10 +83,6 @@ public class NewDogOwnerGUI {
 
         List<Owner> tO = null;
         tO=OwnerDao.getOwners();
-        // for (int i =0; i<tO.size(); i++){
-        //     Owner jB = tO.get(i);
-        //     System.out.println(jB.getId() + " " + jB.getName()+" "+jB.getDog().getName()+" "+jB.getDog().getBreed().getTitle());
-        // }
 
         List<Judge> tJ = null;
         tJ=JudgeDao.getJudges();
@@ -224,7 +216,23 @@ public class NewDogOwnerGUI {
 			public void actionPerformed (ActionEvent event)
 			{
 					String dogName = DogNameT.getText();
-					String ownerName = OwnerNameT.getText();
+					Owner usOwner = null;
+					String ownerName = "";
+					if (newOwner.isSelected()){
+						ownerName = OwnerNameT.getText();
+						int OwnerID = OwnerDao.addOwner(ownerName);
+						usOwner = OwnerDao.findOwner(OwnerID);
+					}
+					if(!newOwner.isSelected()){
+						ownerName = ExistOwnerT.getSelectedItem().toString();
+						List <Owner> oL = OwnerDao.getOwners();
+						for (int i =0; i< oL.size(); i++){
+							Owner ol = oL.get(i);
+							if (ol.getName().equals(ownerName)){
+								usOwner = ol;
+							}
+						}
+					}
 					Matcher matcher = pattern_person_name.matcher(ownerName);
 					if(matcher.matches()){
 						Matcher matcher_1 = pattern_dog_name.matcher(dogName);
@@ -234,36 +242,21 @@ public class NewDogOwnerGUI {
 							Breed tempBreed = findByTitle(BreedList.toArray(new Breed[0]), breedTitle);
 							Award tempAward = findByTitle(AwardList.toArray(new Award[0]), awardTitle);
 
-							List<Owner> owL = OwnerDao.getOwners();
+							int dogID = DogDao.addDog(dogName, tempBreed, tempAward, usOwner);
 
-							boolean notOwnerExist = true;
-
-							for (int i =0; i<owL.size(); i++){
-								if(owL.get(i).getName().equals(ownerName)){
-									notOwnerExist = false;
+							List<Dog> dL = DogDao.getDog();
+							((DefaultTableModel) table1.getModel()).getDataVector().removeAllElements();
+							
+							for (int i =0; i<dL.size(); i++) {
+								Dog DgAr = dL.get(i);
+								if(DgAr.getAward().getId()==450) {
+									((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{DgAr.getId(), DgAr.getName(), DgAr.getBreed().getTitle() , "-"});
+								}
+								else {
+									((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{DgAr.getId(), DgAr.getName(), DgAr.getBreed().getTitle() , "+"});
 								}
 							}
-								if(notOwnerExist){
-									int ownerID = OwnerDao.addOwner(ownerName);
-									int dogID = DogDao.addDog(dogName, tempBreed, tempAward, OwnerDao.findOwner(ownerID));
-
-									DogList.add(DogDao.findDog(dogID));
-
-									((DefaultTableModel) table1.getModel()).getDataVector().removeAllElements();
-									Dog DgAr[] = DogList.toArray(new Dog[0]);
-									for (int i =0; i<DgAr.length; i++) {
-										if(DgAr[i].getAward().getId()==450) {
-											((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{DgAr[i].getId(), DgAr[i].getName(), DgAr[i].getBreed().getTitle() , "-"});
-										}
-										else {
-											((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{DgAr[i].getId(), DgAr[i].getName(), DgAr[i].getBreed().getTitle() , "+"});
-										}
-									}
-									aA.dispose();
-								}
-								else{
-									JOptionPane.showMessageDialog(aA, "Имя владельца занято");
-								}
+							aA.dispose();
 						}
 						else{
 							JOptionPane.showMessageDialog(aA, "Кличка собаки начинается с заглавной буквы и может содержать числовой индекс, отделённый ОДНИМ пробелом от буквенного слова.");

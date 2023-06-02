@@ -191,17 +191,6 @@ public class NewOwnerDogGUI {
 							Breed tempBreed = findByTitle_Breed(BreedList.toArray(new Breed[0]), breedTitle);
 							Award tempAward = findByTitle_Award(AwardList.toArray(new Award[0]), awardTitle);
 
-							List<Owner> owL = OwnerDao.getOwners();
-
-							boolean notOwnerExist = true;
-
-							for (int i =0; i<owL.size(); i++){
-								if(owL.get(i).getName().equals(ownerName)){
-									notOwnerExist = false;
-								}
-							}
-
-								if(notOwnerExist){
 									int OwnerID = OwnerDao.addOwner(ownerName);
 									DogDao.addDog(dogName, tempBreed, tempAward, OwnerDao.findOwner(OwnerID));
 
@@ -212,10 +201,7 @@ public class NewOwnerDogGUI {
 										((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{OwAr.getId(), OwAr.getName()});
 									}
 									aA.dispose();	
-								}
-								else{
-									JOptionPane.showMessageDialog(aA, "Имя владельца занято");
-								}
+
 						}
 						else{
 							JOptionPane.showMessageDialog(aA, "Кличка собаки начинается с заглавной буквы и может содержать числовой индекс, отделённый ОДНИМ пробелом от буквенного слова.");
