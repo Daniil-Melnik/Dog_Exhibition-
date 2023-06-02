@@ -241,19 +241,8 @@ public class editDogGUI {
 				if(matcher_1.matches()){
 					Breed edBreed = edDog.getBreed();
 					Award edAward = edDog.getAward();
-
-
-					List<Dog> dgL = DogDao.getDog();
-
-					boolean notDogExist = true;
-
-
-					for (int i =0; i<dgL.size(); i++){
-						if((dgL.get(i).getName().equals(newName))&&(!dgL.get(i).getName().equals(edDog.getName()))){
-							notDogExist = false;
-						}
-					}
-					if(notDogExist){
+					Owner edOwner = edDog.getOwner();
+					
 						if(breedCheck.isSelected()){
 							String breedTitle = BreedT.getSelectedItem().toString();
 							
@@ -278,13 +267,23 @@ public class editDogGUI {
 							edDog.setAward(edAward);
 						}
 
-						DogDao.editDog(newName, edBreed, edAward, id);
+						if (ownerCheck.isSelected()){
+							String ownerTitle_1 = OwnerT.getSelectedItem().toString();
+							List <Owner> owners = OwnerDao.getOwners();
+							for (int i =0; i<owners.size(); i++){
+								if (owners.get(i).getName().equals(ownerTitle_1)){
+									edOwner = owners.get(i);
+								}
+							}
+							edDog.setOwner(edOwner);
+						}
 
-						Dog edDog_1 = findDogByDogID(DogList.toArray(new Dog[0]), id);
-						edDog_1.setDog(newName, edBreed, edAward, id);
+						DogDao.editDog(newName, edBreed, edAward, edOwner, id);
+
+						List<Dog> dgL = DogDao.getDog();
 						((DefaultTableModel) table1.getModel()).getDataVector().removeAllElements();
-						for (int i =0; i<DogList.size(); i++){
-							Dog DgAr = DogList.get(i);
+						for (int i =0; i<dgL.size(); i++){
+							Dog DgAr = dgL.get(i);
 							if(DgAr.getAward().getId()==450) {
 								((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{DgAr.getId(), DgAr.getName(), DgAr.getBreed().getTitle() , "-"});
 							}
@@ -293,10 +292,6 @@ public class editDogGUI {
 							}
 						}
 						aA.dispose();
-					}
-					else{
-						JOptionPane.showMessageDialog(aA, "Кличка занята");
-					}
 				}
 				else{
 					JOptionPane.showMessageDialog(aA, "Кличка собаки начинается с заглавной буквы и может содержать числовой индекс, отделённый ОДНИМ пробелом от буквенного слова.");

@@ -16,7 +16,7 @@ public class DogDao {
         return reDog;
     }
 
-    public static Dog editDog(String name, Breed breed, Award award, int id){
+    public static Dog editDog(String name, Breed breed, Award award, Owner owner,int id){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("rms_persistence");
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
@@ -25,6 +25,7 @@ public class DogDao {
         edDog.setName(name);
         edDog.setAward(award);
         edDog.setBreed(breed);
+        edDog.setOwner(owner);
         
         em.getTransaction().commit();
         return edDog;
