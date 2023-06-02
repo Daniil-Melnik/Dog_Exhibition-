@@ -220,8 +220,9 @@ public class NewDogOwnerGUI {
 
 							if(notDogExist){
 								if(notOwnerExist){
-									int dogID = DogDao.addDog(dogName, tempBreed, tempAward);
-									OwnerDao.addOwner(ownerName, DogDao.findDog(dogID));
+									int ownerID = OwnerDao.addOwner(ownerName);
+									int dogID = DogDao.addDog(dogName, tempBreed, tempAward, OwnerDao.findOwner(ownerID));
+									
 
 									DogList.add(DogDao.findDog(dogID));
 

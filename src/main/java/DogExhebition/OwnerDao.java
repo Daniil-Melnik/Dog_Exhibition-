@@ -39,14 +39,13 @@ public class OwnerDao {
         return owner;
     }
 
-    public static int addOwner(String name, Dog dog){
+    public static int addOwner(String name){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("rms_persistence");
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         Owner newOwner = new Owner();
         
         newOwner.setName(name);
-        //newOwner.setDog(dog);
         
         em.persist(newOwner);
         em.getTransaction().commit();

@@ -40,7 +40,7 @@ public class DogDao {
         return dog;
     }
 
-    public static int addDog(String name, Breed breed, Award award){
+    public static int addDog(String name, Breed breed, Award award, Owner owner){
         int res = 0;
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("rms_persistence");
         EntityManager em = emf.createEntityManager();
@@ -50,6 +50,7 @@ public class DogDao {
         newDog.setName(name);
         newDog.setAward(award);
         newDog.setBreed(breed);
+        newDog.setOwner(owner);
         
         em.persist(newDog);
         em.getTransaction().commit();
