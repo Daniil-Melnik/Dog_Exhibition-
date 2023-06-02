@@ -284,43 +284,55 @@ public class BreedGUI {
 						for (int k =0; k<tabelIndexArr.length; k++){
 							tabelIndex = tabelIndexArr[k];
 							index = Integer.parseInt(table1.getValueAt(tabelIndex, 0).toString());
+
 							Breed delBreed = BreedDao.findBreed(index);
-							System.out.println("delBreed = "+delBreed.getId());
-									
-							Judge delJudge = null;
-							List<Judge> jL= JudgeDao.getJudges();
+
+							
+							List<Judge> jL = JudgeDao.getJudges();
 							for (int i =0; i<jL.size(); i++){
-								if(jL.get(i).getBreed().getId()==delBreed.getId()){
-									delJudge = jL.get(i);
+								Judge jl = jL.get(i);
+								if(jl.getBreed().getId()==delBreed.getId()){
+									JudgeDao.deleteJudge(jl.getId());
 								}
 							}
-																
-							List<Owner> tO = null;
-							tO=OwnerDao.getOwners();
-									
-							// for (int i =0; i<tO.size(); i++){
-							// 	Owner to = tO.get(i);
-							// 	if (to.getDog().getBreed().getId()==delBreed.getId()){
-							// 		DogDao.deleteDog(to.getDog().getId());
-							// 		OwnerDao.deleteOwner(to.getId());
-							// 	}
-							// }
-							JudgeDao.deleteJudge(delJudge.getId());
-							BreedDao.deleteBreed(delBreed.getId());
-		
-							List<Judge> jD = JudgeDao.getJudges();
-							JudgeList.clear();
-							for (int i=0; i<jD.size(); i++){
-								JudgeList.add(jD.get(i));
+
+							int k1 =0;
+							List<Dog> dL = DogDao.getDog();
+							for (int i=0; i<dL.size(); i++){
+								Dog dl = dL.get(i);
+								if(dl.getBreed().getId()==delBreed.getId()){
+									Dog delDog = dl;
+									int z =0;
+									Owner delOwner = null;
+									List<Dog> dL1 = DogDao.getDog();
+									for (int j =0; j<dL1.size(); j++){
+										Dog delDog_1 = dL1.get(j);
+										if(delDog_1.getOwner().getId() == delDog.getOwner().getId()){
+											z++;
+											delOwner = delDog_1.getOwner();
+										}
+									}
+									if(z==1){
+										OwnerDao.deleteOwner(delOwner.getId());
+									}
+									DogDao.deleteDog(delDog.getId());
+								}
+								
+							}
+
+							OwnerList.clear();
+							List<Owner> OwL = OwnerDao.getOwners();
+							for (int i =0; i<OwL.size(); i++){
+								OwnerList.add(OwL.get(i));
 							}
 		
-							// List<Breed> bD = BreedDao.getBreeds();
-							// BreedList.clear();
-							// for (int i =0; i<bD.size(); i++){
-							// 	BreedList.add(bD.get(i));
-							// }
 		
-									
+							DogList.clear();
+							List<Dog> DgL = DogDao.getDog();
+							for (int i =0; i<DgL.size(); i++){
+								DogList.add(DgL.get(i));
+							}
+							BreedDao.deleteBreed(delBreed.getId());									
 						}
 		
 						List<Breed> tB=BreedDao.getBreeds();

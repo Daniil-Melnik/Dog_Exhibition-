@@ -111,7 +111,7 @@ public class MainGUI {
 		{
 			public void actionPerformed (ActionEvent event)
 			{
-				new RefereeGUI().show();
+				new JudgeGUI().show();
 			}});
 		
 		a.add(Ref);

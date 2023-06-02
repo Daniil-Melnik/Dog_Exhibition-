@@ -32,7 +32,7 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.table.DefaultTableModel;
 
-public class RefereeGUI {
+public class JudgeGUI {
 
 	protected static final JOptionPane JOptionPanel = null;
 	private JButton edit;
@@ -432,7 +432,7 @@ public class RefereeGUI {
 	
 	
 	public static void main(String[] args) {
-		new RefereeGUI().show();
+		new JudgeGUI().show();
 	}
 }
 
