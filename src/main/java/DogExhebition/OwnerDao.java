@@ -16,7 +16,7 @@ public class OwnerDao {
         return reOwner;
     }
 
-    public static Owner editOwner(String name, Dog dog, int id){
+    public static Owner editOwner(String name, int id){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("rms_persistence");
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
@@ -24,7 +24,6 @@ public class OwnerDao {
         Owner edOwner = em.find(Owner.class, id);
         
         edOwner.setName(name);
-        //edOwner.setDog(dog);
         
         em.getTransaction().commit();
         return edOwner;

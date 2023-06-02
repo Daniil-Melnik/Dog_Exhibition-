@@ -142,6 +142,7 @@ public class OwnerGUI {
 			Owner OwAr = dO.get(i);
 			tableModel.insertRow(0, new Object[]{OwAr.getId(), OwAr.getName()});
 		}
+
         add.addActionListener(new ActionListener()
 		{
 			public void actionPerformed (ActionEvent event)
@@ -154,15 +155,12 @@ public class OwnerGUI {
         table1.getColumn("id").setPreferredWidth(30);
         table1.getColumn("Имя владельца").setPreferredWidth(600);
         
-       
-				
         owner_text = new JTextField("введите имя владельца");
 		owner_text.setBounds(350,480,280,30);
 		
 		owner_ser = new JButton("найти");
 		owner_ser.setBounds(650,480,100,30);
 
-		
 		a.add(owner_text);
 		a.add(owner_ser);
 		
@@ -184,25 +182,20 @@ public class OwnerGUI {
 					Owner to = tO.get(i);
 					((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{to.getId(), to.getName()});
 				}
-				
 			}});
 		edit.addActionListener(new ActionListener()
 		{
 			public void actionPerformed (ActionEvent event)
 			{
-				// if(table1.getSelectedRows().length==1){
-				// 	int edOwnerIndex = table1.getSelectedRow();
-				// 	int index = Integer.parseInt(table1.getValueAt(edOwnerIndex, 0).toString());
-
-				// 	Owner editOw = OwnerDao.findOwner(index);
-
-				// 	new editOwnerGUI().show(table1, editOw.getName(), editOw.getDog(), editOw);
-				// }
-				// else{
-				// 	JOptionPane.showMessageDialog(a, "Выберите одну строку");
-				// }
-
-				
+				if(table1.getSelectedRows().length==1){
+					int edOwnerIndex = table1.getSelectedRow();
+					int index = Integer.parseInt(table1.getValueAt(edOwnerIndex, 0).toString());
+					Owner editOw = OwnerDao.findOwner(index);
+					new editOwnerGUI().show(table1, editOw.getName(), editOw);
+				}
+				else{
+					JOptionPane.showMessageDialog(a, "Выберите одну строку");
+				}
 			}});
 		owner_ser.addActionListener(new ActionListener()
 		{
@@ -231,28 +224,33 @@ public class OwnerGUI {
 		{
 			public void actionPerformed (ActionEvent event)
 			{
-					// int tabelIndexArr[] = table1.getSelectedRows();
-					// if(JOptionPane.showConfirmDialog(a, "Вы точно хотите удалить из базы этих владельцев?\nДействие необратимо и повлечёт удаление из базы их собак.")==0){
-					// 	for (int k=0; k<tabelIndexArr.length; k++){
-					// 		int tabelIndex = tabelIndexArr[k];
-					// 		int index = Integer.parseInt(table1.getValueAt(tabelIndex, 0).toString());
+					int tabelIndexArr[] = table1.getSelectedRows();
+					if(JOptionPane.showConfirmDialog(a, "Вы точно хотите удалить из базы этих владельцев?\nДействие необратимо и повлечёт удаление из базы их собак.")==0){
+						for (int k=0; k<tabelIndexArr.length; k++){
+							int tabelIndex = tabelIndexArr[k];
+							int index = Integer.parseInt(table1.getValueAt(tabelIndex, 0).toString());
 						
-					// 		Owner delOwner = OwnerDao.findOwner(index);
-					// 		Dog delDog = DogDao.findDog(delOwner.getDog().getId());
-					// 		DogDao.deleteDog(delDog.getId());
-					// 		OwnerDao.deleteOwner(delOwner.getId());
-					// 	}
+							Owner delOwner = OwnerDao.findOwner(index);
+							List<Dog> dL = DogDao.getDog();
+							for (int i =0; i<dL.size(); i++){
+								Dog dl = dL.get(i);
+								if (dl.getOwner().getId()==delOwner.getId()){
+									DogDao.deleteDog(dl.getId());
+								}
+							}							
+							OwnerDao.deleteOwner(delOwner.getId());
+						}
 	
-					// 	List<Owner> tO = null;
-					// 	tO=OwnerDao.getOwners();
+						List<Owner> tO = null;
+						tO=OwnerDao.getOwners();
 								
-					// 	((DefaultTableModel) table1.getModel()).getDataVector().removeAllElements();
+						((DefaultTableModel) table1.getModel()).getDataVector().removeAllElements();
 								
-					// 	for (int i =0; i<tO.size(); i++) {
-					// 		Owner tOd = tO.get(i);
-					// 		((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{tOd.getId(), tOd.getName(), tOd.getDog().getName(), tOd.getDog().getBreed().getTitle()});
-					// 	}
-					// }					
+						for (int i =0; i<tO.size(); i++) {
+							Owner tOd = tO.get(i);
+							((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{tOd.getId(), tOd.getName()});
+						}
+					}					
 			}});
 			info.addActionListener(new ActionListener()
 			{

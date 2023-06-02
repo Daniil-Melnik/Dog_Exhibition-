@@ -3,16 +3,16 @@ package DogExhebition;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+// import java.awt.event.ItemEvent;
+// import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
+// import javax.swing.JCheckBox;
+// import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -24,18 +24,13 @@ public class editOwnerGUI {
 
 	private JFrame aA;
 	private JButton apply;
-	private JComboBox<String> DogNameT;
-
-	private JLabel DogNameL;
 
 	private JLabel title;
-	private JCheckBox newDogEd;
 	
 	private JTextField OwnerNameT;
 	private JLabel OwnerNameL;
-	private JLabel dog_label;
 
-	public void show (final JTable table1, String lastName, Dog dog, Owner owner)
+	public void show (final JTable table1, String lastName, Owner owner)
 	{
 		String regex_person_name = "^[А-Я]{1}[а-я]*( ){1}[А-Я]{1}[а-я]*(\\-[А-Я]{1}[а-я]*)?( {1}[0-9]+)?$";
 		Pattern pattern_person_name = Pattern.compile(regex_person_name);
@@ -89,7 +84,7 @@ public class editOwnerGUI {
 
 		aA = new JFrame("");
 		aA.setTitle("Изменить данные");
-		aA.setSize(500, 305);
+		aA.setSize(500, 200);
 		
 		title = new JLabel("Изменить данные");
 		title.setBounds(175, 20, 200, 30);
@@ -98,7 +93,7 @@ public class editOwnerGUI {
 		
 		apply = new JButton("изменить");
 		apply.setFont(new Font("Arial", Font.PLAIN, 15));
-		apply.setBounds(360, 220, 120, 40);
+		apply.setBounds(360, 120, 120, 40);
 		
 		
 		OwnerNameT = new JTextField();
@@ -110,45 +105,6 @@ public class editOwnerGUI {
 		OwnerNameL.setBounds(30,70,150,30);
 		OwnerNameL.setFont(new Font("Arial", Font.PLAIN, 15));
 
-		newDogEd = new JCheckBox("Замена собаки");
-		newDogEd.setBounds(25, 105, 120, 45);
-		newDogEd.setHorizontalTextPosition(JCheckBox.LEFT);
-		aA.add(newDogEd);		
-		
-		ArrayList<String> dogs = new ArrayList<>();
-		Dog DgAr[] = DogList.toArray(new Dog[0]);
-		for (int i = 0; i<DgAr.length; i++) {
-			if (DgAr[i].getId()!=dog.getId()){
-				dogs.add(DgAr[i].getName());
-			}
-		}
-		
-		DogNameT = new JComboBox<String>(dogs.toArray(new String[0]));		
-		DogNameT.setFont(new Font("Arial", Font.PLAIN, 15));
-		DogNameT.setBounds(150,110,300,30);
-		
-		DogNameL = new JLabel("Кличка собаки: ");
-		DogNameL.setBounds(30,150,150,30);
-		DogNameL.setFont(new Font("Arial", Font.PLAIN, 15));
-		
-		DogNameT.setEnabled(false);
-
-		dog_label = new JLabel("Собака : " + dog.getName());
-		dog_label.setBounds(30, 150, 300, 20);
-		dog_label.setFont(new Font("Arial", Font.PLAIN, 20));
-		aA.add(dog_label);
-        aA.add(DogNameT);
-
-		newDogEd.addItemListener(new ItemListener() {
-			public void itemStateChanged (ItemEvent e){
-				if (e.getStateChange() == ItemEvent.SELECTED){
-					DogNameT.setEnabled(true);
-				}
-				if(e.getStateChange() == ItemEvent.DESELECTED){
-					DogNameT.setEnabled(false);
-				}
-			}
-		});
 				
 		aA.add(OwnerNameT);
 		aA.add(OwnerNameL);
@@ -172,37 +128,14 @@ public class editOwnerGUI {
 					}
 
 					if(notOwnerExist){
-						if (newDogEd.isSelected()){
-							Dog secondDog = null;
-							List<Dog> DogList_1 = DogDao.getDog();
-							for (int i =0; i<DogList_1.size(); i++){
-								Dog dG = DogList_1.get(i);
-								if (dG.getName().contains(DogNameT.getSelectedItem().toString())){
-									secondDog = dG;
-								}
+							OwnerDao.editOwner(own, owner.getId());
+							((DefaultTableModel) table1.getModel()).getDataVector().removeAllElements();
+							List<Owner> tJ1=OwnerDao.getOwners();
+							for (int i =0; i<tJ1.size(); i++){
+								Owner jB = tJ1.get(i);
+								((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{jB.getId(), jB.getName()});		
 							}
-							Owner SecondOwner = null;
-							List<Owner> OwnerList_1 = OwnerDao.getOwners();
-							// for (int i = 0; i<OwnerList_1.size(); i++){
-							// 	Owner OL = OwnerList_1.get(i);
-							// 	if (OL.getDog().getId()==secondDog.getId()){
-							// 		SecondOwner = OL;
-							// 	}
-							// }
-							OwnerDao.editOwner(own, secondDog, owner.getId());
-							OwnerDao.editOwner(SecondOwner.getName(), dog, SecondOwner.getId());
-						}
-						else{
-							OwnerDao.editOwner(own, dog, owner.getId());
-						}
-						
-						((DefaultTableModel) table1.getModel()).getDataVector().removeAllElements();
-						List<Owner> tJ1=OwnerDao.getOwners();
-						// for (int i =0; i<tJ1.size(); i++){
-						// 	Owner jB = tJ1.get(i);
-						// 	((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{jB.getId(), jB.getName(), jB.getDog().getName(), jB.getDog().getBreed().getTitle()});		
-						// }
-						aA.dispose();
+							aA.dispose();
 					}
 					else{
 						JOptionPane.showMessageDialog(aA, "Имя владельца занято");
@@ -220,12 +153,9 @@ public class editOwnerGUI {
 		aA.setLayout(null);
 		aA.setVisible(true);
 	};
-	public static boolean isNumericID(String str) {
-		return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
-	  }
 	
 	public static void main(String[] args) {
-		new editOwnerGUI().show(null, "старое владельца", null, null);
+		new editOwnerGUI().show(null, "старое владельца", null);
 	}
 
 }
