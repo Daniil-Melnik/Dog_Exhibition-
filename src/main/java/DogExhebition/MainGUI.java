@@ -129,7 +129,7 @@ public class MainGUI {
 		a.add(label_7);
 		
 		a.setSize(420,540);
-		a.setLayout(null);
+		a.setLayout(null); 
 		a.setVisible(true);
 	}
 	

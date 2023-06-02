@@ -25,11 +25,13 @@ public class editRefGUI {
 	private JFrame aA;
 	private JButton apply;
 	private JTextField JudgeNameT;
+	private JTextField newBreedT;
 	private JComboBox<String> BreedT;
 	private JLabel JudgeNameL;
 	private JLabel BreedL;
 	private JLabel title;
 	private JCheckBox breedCheck;
+	private JCheckBox breedNewCheck;
 
 	public void show (final JTable table1, int id)
 	{
@@ -83,10 +85,37 @@ public class editRefGUI {
 		JudgeNameT = new JTextField(edJudge.getName());
 		JudgeNameT.setFont(new Font("Arial", Font.PLAIN, 15));
 		JudgeNameT.setBounds(150,70,300,30);
+
+		newBreedT = new JTextField();
+		newBreedT.setFont(new Font("Arial", Font.PLAIN, 15));
+		newBreedT.setBounds(150,110,300,30);
+		newBreedT.setVisible(false);
 		
 		JudgeNameL = new JLabel("Имя судьи: ");
 		JudgeNameL.setBounds(30,70,150,30);
 		JudgeNameL.setFont(new Font("Arial", Font.PLAIN, 15));				
+
+		breedNewCheck = new JCheckBox("Новая порода");
+		breedNewCheck.setBounds(5, 170, 140, 20);
+		breedNewCheck.setFont(new Font("Arial", Font.PLAIN, 15));
+
+		aA.add(newBreedT);
+
+		breedNewCheck.addItemListener((ItemListener) new ItemListener() {
+			public void itemStateChanged (ItemEvent e){
+				if (e.getStateChange() == ItemEvent.SELECTED){
+					BreedT.setVisible(false);
+					newBreedT.setVisible(true);
+				}
+				if(e.getStateChange() == ItemEvent.DESELECTED){
+					BreedT.setVisible(true);
+					newBreedT.setVisible(false);
+				}
+			}
+		});
+
+		aA.add(breedNewCheck);
+
 
 		List<Breed> brL = BreedDao.getBreeds();
 		List<String> brStr = new ArrayList<>();
@@ -106,17 +135,18 @@ public class editRefGUI {
 
 		breedCheck = new JCheckBox("Сменить породу");
 
-		breedCheck.setBounds(5, 115, 140, 20);
-		breedCheck.setFont(new Font("Arial", Font.PLAIN, 15));
-		breedCheck.setHorizontalTextPosition(JCheckBox.LEFT);
+		breedCheck.setBounds(5, 150, 140, 20);
+		breedCheck.setFont(new Font("Arial", Font.PLAIN, 15));;
 		BreedT.setEnabled(false);
 		breedCheck.addItemListener((ItemListener) new ItemListener() {
 			public void itemStateChanged (ItemEvent e){
 				if (e.getStateChange() == ItemEvent.SELECTED){
 					BreedT.setEnabled(true);
+					newBreedT.setEnabled(true);
 				}
 				if(e.getStateChange() == ItemEvent.DESELECTED){
 					BreedT.setEnabled(false);
+					newBreedT.setEnabled(false);
 				}
 			}
 		});
