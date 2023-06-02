@@ -7,6 +7,8 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -36,7 +38,8 @@ public class editDogGUI {
 
 	public void show (final JTable table1, int id)
 	{
-
+		String regex_dog_name = "^[А-Я]{1}[а-я]*( {1}[0-9]+)?$";
+		Pattern pattern_dog_name = Pattern.compile(regex_dog_name);
 		final ArrayList<Breed> BreedList = new ArrayList<>();
         final ArrayList<Award> AwardList = new ArrayList<>();
         
@@ -197,63 +200,69 @@ public class editDogGUI {
 			public void actionPerformed (ActionEvent event)
 			{
 				String newName = DogNameT.getText();
-				Breed edBreed = edDog.getBreed();
-				Award edAward = edDog.getAward();
+				Matcher matcher_1 = pattern_dog_name.matcher(newName);
+				if(matcher_1.matches()){
+					Breed edBreed = edDog.getBreed();
+					Award edAward = edDog.getAward();
 
 
-				List<Dog> dgL = DogDao.getDog();
+					List<Dog> dgL = DogDao.getDog();
 
-				boolean notDogExist = true;
+					boolean notDogExist = true;
 
 
-				for (int i =0; i<dgL.size(); i++){
-					if((dgL.get(i).getName().equals(newName))&&(!dgL.get(i).getName().equals(edDog.getName()))){
-						notDogExist = false;
+					for (int i =0; i<dgL.size(); i++){
+						if((dgL.get(i).getName().equals(newName))&&(!dgL.get(i).getName().equals(edDog.getName()))){
+							notDogExist = false;
+						}
 					}
-				}
-				if(notDogExist){
-					if(breedCheck.isSelected()){
-						String breedTitle = BreedT.getSelectedItem().toString();
-						
-						List <Breed> breeds = BreedDao.getBreeds();
-						for (int i =0; i<breeds.size(); i++){
-							if (breeds.get(i).getTitle().contains(breedTitle)){
-								edBreed = breeds.get(i);
+					if(notDogExist){
+						if(breedCheck.isSelected()){
+							String breedTitle = BreedT.getSelectedItem().toString();
+							
+							List <Breed> breeds = BreedDao.getBreeds();
+							for (int i =0; i<breeds.size(); i++){
+								if (breeds.get(i).getTitle().contains(breedTitle)){
+									edBreed = breeds.get(i);
+								}
+							}
+							edDog.setBreed(edBreed);
+						}
+
+						if (awardCheck.isSelected()){
+							String awardTitle_1 = AwardsT.getSelectedItem().toString();
+							System.out.println(awardTitle_1);
+							List <Award> awards = AwardDao.getAwards();
+							for (int i =0; i<awards.size(); i++){
+								if (awards.get(i).getTitle().contains(awardTitle_1)){
+									edAward = awards.get(i);
+								}
+							}
+							edDog.setAward(edAward);
+						}
+
+						DogDao.editDog(newName, edBreed, edAward, id);
+
+						Dog edDog_1 = findDogByDogID(DogList.toArray(new Dog[0]), id);
+						edDog_1.setDog(newName, edBreed, edAward, id);
+						((DefaultTableModel) table1.getModel()).getDataVector().removeAllElements();
+						for (int i =0; i<DogList.size(); i++){
+							Dog DgAr = DogList.get(i);
+							if(DgAr.getAward().getId()==450) {
+								((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{DgAr.getId(), DgAr.getName(), DgAr.getBreed().getTitle() , "-"});
+							}
+							else {
+								((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{DgAr.getId(), DgAr.getName(), DgAr.getBreed().getTitle() , "+"});
 							}
 						}
-						edDog.setBreed(edBreed);
+						aA.dispose();
 					}
-
-					if (awardCheck.isSelected()){
-						String awardTitle_1 = AwardsT.getSelectedItem().toString();
-						System.out.println(awardTitle_1);
-						List <Award> awards = AwardDao.getAwards();
-						for (int i =0; i<awards.size(); i++){
-							if (awards.get(i).getTitle().contains(awardTitle_1)){
-								edAward = awards.get(i);
-							}
-						}
-						edDog.setAward(edAward);
+					else{
+						JOptionPane.showMessageDialog(aA, "Кличка занята");
 					}
-
-					DogDao.editDog(newName, edBreed, edAward, id);
-
-					Dog edDog_1 = findDogByDogID(DogList.toArray(new Dog[0]), id);
-					edDog_1.setDog(newName, edBreed, edAward, id);
-					((DefaultTableModel) table1.getModel()).getDataVector().removeAllElements();
-					for (int i =0; i<DogList.size(); i++){
-						Dog DgAr = DogList.get(i);
-						if(DgAr.getAward().getId()==450) {
-							((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{DgAr.getId(), DgAr.getName(), DgAr.getBreed().getTitle() , "-"});
-						}
-						else {
-							((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{DgAr.getId(), DgAr.getName(), DgAr.getBreed().getTitle() , "+"});
-						}
-					}
-					aA.dispose();
 				}
 				else{
-					JOptionPane.showMessageDialog(aA, "Кличка занята");
+					JOptionPane.showMessageDialog(aA, "Кличка собаки начинается с заглавной буквы и может содержать числовой индекс, отделённый ОДНИМ пробелом от буквенного слова.");
 				}
 			}});
 		
