@@ -54,12 +54,6 @@ public class OwnerGUI {
 
 		String regex_person_name = "^[А-Я]{1}[а-я]*( ){1}[А-Я]{1}[а-я]*(\\-[А-Я]{1}[а-я]*)?( {1}[0-9]+)?$";
 		Pattern pattern_person_name = Pattern.compile(regex_person_name);
-		
-		final ArrayList<Breed> BreedList = new ArrayList<>();
-        final ArrayList<Dog> DogList = new ArrayList<>();
-        final ArrayList<Owner> OwnerList = new ArrayList<>();
-
-
 
 		List<Breed> tB = null;
 		tB=BreedDao.getBreeds();
@@ -81,19 +75,6 @@ public class OwnerGUI {
             Owner jB = tO.get(i);
             System.out.println(jB.getId() + " " + jB.getName()+" "+jB.getDog().getName()+" "+jB.getDog().getBreed().getTitle());
         }
-
-
-		for (int i=0; i<tB.size(); i++){
-			BreedList.add(tB.get(i));
-		}
-
-		for (int i=0; i<tD.size(); i++){
-			DogList.add(tD.get(i));
-		}
-
-		for (int i=0; i<tO.size(); i++){
-			OwnerList.add(tO.get(i));
-		}
 		
 		final JFrame a = new JFrame("Владельцы собак");
 		a.setIconImage(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//owner.png").getImage());
@@ -106,10 +87,10 @@ public class OwnerGUI {
 		a.add(title_label);
 		
 		final ArrayList<String> BrAr = new ArrayList<>();
-		Breed helpBreed [] = BreedList.toArray(new Breed[0]);
 		
-		for (int i =0; i<helpBreed.length; i++) {
-			BrAr.add(helpBreed[i].getTitle());
+		List<Breed> helpBreed = BreedDao.getBreeds();
+		for (int i =0; i<helpBreed.size(); i++) {
+			BrAr.add(helpBreed.get(i).getTitle());
 		}
 		
 		add = new JButton(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//add10.png"));
@@ -149,9 +130,10 @@ public class OwnerGUI {
         	tableModel.addColumn(columns[i]);
         }
 
-		Owner OwAr[] = OwnerList.toArray(new Owner[0]);
-		for (int i =0; i<OwAr.length;i++) {
-			tableModel.insertRow(0, new Object[]{OwAr[i].getId(), OwAr[i].getName(),OwAr[i].getDog().getName() ,OwAr[i].getDog().getBreed().getTitle()});
+		List<Owner> oL = OwnerDao.getOwners();
+		for (int i =0; i<oL.size();i++) {
+			Owner OwAr = oL.get(i);
+			tableModel.insertRow(0, new Object[]{OwAr.getId(), OwAr.getName(),OwAr.getDog().getName() ,OwAr.getDog().getBreed().getTitle()});
 		}
         add.addActionListener(new ActionListener()
 		{
