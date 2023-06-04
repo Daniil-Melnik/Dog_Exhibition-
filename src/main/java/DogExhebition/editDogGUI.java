@@ -326,23 +326,24 @@ public class editDogGUI {
 								if(matcher_2.matches()){
 									int ownerID = OwnerDao.addOwner(ownerTitle_1);
 									edOwner = OwnerDao.findOwner(ownerID);
-									Owner delOwner = DogDao.findDog(id).getOwner();
-									List<Owner> owDelL = OwnerDao.getOwners();
-									int k = 0;
-									for (int i =0; i<owDelL.size(); i++){
-										Owner delL = owDelL.get(i);
-										if (delL.getId()==delOwner.getId()){
-											k++;
-										}
-									}
-									if (k==1){
-										OwnerDao.deleteOwner(delOwner.getId());
-									}
+									
 								}
 								else{
 									JOptionPane.showMessageDialog(aA, "Имя владельца на русском языке содержит имя и фамилию с заглавных букв разделённые ОДНИМ пробелом.\nВ фамилии возможен один дефис.\nВозможно добавление числового индекса через пробел от фамилии.");
 								}
 
+							}
+							Owner delOwner = DogDao.findDog(id).getOwner();
+							List<Owner> owDelL = OwnerDao.getOwners();
+							int k = 0;
+							for (int i =0; i<owDelL.size(); i++){
+								Owner delL = owDelL.get(i);
+								if (delL.getId()==delOwner.getId()){
+									k++;
+								}
+							}
+							if (k==1){
+								OwnerDao.deleteOwner(delOwner.getId());
 							}
 							
 						}
