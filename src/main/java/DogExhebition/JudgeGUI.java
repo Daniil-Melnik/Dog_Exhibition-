@@ -333,96 +333,96 @@ public class JudgeGUI {
 				}
 			}});
 		
-			export.addActionListener(new ActionListener()
+		export.addActionListener(new ActionListener()
+		{
+			public void actionPerformed (ActionEvent event)
 			{
-				public void actionPerformed (ActionEvent event)
+				try 
 				{
-					try 
+					BaseFont bf=BaseFont.createFont(FONT, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+					com.itextpdf.text.Font font1=new com.itextpdf.text.Font(bf,15,Font.PLAIN);
+					com.itextpdf.text.Font font2=new com.itextpdf.text.Font(bf,15,Font.BOLD);
+					com.itextpdf.text.Font font3=new com.itextpdf.text.Font(bf,20,Font.CENTER_BASELINE);
+					JFileChooser fileChooser = new JFileChooser();
+			
+					fileChooser.setCurrentDirectory(new File("."));
+			
+					fileChooser.setSelectedFile(new File("judges.pdf"));
+					int result = fileChooser.showSaveDialog(null);
+					if (result == JFileChooser.APPROVE_OPTION) 
 					{
-						BaseFont bf=BaseFont.createFont(FONT, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-						com.itextpdf.text.Font font1=new com.itextpdf.text.Font(bf,15,Font.PLAIN);
-						com.itextpdf.text.Font font2=new com.itextpdf.text.Font(bf,15,Font.BOLD);
-						com.itextpdf.text.Font font3=new com.itextpdf.text.Font(bf,20,Font.CENTER_BASELINE);
-						JFileChooser fileChooser = new JFileChooser();
-			
-						fileChooser.setCurrentDirectory(new File("."));
-			
-						fileChooser.setSelectedFile(new File("judges.pdf"));
-						int result = fileChooser.showSaveDialog(null);
-						if (result == JFileChooser.APPROVE_OPTION) 
+						File selectedFile = fileChooser.getSelectedFile();
+						String fileName = selectedFile.getAbsolutePath();
+		
+						if (!fileName.endsWith(".pdf")) 
 						{
-							File selectedFile = fileChooser.getSelectedFile();
-							String fileName = selectedFile.getAbsolutePath();
-			
-							if (!fileName.endsWith(".pdf")) 
-							{
-								fileName += ".pdf";
-							}
-							Document document = new Document();
-							PdfWriter.getInstance(document, new FileOutputStream(fileName));
-							document.open();
-							PdfPTable pdfTable = new PdfPTable(tableModel.getColumnCount());
-							//JOptionPane.showMessageDialog (a, tableModel.getColumnCount());
-							
-							
-			
-							//Font headerFont = FontFactory.getFont(FontFactory.HELVETICA, 10, BaseColor.BLACK);
-							com.itextpdf.text.Font headerFont = font2;
-							String[] headersPdfExport = {"\nID\n\n","\nИмя судьи" , "\nОбслуживаемая порода"};
-							String para_1 = "Судьи"; 
-							Paragraph para = new Paragraph (para_1,font3);
-							para.setAlignment(Element.ALIGN_CENTER);
-							document.add(para); 
-							Paragraph p = new Paragraph(" ",font3);
-							p.setAlignment(0);
-							document.add(p);
-							
-							for (int i = 0; i < tableModel.getColumnCount(); i++) 
-							{
-								PdfPCell header = new PdfPCell(new Phrase(headersPdfExport[i], headerFont));
-								header.setBackgroundColor(BaseColor.GREEN);
-								header.setBorderWidth(2);
-								header.setHorizontalAlignment(Element.ALIGN_CENTER);
-								pdfTable.addCell(header);
-							}
-							
-							// Create font for table data
-							com.itextpdf.text.Font dataFont = font1;
-							
-							// Set custom widths for each row 
-							float[] columnWidths = new float[] {0.2f, 0.80f, 0.55f};
-							pdfTable.setWidths(columnWidths);
-							
-							// Add table data
-							for (int i = 0; i < tableModel.getRowCount(); i++) 
-							{
-								for (int j = 0; j < tableModel.getColumnCount(); j++) 
-								{
-									PdfPCell data = new PdfPCell(new Phrase(tableModel.getValueAt(i, j).toString(), dataFont));
-									if (i % 2 == 1)
-									{
-										data.setBackgroundColor(BaseColor.WHITE);
-									}
-									else
-									{
-										data.setBackgroundColor(BaseColor.WHITE);
-									}
-									data.setBorderWidth(1);
-									data.setHorizontalAlignment(Element.ALIGN_LEFT);
-									pdfTable.addCell(data);
-								}
-							}
-							document.add(pdfTable);
-							document.close();
-							JOptionPane.showMessageDialog(null, "Exported table data to " + fileName);
+							fileName += ".pdf";
 						}
+						Document document = new Document();
+						PdfWriter.getInstance(document, new FileOutputStream(fileName));
+						document.open();
+						PdfPTable pdfTable = new PdfPTable(tableModel.getColumnCount());
+						//JOptionPane.showMessageDialog (a, tableModel.getColumnCount());
+							
+							
+			
+						//Font headerFont = FontFactory.getFont(FontFactory.HELVETICA, 10, BaseColor.BLACK);
+						com.itextpdf.text.Font headerFont = font2;
+						String[] headersPdfExport = {"\nID\n\n","\nИмя судьи" , "\nОбслуживаемая порода"};
+						String para_1 = "Судьи"; 
+						Paragraph para = new Paragraph (para_1,font3);
+						para.setAlignment(Element.ALIGN_CENTER);
+						document.add(para); 
+						Paragraph p = new Paragraph(" ",font3);
+						p.setAlignment(0);
+						document.add(p);
+							
+						for (int i = 0; i < tableModel.getColumnCount(); i++) 
+						{
+							PdfPCell header = new PdfPCell(new Phrase(headersPdfExport[i], headerFont));
+							header.setBackgroundColor(BaseColor.GREEN);
+							header.setBorderWidth(2);
+							header.setHorizontalAlignment(Element.ALIGN_CENTER);
+							pdfTable.addCell(header);
+						}
+							
+						// Create font for table data
+						com.itextpdf.text.Font dataFont = font1;
+							
+						// Set custom widths for each row 
+						float[] columnWidths = new float[] {0.2f, 0.80f, 0.55f};
+						pdfTable.setWidths(columnWidths);
+							
+						// Add table data
+						for (int i = 0; i < tableModel.getRowCount(); i++) 
+						{
+							for (int j = 0; j < tableModel.getColumnCount(); j++) 
+							{
+								PdfPCell data = new PdfPCell(new Phrase(tableModel.getValueAt(i, j).toString(), dataFont));
+								if (i % 2 == 1)
+								{
+									data.setBackgroundColor(BaseColor.WHITE);
+								}
+								else
+								{
+									data.setBackgroundColor(BaseColor.WHITE);
+								}
+								data.setBorderWidth(1);
+								data.setHorizontalAlignment(Element.ALIGN_LEFT);
+								pdfTable.addCell(data);
+							}
+						}
+						document.add(pdfTable);
+						document.close();
+						JOptionPane.showMessageDialog(null, "Exported table data to " + fileName);
 					}
-					catch (Exception ex)
-					{
-						ex.printStackTrace();
-						JOptionPane.showMessageDialog(null, "Error exporting table data to PDF");
-					}
-				}});
+				}
+				catch (Exception ex)
+				{
+					ex.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Error exporting table data to PDF");
+				}
+			}});
 		a.add(toolBar);
 		a.setSize(1000,600);
 		a.setLayout(null);

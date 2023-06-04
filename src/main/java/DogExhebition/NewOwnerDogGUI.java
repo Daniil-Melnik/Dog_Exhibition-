@@ -211,8 +211,6 @@ public class NewOwnerDogGUI {
 						JOptionPane.showMessageDialog(aA, "Имя владельца на русском языке содержит имя и фамилию с заглавных букв разделённые ОДНИМ пробелом.\nВ фамилии возможен один дефис.\nВозможно добавление числового индекса через пробел от фамилии.");
 					}
 			}}); 
-		
-		
 	};
 	
 
@@ -234,9 +232,4 @@ public class NewOwnerDogGUI {
 		}
 		return res;
 	}
-	
-
-	// public static void main(String[] args) {
-	// 	new NewOwnerDogGUI().show(null);
-	// }
 }
