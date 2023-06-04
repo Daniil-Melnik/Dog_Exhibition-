@@ -218,31 +218,42 @@ public class NewDogOwnerGUI {
 					String dogName = DogNameT.getText();
 					Owner usOwner = null;
 					String ownerName = "";
+
 					if (newOwner.isSelected()){
 						ownerName = OwnerNameT.getText();
-						int OwnerID = OwnerDao.addOwner(ownerName);
-						usOwner = OwnerDao.findOwner(OwnerID);
 					}
 					if(!newOwner.isSelected()){
 						ownerName = ExistOwnerT.getSelectedItem().toString();
-						List <Owner> oL = OwnerDao.getOwners();
-						for (int i =0; i< oL.size(); i++){
-							Owner ol = oL.get(i);
-							if (ol.getName().equals(ownerName)){
-								usOwner = ol;
-							}
-						}
 					}
+					
 					Matcher matcher = pattern_person_name.matcher(ownerName);
 					if(matcher.matches()){
 						Matcher matcher_1 = pattern_dog_name.matcher(dogName);
 						if(matcher_1.matches()){
+							if (newOwner.isSelected()){
+								ownerName = OwnerNameT.getText();
+								int OwnerID = OwnerDao.addOwner(ownerName);
+								usOwner = OwnerDao.findOwner(OwnerID);
+								
+							}
+							if(!newOwner.isSelected()){
+								ownerName = ExistOwnerT.getSelectedItem().toString();
+								List <Owner> oL = OwnerDao.getOwners();
+								for (int i =0; i< oL.size(); i++){
+									Owner ol = oL.get(i);
+									if (ol.getName().equals(ownerName)){
+										usOwner = ol;
+									}
+								}
+							}
 							String breedTitle = BreedT.getSelectedItem().toString();
 							String awardTitle = AwardsT.getSelectedItem().toString();
 							Breed tempBreed = findByTitle(BreedList.toArray(new Breed[0]), breedTitle);
 							Award tempAward = findByTitle(AwardList.toArray(new Award[0]), awardTitle);
 
 							DogDao.addDog(dogName, tempBreed, tempAward, usOwner);
+
+							
 
 							List<Dog> dL = DogDao.getDog();
 							((DefaultTableModel) table1.getModel()).getDataVector().removeAllElements();
