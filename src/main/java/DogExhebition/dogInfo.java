@@ -93,7 +93,7 @@ public class dogInfo {
 			
 						fileChooser.setCurrentDirectory(new File("."));
 			
-						fileChooser.setSelectedFile(new File("owner_.pdf"));
+						fileChooser.setSelectedFile(new File("dog_.pdf"));
 						int result = fileChooser.showSaveDialog(null);
 						if (result == JFileChooser.APPROVE_OPTION) 
 						{
