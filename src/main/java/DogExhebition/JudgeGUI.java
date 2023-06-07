@@ -218,37 +218,45 @@ public class JudgeGUI {
 							index = Integer.parseInt(table1.getValueAt(tabelIndex, 0).toString());
 		
 							Judge delJudge = JudgeDao.findJudge(index);									
-
-							// int k1 =0;
-							// List<Judge> jL = JudgeDao.getJudges();
-							// for (int i =0; i<jL.size(); i++){
-							// 	Judge jl = jL.get(i);
-							// 	if(jl.getBreed().getId()==delBreed.getId()){
-							// 		k1++;
-							// 	}
-							// }
-							//if(k1==1){
-								// List<Dog> dL = DogDao.getDog();
-								// for (int i =0; i<dL.size(); i++){
-								// 	Dog dl = dL.get(i);
-								// 	if (dl.getBreed().getId()==delBreed.getId()){
-								// 		int z = 0;
-								// 		Owner delOwner = null;
-								// 		for (int j=0; j<dL.size(); j++){
-								// 			Dog dl1 = dL.get(j);
-								// 			if (dl1.getOwner().getId()==dl.getOwner().getId()){
-								// 				z++;
-								// 				delOwner = dl1.getOwner();
-								// 			}
-								// 		}
-								// 		if(z==1){
-								// 			OwnerDao.deleteOwner(delOwner.getId());
-								// 		}
-								// 		DogDao.deleteDog(dl.getId());
-								// 	}
-								// }
-								//BreedDao.deleteBreed(delBreed.getId());
-							//}
+							List<J_B_com> jlL = J_B_comDao.getComs();
+							for (int u = 0; u<jlL.size(); u++){
+								J_B_com delCom = jlL.get(u);
+								if(delCom.getJudge().getId()==delJudge.getId()){
+									Breed delBreed = delCom.getBreed();
+									int k1 =0;
+									List<J_B_com> jL = J_B_comDao.getComs();
+									for (int i =0; i<jL.size(); i++){
+										J_B_com jl = jL.get(i);
+										if(jl.getBreed().getId()==delBreed.getId()){
+											k1++;
+										}
+									}
+									if(k1==1){
+										List<Dog> dL = DogDao.getDog();
+										for (int i =0; i<dL.size(); i++){
+											Dog dl = dL.get(i);
+											if (dl.getBreed().getId()==delBreed.getId()){
+												int z = 0;
+												Owner delOwner = null;
+												for (int j=0; j<dL.size(); j++){
+													Dog dl1 = dL.get(j);
+													if (dl1.getOwner().getId()==dl.getOwner().getId()){
+														z++;
+														delOwner = dl1.getOwner();
+													}
+												}
+												if(z==1){
+													OwnerDao.deleteOwner(delOwner.getId());
+												}
+												DogDao.deleteDog(dl.getId());
+											}
+										}
+										BreedDao.deleteBreed(delBreed.getId());
+									}
+									J_B_comDao.deleteCom(delCom.getId());
+								}
+								
+							}
 							JudgeDao.deleteJudge(delJudge.getId());
 
 							OwnerList.clear();
@@ -366,7 +374,7 @@ public class JudgeGUI {
 			
 						//Font headerFont = FontFactory.getFont(FontFactory.HELVETICA, 10, BaseColor.BLACK);
 						com.itextpdf.text.Font headerFont = font2;
-						String[] headersPdfExport = {"\nID\n\n","\nИмя судьи" , "\nОбслуживаемая порода"};
+						String[] headersPdfExport = {"\nID\n\n","\nИмя судьи"};
 						String para_1 = "Судьи"; 
 						Paragraph para = new Paragraph (para_1,font3);
 						para.setAlignment(Element.ALIGN_CENTER);
@@ -388,7 +396,7 @@ public class JudgeGUI {
 						com.itextpdf.text.Font dataFont = font1;
 							
 						// Set custom widths for each row 
-						float[] columnWidths = new float[] {0.2f, 0.80f, 0.55f};
+						float[] columnWidths = new float[] {0.2f, 0.80f};
 						pdfTable.setWidths(columnWidths);
 							
 						// Add table data
