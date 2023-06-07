@@ -27,10 +27,13 @@ public class editRefGUI {
 	private JTextField JudgeNameT;
 	private JTextField newBreedT;
 	private JComboBox<String> BreedT;
+	private JComboBox<String> RemBreedT;
 	private JLabel JudgeNameL;
-	private JLabel BreedL;
+	private JLabel AddBreedL;
+	private JLabel RemBreedL;
 	private JLabel title;
-	private JCheckBox breedCheck;
+	private JCheckBox breedAddCheck;
+	private JCheckBox breedRemCheck;
 	private JCheckBox breedNewCheck;
 
 	public void show (final JTable table1, int id)
@@ -70,7 +73,7 @@ public class editRefGUI {
 
 		aA = new JFrame("");
 		aA.setTitle("Изменить данные");
-		aA.setSize(500, 270);
+		aA.setSize(500, 300);
 		
 		title = new JLabel("Изменить данные");
 		title.setBounds(175, 20, 200, 30);
@@ -79,7 +82,7 @@ public class editRefGUI {
 		
 		apply = new JButton("Изменить");
 		apply.setFont(new Font("Arial", Font.PLAIN, 15));
-		apply.setBounds(360, 185, 120, 40);
+		apply.setBounds(360, 215, 120, 40);
 		
 		
 		JudgeNameT = new JTextField(edJudge.getName());
@@ -96,7 +99,7 @@ public class editRefGUI {
 		JudgeNameL.setFont(new Font("Arial", Font.PLAIN, 15));				
 
 		breedNewCheck = new JCheckBox("Новая порода");
-		breedNewCheck.setBounds(5, 170, 140, 20);
+		breedNewCheck.setBounds(5, 210, 140, 20);
 		breedNewCheck.setFont(new Font("Arial", Font.PLAIN, 15));
 
 		aA.add(newBreedT);
@@ -117,28 +120,62 @@ public class editRefGUI {
 		aA.add(breedNewCheck);
 
 
-		List<Breed> brL = BreedDao.getBreeds();
+
+		List<J_B_com> brL = J_B_comDao.getComs();
+		List<J_B_com> brL1 = new ArrayList<>() ;
+		for (int i =0; i<brL.size(); i++){
+			if(brL.get(i).getJudge().getId()==id){
+				brL1.add(brL.get(i));
+			}
+		}
+		List<Breed> bL = BreedDao.getBreeds();
 		List<String> brStr = new ArrayList<>();
-		for (int i=0; i<brL.size(); i++){
-			// if (brL.get(i).getId()!=edJudge.getBreed().getId()){
-				brStr.add(brL.get(i).getTitle());
-			// }
+
+		for(int i =0; i<bL.size(); i++){
+			Breed bl = bL.get(i);
+			boolean us = true;
+			for(int j=0; j<brL1.size(); j++){
+				if(brL1.get(j).getBreed().getId()==bl.getId()){
+					us = false;
+				}
+			}
+			if(us){
+				brStr.add(bl.getTitle());
+			}
 		}
 
 		BreedT = new JComboBox<String>(brStr.toArray(new String[0]));
 		BreedT.setFont(new Font("Arial", Font.PLAIN, 15));
 		BreedT.setBounds(150,110,300,30);
+
+		List<String> brStr_1 = new ArrayList<>();
+
+		for (int i =0; i<bL.size(); i++){
+			Breed bl = bL.get(i);
+			for (int j =0; j<brL.size(); j++){
+				if((brL.get(j).getJudge().getId()==id)&&(brL.get(j).getBreed().getId()==bl.getId())){
+					brStr_1.add(bl.getTitle());
+				}
+			}
+		}
+		RemBreedT = new JComboBox<String>(brStr_1.toArray(new String[0]));
+		RemBreedT.setFont(new Font("Arial", Font.PLAIN, 15));
+		RemBreedT.setBounds(150,150,300,30);
 		
-		BreedL = new JLabel("Порода собак: ");
-		BreedL.setBounds(30,110,150,30);
-		BreedL.setFont(new Font("Arial", Font.PLAIN, 15));
+		AddBreedL = new JLabel("Порода + : ");
+		AddBreedL.setBounds(30,110,150,30);
+		AddBreedL.setFont(new Font("Arial", Font.PLAIN, 15));
 
-		breedCheck = new JCheckBox("Сменить породу");
+		RemBreedL = new JLabel("Порода - : ");
+		RemBreedL.setBounds(30,150,150,30);
+		RemBreedL.setFont(new Font("Arial", Font.PLAIN, 15));
 
-		breedCheck.setBounds(5, 150, 140, 20);
-		breedCheck.setFont(new Font("Arial", Font.PLAIN, 15));;
+		breedAddCheck = new JCheckBox("Добавить породу");
+
+		breedAddCheck.setBounds(5, 190, 170, 20);
+		breedAddCheck.setFont(new Font("Arial", Font.PLAIN, 15));;
 		BreedT.setEnabled(false);
-		breedCheck.addItemListener((ItemListener) new ItemListener() {
+		breedAddCheck.addItemListener((ItemListener) new ItemListener() {
 			public void itemStateChanged (ItemEvent e){
 				if (e.getStateChange() == ItemEvent.SELECTED){
 					BreedT.setEnabled(true);
@@ -150,8 +187,23 @@ public class editRefGUI {
 				}
 			}
 		});
+		RemBreedT.setEnabled(false);
+		breedRemCheck = new JCheckBox("Удалить породу");
+		breedRemCheck.setBounds(180, 190, 140, 20);
+		breedRemCheck.setFont(new Font("Arial", Font.PLAIN, 15));;
+		breedRemCheck.addItemListener((ItemListener) new ItemListener() {
+			public void itemStateChanged (ItemEvent e){
+				if (e.getStateChange() == ItemEvent.SELECTED){
+					RemBreedT.setEnabled(true);
+				}
+				if(e.getStateChange() == ItemEvent.DESELECTED){
+					RemBreedT.setEnabled(false);
+				}
+			}
+		});
 
-		aA.add(breedCheck);
+		aA.add(breedAddCheck);
+		aA.add(breedRemCheck);
 		
 		apply.addActionListener(new ActionListener()
 		{
@@ -162,10 +214,8 @@ public class editRefGUI {
 				Matcher matcher = pattern_person_name.matcher(judgeName);
 				if(matcher.matches()){
 
-				//Breed firstBreed = edJudge.getBreed();
-
 				Breed secondBreed = null;;				
-				if(breedCheck.isSelected()){
+				if(breedAddCheck.isSelected()){
 					if(breedNewCheck.isSelected()){
 						String newBreedTitle = newBreedT.getText();
 						int breedID = BreedDao.addBreed(newBreedTitle);
@@ -181,37 +231,27 @@ public class editRefGUI {
 							}
 						}
 					}
-					// List<Judge> jL = JudgeDao.getJudges();
-					// 	int k =0;
-					// 	for (int i =0; i<jL.size(); i++){
-					// 		Judge jl = jL.get(i);
-					// 		if(jl.getBreed().getId()==firstBreed.getId()){
-					// 			k++;
-					// 		}
-					// 	}
-					// 	if(k==1){
-					// 		List<Dog> dL = DogDao.getDog();
-					// 		for (int i =0; i<dL.size(); i++){
-					// 			Dog dl = dL.get(i);
-					// 			if (dl.getBreed().getId()==firstBreed.getId()){
-					// 				int z = 0;
-					// 				Owner delOwner = null;
-					// 				for (int j=0; j<dL.size(); j++){
-					// 					Dog dl1 = dL.get(j);
-					// 					if (dl1.getOwner().getId()==dl.getOwner().getId()){
-					// 						z++;
-					// 						delOwner = dl1.getOwner();
-					// 					}
-					// 				}
-					// 				if(z==1){
-					// 					OwnerDao.deleteOwner(delOwner.getId());
-					// 				}
-					// 				DogDao.deleteDog(dl.getId());
-					// 			}
-					// 		}
-					// 		BreedDao.deleteBreed(firstBreed.getId());
-					// 	}
-
+					J_B_comDao.addCom(JudgeDao.findJudge(id), secondBreed);
+				}
+				if(breedRemCheck.isSelected()){
+					String remBreedTitle = RemBreedT.getSelectedItem().toString();
+					Breed remBreed = null;
+					J_B_com remCom = null;
+					List<Breed> bL = BreedDao.getBreeds();
+					for (int i =0; i<bL.size(); i++){
+						Breed bl = bL.get(i);
+						if(bl.getTitle().equals(remBreedTitle)){
+							remBreed = bl;
+						}
+					}
+					List<J_B_com> JBc = J_B_comDao.getComs();
+					for (int i =0; i<JBc.size(); i++){
+						J_B_com jbC = JBc.get(i);
+						if((jbC.getBreed().getId()==remBreed.getId())&&(jbC.getJudge().getId()==id)){
+							remCom = jbC;
+						}
+					}
+					J_B_comDao.deleteCom(remCom.getId());
 				}
 				// if(!breedCheck.isSelected()){
 				// 	secondBreed = firstBreed;
@@ -236,9 +276,13 @@ public class editRefGUI {
 		aA.add(JudgeNameL);
 		
 		aA.add(BreedT);
+		aA.add(RemBreedT);
 		
 		aA.add(JudgeNameT);
 		aA.add(JudgeNameL);
+
+		aA.add(AddBreedL);
+		aA.add(RemBreedL);
 		
 		aA.add(apply);
 
