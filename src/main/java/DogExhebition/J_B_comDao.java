@@ -16,7 +16,7 @@ public class J_B_comDao {
         return reCom;
     }
 
-    public static J_B_com editJudge(Judge judge, Breed breed, int id){
+    public static J_B_com editCom(Judge judge, Breed breed, int id){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("rms_persistence");
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();

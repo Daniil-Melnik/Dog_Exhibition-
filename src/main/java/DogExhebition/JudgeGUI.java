@@ -39,6 +39,7 @@ public class JudgeGUI {
 	private JButton export;
 	private JButton add;
 	private JButton delete;
+	private JButton info;
 	private JButton returnb;
 	private JToolBar toolBar;
 	private JTextField judge_text;
@@ -116,12 +117,14 @@ public class JudgeGUI {
 		}
 		a.setIconImage(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//judge.png").getImage());
 		toolBar = new JToolBar("instruments");
-		toolBar.setBounds(0, 0, 400, 75);
+		toolBar.setBounds(0, 0, 475, 75);
 		
 		title_label = new JLabel("Судьи");
 		title_label.setFont(new Font("Arial", Font.PLAIN, 60));
 		title_label.setBounds(600,20,500,65);
 		a.add(title_label);
+
+		info = new JButton(new ImageIcon("C://Users//danii//OneDrive//Документы//GitHub//Dog_Exhibition-//images//clipboard.png"));
 		
 		add = new JButton(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//add5.png"));
 
@@ -137,6 +140,7 @@ public class JudgeGUI {
 		toolBar.add(edit);
 		toolBar.add(delete);
 		toolBar.add(export);
+		toolBar.add(info);
 		toolBar.add(returnb);
 		
 		delete.setToolTipText("Удалить");
@@ -416,6 +420,20 @@ public class JudgeGUI {
 					ex.printStackTrace();
 					JOptionPane.showMessageDialog(null, "Error exporting table data to PDF");
 				}
+			}});
+			info.addActionListener(new ActionListener()
+		{
+			public void actionPerformed (ActionEvent event)
+			{
+				if (table1.getSelectedRows().length==1){
+					int tableIndex = table1.getSelectedRow();
+					int index = Integer.parseInt(table1.getValueAt(tableIndex, 0).toString());
+					new judgeInfo().show(JudgeDao.findJudge(index));
+				}
+				else{
+					JOptionPane.showMessageDialog(a, "Выберите одну строку");
+				}
+				
 			}});
 		a.add(toolBar);
 		a.setSize(1000,600);
