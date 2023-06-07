@@ -57,7 +57,7 @@ public class editRefGUI {
         tJ=JudgeDao.getJudges();
         for (int i =0; i<tJ.size(); i++){
             Judge jB = tJ.get(i);
-            System.out.println(jB.getId() + " " + jB.getName()+" "+jB.getBreed().getTitle());
+            System.out.println(jB.getId() + " " + jB.getName());
 			
         }
 
@@ -120,9 +120,9 @@ public class editRefGUI {
 		List<Breed> brL = BreedDao.getBreeds();
 		List<String> brStr = new ArrayList<>();
 		for (int i=0; i<brL.size(); i++){
-			if (brL.get(i).getId()!=edJudge.getBreed().getId()){
+			// if (brL.get(i).getId()!=edJudge.getBreed().getId()){
 				brStr.add(brL.get(i).getTitle());
-			}
+			// }
 		}
 
 		BreedT = new JComboBox<String>(brStr.toArray(new String[0]));
@@ -162,7 +162,7 @@ public class editRefGUI {
 				Matcher matcher = pattern_person_name.matcher(judgeName);
 				if(matcher.matches()){
 
-				Breed firstBreed = edJudge.getBreed();
+				//Breed firstBreed = edJudge.getBreed();
 
 				Breed secondBreed = null;;				
 				if(breedCheck.isSelected()){
@@ -181,48 +181,48 @@ public class editRefGUI {
 							}
 						}
 					}
-					List<Judge> jL = JudgeDao.getJudges();
-						int k =0;
-						for (int i =0; i<jL.size(); i++){
-							Judge jl = jL.get(i);
-							if(jl.getBreed().getId()==firstBreed.getId()){
-								k++;
-							}
-						}
-						if(k==1){
-							List<Dog> dL = DogDao.getDog();
-							for (int i =0; i<dL.size(); i++){
-								Dog dl = dL.get(i);
-								if (dl.getBreed().getId()==firstBreed.getId()){
-									int z = 0;
-									Owner delOwner = null;
-									for (int j=0; j<dL.size(); j++){
-										Dog dl1 = dL.get(j);
-										if (dl1.getOwner().getId()==dl.getOwner().getId()){
-											z++;
-											delOwner = dl1.getOwner();
-										}
-									}
-									if(z==1){
-										OwnerDao.deleteOwner(delOwner.getId());
-									}
-									DogDao.deleteDog(dl.getId());
-								}
-							}
-							BreedDao.deleteBreed(firstBreed.getId());
-						}
+					// List<Judge> jL = JudgeDao.getJudges();
+					// 	int k =0;
+					// 	for (int i =0; i<jL.size(); i++){
+					// 		Judge jl = jL.get(i);
+					// 		if(jl.getBreed().getId()==firstBreed.getId()){
+					// 			k++;
+					// 		}
+					// 	}
+					// 	if(k==1){
+					// 		List<Dog> dL = DogDao.getDog();
+					// 		for (int i =0; i<dL.size(); i++){
+					// 			Dog dl = dL.get(i);
+					// 			if (dl.getBreed().getId()==firstBreed.getId()){
+					// 				int z = 0;
+					// 				Owner delOwner = null;
+					// 				for (int j=0; j<dL.size(); j++){
+					// 					Dog dl1 = dL.get(j);
+					// 					if (dl1.getOwner().getId()==dl.getOwner().getId()){
+					// 						z++;
+					// 						delOwner = dl1.getOwner();
+					// 					}
+					// 				}
+					// 				if(z==1){
+					// 					OwnerDao.deleteOwner(delOwner.getId());
+					// 				}
+					// 				DogDao.deleteDog(dl.getId());
+					// 			}
+					// 		}
+					// 		BreedDao.deleteBreed(firstBreed.getId());
+					// 	}
 
 				}
-				if(!breedCheck.isSelected()){
-					secondBreed = firstBreed;
-				}	
-				JudgeDao.editJudge(judgeName, secondBreed, id);
+				// if(!breedCheck.isSelected()){
+				// 	secondBreed = firstBreed;
+				// }	
+				JudgeDao.editJudge(judgeName, id);
 				List<Judge> tJ=JudgeDao.getJudges();
 				((DefaultTableModel) table1.getModel()).getDataVector().removeAllElements();
 				
 				for (int i =0; i<tJ.size();i++) {
 					Judge tj = tJ.get(i);
-					((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{tj.getId(), tj.getName(), tj.getBreed().getTitle()});
+					((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{tj.getId(), tj.getName()});
 				}
 				aA.dispose();
 				

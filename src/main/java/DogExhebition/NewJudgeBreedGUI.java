@@ -52,7 +52,7 @@ public class NewJudgeBreedGUI {
         tJ=JudgeDao.getJudges();
         for (int i =0; i<tJ.size(); i++){
             Judge jB = tJ.get(i);
-            System.out.println(jB.getId() + " " + jB.getName()+" "+jB.getBreed().getTitle());
+            System.out.println(jB.getId() + " " + jB.getName());
         }
 
 		for (int i=0; i<tB.size(); i++){
@@ -147,12 +147,12 @@ public class NewJudgeBreedGUI {
 						if (matcher_1.matches()){
 
 									int breedID = BreedDao.addBreed(breedName);
-									JudgeDao.addJudge(judgeName, BreedDao.findBreed(breedID));
+									JudgeDao.addJudge(judgeName);
 									List<Judge> jL = JudgeDao.getJudges();
 									((DefaultTableModel) table1.getModel()).getDataVector().removeAllElements();
 									for (int i =0; i<jL.size(); i++){
 										Judge jl = jL.get(i);
-										((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{jl.getId(), jl.getName(), jl.getBreed().getTitle()});
+										((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{jl.getId(), jl.getName()});
 									}
 									aA.dispose();
 						}
@@ -170,12 +170,12 @@ public class NewJudgeBreedGUI {
 								edBreed = bl;
 							}
 						}
-						JudgeDao.addJudge(judgeName, edBreed);
+						JudgeDao.addJudge(judgeName);
 						List<Judge> jL = JudgeDao.getJudges();
 									((DefaultTableModel) table1.getModel()).getDataVector().removeAllElements();
 									for (int i =0; i<jL.size(); i++){
 										Judge jl = jL.get(i);
-										((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{jl.getId(), jl.getName(), jl.getBreed().getTitle()});
+										((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{jl.getId(), jl.getName()});
 									}
 									aA.dispose();
 					}

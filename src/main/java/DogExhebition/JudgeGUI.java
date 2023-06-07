@@ -84,16 +84,12 @@ public class JudgeGUI {
 
         List<Owner> tO = null;
         tO=OwnerDao.getOwners();
-        // for (int i =0; i<tO.size(); i++){
-        //     Owner jB = tO.get(i);
-        //     System.out.println(jB.getId() + " " + jB.getName()+" "+jB.getDog().getName()+" "+jB.getDog().getBreed().getTitle());
-        // }
 
         List<Judge> tJ = null;
         tJ=JudgeDao.getJudges();
         for (int i =0; i<tJ.size(); i++){
             Judge jB = tJ.get(i);
-            System.out.println(jB.getId() + " " + jB.getName()+" "+jB.getBreed().getTitle());
+            System.out.println(jB.getId() + " " + jB.getName());
         }
 
 		for (int i=0; i<tB.size(); i++){
@@ -150,7 +146,7 @@ public class JudgeGUI {
 		returnb.setToolTipText("Обновить таблицу");
 		
 		Object[][] array = new String[][] {};
-        Object[] columns = new String[] {"id", "Имя судьи", "Обслуживаемые породы"};
+        Object[] columns = new String[] {"id", "Имя судьи"};
        
         
         final DefaultTableModel tableModel = new DefaultTableModel();
@@ -172,14 +168,13 @@ public class JudgeGUI {
         table1.setBounds(0, 120, 1000, 300);
         
         table1.getColumn("id").setPreferredWidth(30);
-        table1.getColumn("Обслуживаемые породы").setPreferredWidth(400);
-        table1.getColumn("Имя судьи").setPreferredWidth(270);
+        table1.getColumn("Имя судьи").setPreferredWidth(600);
         
         ((DefaultTableModel) table1.getModel()).getDataVector().removeAllElements();
 		Judge JgAr[] = JudgeList.toArray(new Judge[0]);
 		for (int i =0; i<JgAr.length;i++) {
 			
-			((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{JgAr[i].getId(), JgAr[i].getName(), JgAr[i].getBreed().getTitle()});
+			((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{JgAr[i].getId(), JgAr[i].getName()});
 		}
         
         add.addActionListener(new ActionListener()
@@ -219,38 +214,37 @@ public class JudgeGUI {
 							index = Integer.parseInt(table1.getValueAt(tabelIndex, 0).toString());
 		
 							Judge delJudge = JudgeDao.findJudge(index);									
-							Breed delBreed = delJudge.getBreed();
 
-							int k1 =0;
-							List<Judge> jL = JudgeDao.getJudges();
-							for (int i =0; i<jL.size(); i++){
-								Judge jl = jL.get(i);
-								if(jl.getBreed().getId()==delBreed.getId()){
-									k1++;
-								}
-							}
-							if(k1==1){
-								List<Dog> dL = DogDao.getDog();
-								for (int i =0; i<dL.size(); i++){
-									Dog dl = dL.get(i);
-									if (dl.getBreed().getId()==delBreed.getId()){
-										int z = 0;
-										Owner delOwner = null;
-										for (int j=0; j<dL.size(); j++){
-											Dog dl1 = dL.get(j);
-											if (dl1.getOwner().getId()==dl.getOwner().getId()){
-												z++;
-												delOwner = dl1.getOwner();
-											}
-										}
-										if(z==1){
-											OwnerDao.deleteOwner(delOwner.getId());
-										}
-										DogDao.deleteDog(dl.getId());
-									}
-								}
-								BreedDao.deleteBreed(delBreed.getId());
-							}
+							// int k1 =0;
+							// List<Judge> jL = JudgeDao.getJudges();
+							// for (int i =0; i<jL.size(); i++){
+							// 	Judge jl = jL.get(i);
+							// 	if(jl.getBreed().getId()==delBreed.getId()){
+							// 		k1++;
+							// 	}
+							// }
+							//if(k1==1){
+								// List<Dog> dL = DogDao.getDog();
+								// for (int i =0; i<dL.size(); i++){
+								// 	Dog dl = dL.get(i);
+								// 	if (dl.getBreed().getId()==delBreed.getId()){
+								// 		int z = 0;
+								// 		Owner delOwner = null;
+								// 		for (int j=0; j<dL.size(); j++){
+								// 			Dog dl1 = dL.get(j);
+								// 			if (dl1.getOwner().getId()==dl.getOwner().getId()){
+								// 				z++;
+								// 				delOwner = dl1.getOwner();
+								// 			}
+								// 		}
+								// 		if(z==1){
+								// 			OwnerDao.deleteOwner(delOwner.getId());
+								// 		}
+								// 		DogDao.deleteDog(dl.getId());
+								// 	}
+								// }
+								//BreedDao.deleteBreed(delBreed.getId());
+							//}
 							JudgeDao.deleteJudge(delJudge.getId());
 
 							OwnerList.clear();
@@ -276,7 +270,7 @@ public class JudgeGUI {
 									
 						for (int i =0; i<tJ.size(); i++) {
 							Judge tj = tJ.get(i);
-							((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{tj.getId(), tj.getName(), tj.getBreed().getTitle()});
+							((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{tj.getId(), tj.getName()});
 						}		
 					}
 				}
@@ -310,7 +304,7 @@ public class JudgeGUI {
 					for (int i =0; i<jL.size(); i++) {
 						Judge JudgeAr = jL.get(i);
 						if (JudgeAr.getName().equals(judge_text.getText())) {
-							tableModel.insertRow(0, new Object[]{JudgeAr.getId(), JudgeAr.getName(), JudgeAr.getBreed().getTitle()});
+							tableModel.insertRow(0, new Object[]{JudgeAr.getId(), JudgeAr.getName()});
 						}
 					}
 				}						
@@ -329,7 +323,7 @@ public class JudgeGUI {
 				
 				for (int i =0; i<tJ.size();i++) {
 					Judge tj = tJ.get(i);
-					((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{tj.getId(), tj.getName(), tj.getBreed().getTitle()});
+					((DefaultTableModel) table1.getModel()).insertRow(0, new Object[]{tj.getId(), tj.getName()});
 				}
 			}});
 		

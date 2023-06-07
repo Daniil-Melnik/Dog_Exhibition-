@@ -83,7 +83,7 @@ public class editDogGUI {
         tJ=JudgeDao.getJudges();
         for (int i =0; i<tJ.size(); i++){
             Judge jB = tJ.get(i);
-            System.out.println(jB.getId() + " " + jB.getName()+" "+jB.getBreed().getTitle());
+            System.out.println(jB.getId() + " " + jB.getName());
         }
 
 		for (int i=0; i<tB.size(); i++){

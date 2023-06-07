@@ -91,13 +91,13 @@ public class breedInfo {
         aO.add(export);
         
 
-        List<Judge> jL = JudgeDao.getJudges();
-        for (int i =0; i<jL.size(); i++){
-            Judge jl = jL.get(i);
-            if(jl.getBreed().getId()==breed.getId()){
-                tableModel.insertRow(0, new Object[]{jl.getId(), jl.getName()});
-            }
-        }
+        // List<Judge> jL = JudgeDao.getJudges();
+        // for (int i =0; i<jL.size(); i++){
+        //     Judge jl = jL.get(i);
+        //     if(jl.getBreed().getId()==breed.getId()){
+        //         tableModel.insertRow(0, new Object[]{jl.getId(), jl.getName()});
+        //     }
+        // }
 
         export.addActionListener(new ActionListener()
 			{

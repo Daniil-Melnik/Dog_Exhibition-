@@ -98,7 +98,7 @@ public class BreedGUI {
         tJ=JudgeDao.getJudges();
         for (int i =0; i<tJ.size(); i++){
             Judge jB = tJ.get(i);
-            System.out.println(jB.getId() + " " + jB.getName()+" "+jB.getBreed().getTitle());
+            System.out.println(jB.getId() + " " + jB.getName());
         }
 
 		// for (int i=0; i<tB.size(); i++){
@@ -288,13 +288,13 @@ public class BreedGUI {
 							Breed delBreed = BreedDao.findBreed(index);
 
 							
-							List<Judge> jL = JudgeDao.getJudges();
-							for (int i =0; i<jL.size(); i++){
-								Judge jl = jL.get(i);
-								if(jl.getBreed().getId()==delBreed.getId()){
-									JudgeDao.deleteJudge(jl.getId());
-								}
-							}
+							// List<Judge> jL = JudgeDao.getJudges();
+							// for (int i =0; i<jL.size(); i++){
+							// 	Judge jl = jL.get(i);
+							// 	if(jl.getBreed().getId()==delBreed.getId()){
+							// 		JudgeDao.deleteJudge(jl.getId());
+							// 	}
+							// }
 							List<Dog> dL = DogDao.getDog();
 							for (int i=0; i<dL.size(); i++){
 								Dog dl = dL.get(i);

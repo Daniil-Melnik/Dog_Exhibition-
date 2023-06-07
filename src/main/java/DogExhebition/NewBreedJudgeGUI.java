@@ -49,7 +49,7 @@ public class NewBreedJudgeGUI {
         tJ=JudgeDao.getJudges();
         for (int i =0; i<tJ.size(); i++){
             Judge jB = tJ.get(i);
-            System.out.println(jB.getId() + " " + jB.getName()+" "+jB.getBreed().getTitle());
+            System.out.println(jB.getId() + " " + jB.getName());
         }
 
 		for (int i=0; i<tB.size(); i++){
@@ -138,7 +138,7 @@ public class NewBreedJudgeGUI {
 						if(notBreedExist){
 							if(notJudgeExist){
 								int breedID = BreedDao.addBreed(breedName);
-								JudgeDao.addJudge(JudgeNameT.getText(), BreedDao.findBreed(breedID));
+								JudgeDao.addJudge(JudgeNameT.getText());
 								BreedList.add(BreedDao.findBreed(breedID));
 								((DefaultTableModel) table1.getModel()).getDataVector().removeAllElements();
 								for (int i =0; i<BreedList.size(); i++){

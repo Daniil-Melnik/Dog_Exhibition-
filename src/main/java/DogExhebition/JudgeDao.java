@@ -16,14 +16,13 @@ public class JudgeDao {
         return reJudge;
     }
 
-    public static Judge editJudge(String name, Breed breed, int id){
+    public static Judge editJudge(String name, int id){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("rms_persistence");
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         Judge edJudge = em.find(Judge.class, id);
         
         edJudge.setName(name);
-        edJudge.setBreed(breed);
         
         em.getTransaction().commit();
         return edJudge;
@@ -39,7 +38,7 @@ public class JudgeDao {
         return judge;
     }
 
-    public static int addJudge(String name, Breed breed){
+    public static int addJudge(String name){
         int res = 0;
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("rms_persistence");
         EntityManager em = emf.createEntityManager();
@@ -47,7 +46,6 @@ public class JudgeDao {
         Judge newJudge = new Judge();
         
         newJudge.setName(name);
-        newJudge.setBreed(breed);
         
         em.persist(newJudge);
         em.getTransaction().commit();
