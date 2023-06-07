@@ -13,8 +13,20 @@ public class J_B_com {
     @JoinColumn(name = "breed_id", referencedColumnName = "dg_id")
     private Breed breed;
 
+    @Id
+    @Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+
     public J_B_com(){
 
+    }
+
+    public void setId(int id){
+        this.id = id;
+    }
+    public int getId(){
+        return this.id;
     }
 
     public void setJudge(Judge judge){
