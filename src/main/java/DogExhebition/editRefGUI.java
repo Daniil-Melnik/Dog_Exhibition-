@@ -214,7 +214,7 @@ public class editRefGUI {
 				Matcher matcher = pattern_person_name.matcher(judgeName);
 				if(matcher.matches()){
 
-				Breed secondBreed = null;;				
+				Breed secondBreed = null;				
 				if(breedAddCheck.isSelected()){
 					if(breedNewCheck.isSelected()){
 						String newBreedTitle = newBreedT.getText();
@@ -233,6 +233,7 @@ public class editRefGUI {
 					}
 					J_B_comDao.addCom(JudgeDao.findJudge(id), secondBreed);
 				}
+				boolean df = true;
 				if(breedRemCheck.isSelected()){
 					String remBreedTitle = RemBreedT.getSelectedItem().toString();
 					Breed remBreed = null;
@@ -251,12 +252,53 @@ public class editRefGUI {
 							remCom = jbC;
 						}
 					}
+					int k = 0;
+					for (int i=0; i<JBc.size(); i++){
+						if (JBc.get(i).getBreed().getId()==remBreed.getId()){
+							k++;
+						}
+					}
+					if(k==1){
+						List<Dog> dL = DogDao.getDog();
+						for (int u =0; u<dL.size(); u++){
+							Dog delDog = dL.get(u);
+							if(delDog.getBreed().getId()==remBreed.getId()){
+								int m =0;
+								Owner delOwner = delDog.getOwner();
+								List<Dog> oD = DogDao.getDog();
+								for (int j =0; j<oD.size(); j++){
+									if(oD.get(j).getOwner().getId()==delOwner.getId()){
+										m++;
+									}
+								}
+								if (m==1){
+									OwnerDao.deleteOwner(delOwner.getId());
+								}
+								DogDao.deleteDog(delDog.getId());
+							}
+						}
+						BreedDao.deleteBreed(remBreed.getId());
+					}
+					int t =0;
 					J_B_comDao.deleteCom(remCom.getId());
+					List<J_B_com> JBc1 = J_B_comDao.getComs();
+					for (int i =0; i<JBc1.size(); i++){
+						J_B_com jbC1 = JBc1.get(i);
+						if((jbC1.getJudge().getId()==id)){
+							t++;
+						}
+					}
+					if(t==0){
+						JudgeDao.deleteJudge(id);
+						df = false;
+					}
 				}
 				// if(!breedCheck.isSelected()){
 				// 	secondBreed = firstBreed;
-				// }	
-				JudgeDao.editJudge(judgeName, id);
+				// }
+				if(df){
+					JudgeDao.editJudge(judgeName, id);
+				}
 				List<Judge> tJ=JudgeDao.getJudges();
 				((DefaultTableModel) table1.getModel()).getDataVector().removeAllElements();
 				
