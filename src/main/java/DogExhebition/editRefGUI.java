@@ -184,6 +184,7 @@ public class editRefGUI {
 				if(e.getStateChange() == ItemEvent.DESELECTED){
 					BreedT.setEnabled(false);
 					newBreedT.setEnabled(false);
+					breedNewCheck.setSelected(false);
 				}
 			}
 		});
