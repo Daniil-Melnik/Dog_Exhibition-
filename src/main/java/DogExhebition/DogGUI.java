@@ -220,7 +220,7 @@ public class DogGUI {
 				String a1;
 				for (int i =0; i<dL.size(); i++) {
 					Dog DogAr = dL.get(i);
-					if (DogAr.getBreed().getTitle().contains(breed_text.getSelectedItem().toString())) {
+					if (DogAr.getBreed().getTitle().equals(breed_text.getSelectedItem().toString())) {
 						if (DogAr.getAward().getId()==450) {
 							a1 = "-";
 						}
@@ -251,7 +251,7 @@ public class DogGUI {
 					System.out.print(name_text.getText());
 					for (int i =0; i<dL.size(); i++) {
 						Dog DgAr = dL.get(i);
-						if (DgAr.getName().contains(name_text.getText())) {
+						if (DgAr.getName().equals(name_text.getText())) {
 							
 							if (DgAr.getAward().getId()==450) {
 								a1 = "-";

@@ -232,7 +232,7 @@ public class BreedGUI {
 				String a1;
 				System.out.print(name_text.getText());
 				for (int i =0; i<DogAr.length; i++) {
-					if (DogAr[i].getName().contains(name_text.getText())) {
+					if (DogAr[i].getName().equals(name_text.getText())) {
 						
 						if (DogAr[i].getAward().getId()==450) {
 							a1 = "-";
