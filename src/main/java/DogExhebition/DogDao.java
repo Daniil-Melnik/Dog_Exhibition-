@@ -53,7 +53,7 @@ public class DogDao {
         newDog.setBreed(breed);
         newDog.setOwner(owner);
         
-        em.persist(newDog);
+        em.persist(newDog); 
         em.getTransaction().commit();
         res = newDog.getId();
         return res;
