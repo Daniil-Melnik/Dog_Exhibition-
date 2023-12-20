@@ -77,7 +77,7 @@ public class OwnerGUI {
 
 		
 		final JFrame a = new JFrame("Владельцы собак");
-		a.setIconImage(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//owner.png").getImage());
+		a.setIconImage(new ImageIcon(".//images//owner.png").getImage());
 		toolBar = new JToolBar("instruments");
 		toolBar.setBounds(0, 0, 475, 75);
 		
@@ -93,17 +93,17 @@ public class OwnerGUI {
 			BrAr.add(helpBreed.get(i).getTitle());
 		}
 		
-		add = new JButton(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//add10.png"));
+		add = new JButton(new ImageIcon(".//images//add10.png"));
 
-		delete = new JButton(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//delete5.png"));
+		delete = new JButton(new ImageIcon(".//images//delete5.png"));
 		
-		returnb = new JButton(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//return.png"));
+		returnb = new JButton(new ImageIcon(".//images//return.png"));
 		
-		export = new JButton(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//export.png"));
+		export = new JButton(new ImageIcon(".//images//export.png"));
 
-		edit = new JButton(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//edit.png"));
+		edit = new JButton(new ImageIcon(".//images//edit.png"));
 
-		info = new JButton(new ImageIcon("C://Users//danii//OneDrive//Документы//GitHub//Dog_Exhibition-//images//clipboard.png"));
+		info = new JButton(new ImageIcon(".//images//clipboard.png"));
 
 		toolBar.add(add);
 		toolBar.add(edit);

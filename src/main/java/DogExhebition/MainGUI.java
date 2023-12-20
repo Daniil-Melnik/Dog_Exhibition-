@@ -23,9 +23,9 @@ public class MainGUI {
 	public void show() {
 		final JFrame a = new JFrame("Главное меню");
 				
-		a.setIconImage(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//dog_main.png").getImage());
+		a.setIconImage(new ImageIcon(".//images//dog_main.png").getImage());
 		
-		ico_judge = new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//judge.png");
+		ico_judge = new ImageIcon(".//images//judge.png");
 		JLabel label_1 = new JLabel(ico_judge);
 		label_1.setBounds(40,95,64,64);
 		Ref = new JButton ("судьи выставки");
@@ -35,7 +35,8 @@ public class MainGUI {
 		
 		
 		
-		ico_dog = new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//dog2.png");
+		//ico_dog = new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//images//dog2.png");
+		ico_dog = new ImageIcon(".//images//dog2.png");
 		JLabel label_2 = new JLabel(ico_dog);
 		label_2.setBounds(40,20,64,64);
 		Dg = new JButton ("выставочные cобаки");
@@ -50,7 +51,7 @@ public class MainGUI {
 				new DogGUI().show();
 			}});
 		
-		ico_hol = new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//dog_walking.png");
+		ico_hol = new ImageIcon(".//images//dog_walking.png");
 		JLabel label_3 = new JLabel(ico_hol);
 		label_3.setBounds(40,170,64,64);
 		Hol = new JButton ("владельцы собак");
@@ -64,7 +65,7 @@ public class MainGUI {
 				new OwnerGUI().show();
 			}});
 		
-		ico_award = new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//award.png");
+		ico_award = new ImageIcon(".//images//award.png");
 		JLabel label_4 = new JLabel(ico_award);
 		label_4.setBounds(40,320,64,64);
 		Award = new JButton ("собаки призёры");
@@ -78,7 +79,7 @@ public class MainGUI {
 				new AwardGUI().show(); 
 			}});
 		
-		ico_exit = new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//exit2.png");
+		ico_exit = new ImageIcon(".//exit2.png");
 		JLabel label_5 = new JLabel(ico_exit);
 		label_5.setBounds(40,395,64,64);
 		Out = new JButton ("выход");
@@ -93,7 +94,7 @@ public class MainGUI {
 				System.exit(0);
 			}});
 		
-		ico_breed = new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//breed.png");
+		ico_breed = new ImageIcon(".//images//breed.png");
 		JLabel label_7 = new JLabel(ico_breed);
 		label_7.setBounds(40,245,64,64);
 		Breed = new JButton ("породы собак");

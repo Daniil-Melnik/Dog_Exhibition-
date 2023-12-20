@@ -59,7 +59,7 @@ public class ownerInfo {
         table1.getColumn("Порода").setPreferredWidth(300);
 
         aO = new JFrame("Информация о владельце");
-        aO.setIconImage(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//dog.png").getImage());
+        aO.setIconImage(new ImageIcon(".//images//dog.png").getImage());
 		
 		title_label = new JLabel("Информация о владельце: "+owner.getName());
 		title_label.setFont(new Font("Arial", Font.PLAIN, 20));

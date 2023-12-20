@@ -29,7 +29,7 @@ public class NewBreedGUI {
 		aA = new JFrame("");
 		aA.setTitle("Добавить породу");
 		aA.setSize(500, 235);
-		aA.setIconImage(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//add5.png").getImage());
+		aA.setIconImage(new ImageIcon(".//images//add5.png").getImage());
 		
 		title = new JLabel("добавить породу");
 		title.setBounds(175, 20, 200, 30);

@@ -117,7 +117,7 @@ public class BreedGUI {
 			OwnerList.add(tO.get(i));
 		}
         
-		a.setIconImage(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//breed.png").getImage());
+		a.setIconImage(new ImageIcon(".//images//breed.png").getImage());
 		toolBar = new JToolBar("instruments");
 		toolBar.setBounds(0, 0, 325, 75);
 		
@@ -126,13 +126,13 @@ public class BreedGUI {
 		title_label.setBounds(600,20,500,60);
 		a.add(title_label);
 		
-		info = new JButton(new ImageIcon("C://Users//danii//OneDrive//Документы//GitHub//Dog_Exhibition-//images//clipboard.png"));
+		info = new JButton(new ImageIcon(".//images//clipboard.png"));
 
-		delete = new JButton(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//delete5.png"));
+		delete = new JButton(new ImageIcon(".//images//delete5.png"));
 		
-		returnb = new JButton(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//return.png"));
+		returnb = new JButton(new ImageIcon(".//images//return.png"));
 		
-		export = new JButton(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//export.png"));
+		export = new JButton(new ImageIcon(".//images//export.png"));
 		
 		
 		toolBar.add(delete);

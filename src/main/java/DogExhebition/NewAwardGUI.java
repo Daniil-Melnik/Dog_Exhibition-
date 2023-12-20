@@ -32,7 +32,7 @@ public class NewAwardGUI {
 		aA.setTitle("Добавить призёра");
 		aA.setSize(500, 300);
 
-		aA.setIconImage(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//add5.png").getImage());
+		aA.setIconImage(new ImageIcon(".//images//add5.png").getImage());
 		
 		title = new JLabel("добавить призёра");
 		title.setBounds(175, 20, 200, 30);

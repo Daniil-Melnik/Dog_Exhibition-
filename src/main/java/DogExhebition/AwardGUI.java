@@ -80,7 +80,7 @@ public class AwardGUI {
 
 
 		final JFrame a = new JFrame("Призы");
-		a.setIconImage(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//award.png").getImage());
+		a.setIconImage(new ImageIcon(".//images//award.png").getImage());
 		toolBar = new JToolBar("instruments");
 		toolBar.setBounds(0, 0, 175, 75);
 		
@@ -89,9 +89,9 @@ public class AwardGUI {
 		title_label.setBounds(600,20,500,65);
 		a.add(title_label);
 				
-		returnb = new JButton(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//return.png"));
+		returnb = new JButton(new ImageIcon(".//images//return.png"));
 	
-		export = new JButton(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//export.png"));
+		export = new JButton(new ImageIcon(".//images//export.png"));
 		
 		toolBar.add(export);
 		toolBar.add(returnb);

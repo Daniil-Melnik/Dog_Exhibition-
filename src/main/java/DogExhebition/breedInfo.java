@@ -58,7 +58,7 @@ public class breedInfo {
         table1.getColumn("Имя судьи").setPreferredWidth(600);
 
         aO = new JFrame("Информация о породе");
-        aO.setIconImage(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//dog.png").getImage());
+        aO.setIconImage(new ImageIcon(".//images//dog.png").getImage());
 		
 		title_label = new JLabel("Информация о породе: "+breed.getTitle());
 		title_label.setFont(new Font("Arial", Font.PLAIN, 20));

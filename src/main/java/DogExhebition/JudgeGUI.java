@@ -115,7 +115,7 @@ public class JudgeGUI {
 		for (int i =0; i<helpBreed.length; i++) {
 			BrAr.add(helpBreed[i].getTitle());
 		}
-		a.setIconImage(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//judge.png").getImage());
+		a.setIconImage(new ImageIcon(".//images//judge.png").getImage());
 		toolBar = new JToolBar("instruments");
 		toolBar.setBounds(0, 0, 475, 75);
 		
@@ -124,17 +124,17 @@ public class JudgeGUI {
 		title_label.setBounds(600,20,500,65);
 		a.add(title_label);
 
-		info = new JButton(new ImageIcon("C://Users//danii//OneDrive//Документы//GitHub//Dog_Exhibition-//images//clipboard.png"));
+		info = new JButton(new ImageIcon(".//images//clipboard.png"));
 		
-		add = new JButton(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//add5.png"));
+		add = new JButton(new ImageIcon(".//images//add5.png"));
 
-		delete = new JButton(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//delete5.png"));
+		delete = new JButton(new ImageIcon(".//images//delete5.png"));
 		
-		returnb = new JButton(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//return.png"));
+		returnb = new JButton(new ImageIcon(".//images//return.png"));
 		
-		export = new JButton(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//export.png"));
+		export = new JButton(new ImageIcon(".//images//export.png"));
 
-		edit = new JButton(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//edit.png"));
+		edit = new JButton(new ImageIcon(".//images//edit.png"));
 		
 		toolBar.add(add);
 		toolBar.add(edit);

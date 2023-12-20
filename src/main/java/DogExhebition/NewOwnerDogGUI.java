@@ -103,7 +103,7 @@ public class NewOwnerDogGUI {
 		aA = new JFrame("");
 		aA.setTitle("Добавить владельца с собакой");
 		aA.setSize(1200, 300);
-		aA.setIconImage(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//add5.png").getImage());
+		aA.setIconImage(new ImageIcon(".//images//add5.png").getImage());
 		
 		title_dog = new JLabel("Добавить собаку");
 		title_dog.setBounds(800, 20, 200, 30);

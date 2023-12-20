@@ -114,7 +114,7 @@ public class DogGUI {
         
             System.out.print(BreedList.get(0).getTitle());
         
-		a.setIconImage(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//dog.png").getImage());
+		a.setIconImage(new ImageIcon(".//images//dog.png").getImage());
 		toolBar = new JToolBar("instruments");
 		toolBar.setBounds(0, 0, 475, 75);
 		
@@ -123,17 +123,17 @@ public class DogGUI {
 		title_label.setBounds(600,20,500,60);
 		a.add(title_label);
 		
-		add = new JButton(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//add5.png"));
+		add = new JButton(new ImageIcon(".//images//add5.png"));
 
-		delete = new JButton(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//delete5.png"));
+		delete = new JButton(new ImageIcon(".//images//delete5.png"));
 		
-		returnb = new JButton(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//return.png"));
+		returnb = new JButton(new ImageIcon(".//images//return.png"));
 	
-		export = new JButton(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//export.png"));
+		export = new JButton(new ImageIcon(".//images//export.png"));
 
-		edit = new JButton(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//edit.png"));
+		edit = new JButton(new ImageIcon(".//images//edit.png"));
 
-		info = new JButton(new ImageIcon("C://Users//danii//OneDrive//Документы//GitHub//Dog_Exhibition-//images//clipboard.png"));
+		info = new JButton(new ImageIcon(".//images//clipboard.png"));
 		
 		toolBar.add(add);
 		toolBar.add(edit);

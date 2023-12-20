@@ -63,7 +63,7 @@ public class NewBreedJudgeGUI {
 		aA = new JFrame("");
 		aA.setTitle("Добавить судью");
 		aA.setSize(1000, 280);
-		aA.setIconImage(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//add5.png").getImage());
+		aA.setIconImage(new ImageIcon(".//images//add5.png").getImage());
 		
 		final ArrayList<String> BrAr = new ArrayList<>();
 		Breed helpBreed [] = BreedList.toArray(new Breed[0]);

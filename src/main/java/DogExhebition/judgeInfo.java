@@ -58,7 +58,7 @@ public class judgeInfo {
         table1.getColumn("Название породы").setPreferredWidth(600);
 
         aO = new JFrame("Информация о судье");
-        aO.setIconImage(new ImageIcon("C://Users//danii//OneDrive//Рабочий стол//JavaVScode//dog.exhibition//images//judge.png").getImage());
+        aO.setIconImage(new ImageIcon(".//images//judge.png").getImage());
 		
 		title_label = new JLabel("Информация о судье: "+judge.getName());
 		title_label.setFont(new Font("Arial", Font.PLAIN, 20));
